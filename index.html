@@ -1,6 +1,45 @@
 <!DOCTYPE html>
-<html lang="zh">
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>xiwwix</title>
+    <style>
+        body {
+            background: linear-gradient(to right, #2b7ec7, #d5e0e6); 
+        }
 
+        div:hover{
+	      transform: scale(1.05,1.05);
+        animation-play-state:paused;
+        }
+        
+      div{
+	      background: linear-gradient(to bottom, #3293e7, rgb(198, 237, 240));  
+        width:20vw;
+	      height:20vw;
+        border-radius: 50%;
+	      text-align:center;
+        filter: blur(10px);
+	      animation:floating 7s;
+	      animation-iteration-count: infinite;
+        }
+
+      @keyframes floating{
+        0%{
+        position:absolute;top:25%;left:40%;
+        }
+        50%{
+        position:absolute;top:35%;left:40%;filter: blur(2px);
+        }
+        100%{
+        position:absolute;top:25%;left:40%;
+        }
+      }
+    </style>
 </head>
+<body>
+    <div></div>
+</body>
+</html>

@@ -2,6 +2,17 @@
  * MSAT Experiment *
  ************************/
 
+import { PsychoJS } from './lib/core-2020.2.js';
+import * as core from './lib/core-2020.2.js';
+import { TrialHandler } from './lib/data-2020.2.js';
+import { Scheduler } from './lib/util-2020.2.js';
+import * as visual from './lib/visual-2020.2.js';
+import * as sound from './lib/sound-2020.2.js';
+import * as util from './lib/util-2020.2.js';
+//some handy aliases as in the psychopy scripts;
+const { abs, sin, cos, PI: pi, sqrt } = Math;
+const { round } = util;
+
 // init psychoJS:
 const psychoJS = new PsychoJS({
   debug: true
@@ -15,13 +26,10 @@ psychoJS.openWindow({
   waitBlanking: true
 });
 
-var myfriendname;
-var myname;
-var mydictionary;
-
 // store info about the experiment session:
 let expName = 'msat_sussex';  // from the Builder filename that created this script
-let expInfo = {'participant': 'ID', 'your name': '', 'your best friend': '', 'session': ''};
+//let expInfo = {'participant': 'ID', '你的名字是': '', '你最好的朋友是': '', 'session': ''};
+let expInfo = {'编号': '', '你的名字是': '', '你最好的朋友是': '','年龄':'','性别':'','组别':''};
 
 // Start code blocks for 'Before Experiment'
 // properties marker slider
@@ -41,6 +49,10 @@ psychoJS.scheduleCondition(function() { return (psychoJS.gui.dialogComponent.but
 // flowScheduler gets run if the participants presses OK
 flowScheduler.add(updateInfo); // add timeStamp
 flowScheduler.add(experimentInit);
+
+var myname;
+var myfriendname;
+var mydictionary;
 
 
 flowScheduler.add(instructionsRoutineBegin());
@@ -69,10 +81,6 @@ psychoJS.start({
   ]
 });
 
-var myname = " " + expInfo["你的名字"] + " "
-var myfriendname = " " + expInfo["你关系最好的朋友"] + " "
-
-
 psychoJS.experimentLogger.setLevel(core.Logger.ServerLevel.EXP);
 
 var frameDur;
@@ -82,7 +90,6 @@ function updateInfo() {
   expInfo['expName'] = expName;
   expInfo['psychopyVersion'] = '2020.2.10';
   expInfo['OS'] = window.navigator.platform;
-
   // store frame rate of monitor if we can measure it successfully
   expInfo['frameRate'] = psychoJS.window.getActualFrameRate();
   if (typeof expInfo['frameRate'] !== 'undefined')
@@ -92,6 +99,7 @@ function updateInfo() {
 
   // add info from the URL:
   util.addInfoFromUrl(expInfo);
+  
   return Scheduler.Event.NEXT;
 }
 
@@ -144,17 +152,17 @@ var feelingsClock;
 var text_feelings;
 var guilt;
 var shame;
-var anger_self; //added
 var contempt_self;
 var contempt_friend;
 var anger_friend;
+var anger_self; //added 
 var no_feeling;
 var text_guilt;
 var text_shame;
-var text_anger_self; //added
 var text_contempt_self;
 var text_contempt_friend;
 var text_anger_friend;
+var text_anger_self; //added
 var text_no_feeling;
 var mouse_feeling;
 var contTextFeelings;
@@ -167,14 +175,14 @@ var text_stimulus_4;
 var actionsClock;
 var text_actions;
 var distance_self;
-var attack_self;
+var attack_self; //different from ADeSS
 var hiding;
 var apologising;
 var distance_friend;
 var verbal_friend;
 var no_action;
 var text_distance_self;
-var text_attack_self;
+var text_attack_self; //different from ADeSS
 var text_hiding;
 var text_apologising;
 var text_distance_friend;
@@ -195,68 +203,11 @@ var routineTimer;
 function experimentInit() {
   // Initialize components for Routine "instructions"
   instructionsClock = new util.Clock();
-  myname = " " + expInfo["你的名字"] + " "
- myfriendname = " " + expInfo["你关系最好的朋友"] + " "
-
-mydictionary = {
-  "is apathetic towards":[myname + "冷漠地对待" + myfriendname,myfriendname + "冷漠地对待"+ myname],
-  "is boastful towards":[myname + "在" + myfriendname + "面前自吹自擂",myfriendname + "在" + myname + "面前自吹自擂"],
-'is bossy with':[myname + "对" + myfriendname + '颐指气使',
-myfriendname + "对" + myname + '颐指气使'],
-'is careless towards':[  myname + "随意地对待" + myfriendname,
-myfriendname + "随意地对待" + myname],
-'is cruel towards':[myname + '残酷无情地对待' + myfriendname,
-myfriendname + '残酷无情地对待' + myname],
-'is deceitful towards':[myname + '撒谎欺骗' + myfriendname,
-myfriendname + '撒谎欺骗' + myname],
-'is disagreeable towards':[myname + "对" + myfriendname + "不友好",
-myfriendname + "对" + myname + "不友好"],
-'is dishonest with':[myname + "对" + myfriendname + "不诚实",
-myfriendname + "对" + myname + "不诚实"],
-'is greedy towards':[myname + "对" + myfriendname + "贪婪",
-myfriendname + "对" + myname + "贪婪"],
-'is helpless towards':[myname + "对" + myfriendname + "没有帮助",
-myfriendname + "对" + myname + "没有帮助"],
-'is ignorant towards':[myname + "忽视" + myfriendname,
-myfriendname + "忽视" + myname],
-'is impatient with':[myname + "对" + myfriendname + "不耐烦",
-myfriendname + "对" + myname + "不耐烦"],
-'is jealous towards':[myname + "嫉妒" + myfriendname,
-myfriendname + "嫉妒" + myname],
-'is possessive towards':[myname + myfriendname + "有占有欲",
-myfriendname + myname + "有占有欲"],
-'is prejudiced towards':[myname + "对"+ myfriendname+ "有偏见",
-myfriendname + "对"+ myname+ "有偏见"],
-'is quarrelsome with':[myname + "对" + myfriendname + "发起争吵",
-myfriendname + "对" + myname + "发起争吵"],
-'is rebellious towards':[myname + "对" + myfriendname + "逆反",
-myfriendname + "对" + myname + "逆反"],
-'is rough towards':[myname + "粗鲁地对待"+ myfriendname,
-myfriendname + "粗鲁地对待"+ myname],
-'is selfish towards':[myname + "自私地对待"+ myfriendname,
-myfriendname + "自私地对待"+ myname],
-'is stingy towards':[myname + "小气吝啬地对待"+ myfriendname,
-myfriendname + "小气吝啬地对待"+ myname],
-'is temperamental with':[myname + "对"+ myfriendname+ "喜怒无常",
-myfriendname + "对"+ myname+ "喜怒无常"],
-'is touchy with':[myname + "对"+ myfriendname+ "敏感易怒",
-myfriendname + "对"+ myname+ "敏感易怒"],
-'is tough towards':[myname + "对"+ myfriendname+ "要求严格",
-myfriendname + "对"+ myname+ "要求严格"],
-'is vain towards':[myname + "对"+ myfriendname+ "虚荣",
-myfriendname + "对"+ myname+ "虚荣"],
-'is competitive with':[myname + "对"+ myfriendname+ "好胜心强",
-myfriendname + "对"+ myname+ "好胜心强"],
-'is firm with':[myname + "严厉地对待" + myfriendname,
-myfriendname+ "严厉地对待" + myname],
-'is romantic towards':[myname + "对"+ myfriendname+ "有不切实际的幻想",
-myfriendname + "对"+ myname+ "有不切实际的幻想"],
-}
-
   instrText = new visual.TextStim({
     win: psychoJS.window,
     name: 'instrText',
-    text: 'The first screen will ask a general question. \n\nThen, you will see short statements describing your social behaviour towards your best friend, or describing social behaviour of your best friend towards you.  \n\nPlease indicate how you would feel about the described behaviour.\n    ',
+    //text: 'The first screen will ask a general question. \n\nThen, you will see short statements describing your social behaviour towards 你最好的朋友是, or describing social behaviour of 你最好的朋友是 towards you.  \n\nPlease indicate how you would feel about the described behaviour.\n    ',
+    text: '欢迎参加，下面是我们可能会对朋友做的一些行为，或朋友对我们做的一些行为\n当你读到这些句子时，请尝试想象自己身临其境。\n然后，评出你有多大可能性做出一些常见的反应和感受。',
     font: 'Arial',
     units: 'norm', 
     pos: [0, 0], height: 0.08,  wrapWidth: undefined, ori: 0,
@@ -281,7 +232,8 @@ myfriendname + "对"+ myname+ "有不切实际的幻想"],
   contTextInstr = new visual.TextStim({
     win: psychoJS.window,
     name: 'contTextInstr',
-    text: 'continue',
+    //text: 'continue',
+    text: '下一题',
     font: 'Arial',
     units: 'norm', 
     pos: [0.6, (- 0.8)], height: 0.05,  wrapWidth: undefined, ori: 0,
@@ -303,7 +255,8 @@ myfriendname + "对"+ myname+ "有不切实际的幻想"],
   text_relation = new visual.TextStim({
     win: psychoJS.window,
     name: 'text_relation',
-    text: 'Relative to what you know about other relationships, please rate how close you feel to your best friend',
+    //text: 'Relative to what you know about other relationships, please rate how close you feel to 你最好的朋友是',
+    text: '和其他人相比，请给你和你最好朋友的关系评分',
     font: 'Arial',
     units: 'norm', 
     pos: [0, 0.5], height: 0.07,  wrapWidth: undefined, ori: 0,
@@ -316,7 +269,7 @@ myfriendname + "对"+ myname+ "有不切实际的幻想"],
     size: [1.1, 0.08], pos: [0, 0.0], units: 'norm',
     labels: ["1", "2", "3", "4", "5", "6", "7"], ticks: [1, 2, 3, 4, 5, 6, 7],
     granularity: 1, style: [visual.Slider.Style.RATING, visual.Slider.Style.TRIANGLE_MARKER],
-    color: new util.Color('LightGray'), 
+    color: new util.Color('white'), 
     fontFamily: 'HelveticaBold', bold: false, italic: false, depth: -2, 
     flip: false, fontSize: 0.05
   });
@@ -324,22 +277,24 @@ myfriendname + "对"+ myname+ "有不切实际的幻想"],
   slider_relation_label_1 = new visual.TextStim({
     win: psychoJS.window,
     name: 'slider_relation_label_1',
-    text: 'not at all close',
+    //text: 'not at all close',
+    text: '一点也不亲密',
     font: 'Arial',
     units: 'norm', 
     pos: [(-0.55), (-0.25)], height: 0.05,  wrapWidth: undefined, ori: 0,
-    color: new util.Color('LightGray'),  opacity: 1,
+    color: new util.Color('white'),  opacity: 1,
     depth: -6.0 
   });
 
   slider_relation_label_2 = new visual.TextStim({
     win: psychoJS.window,
     name: 'slider_relation_label_2',
-    text: 'extremely',
+    //text: 'extremely',
+    text: '非常亲密',
     font: 'Arial',
     units: 'norm', 
     pos: [0.55, (-0.25)], height: 0.05,  wrapWidth: undefined, ori: 0,
-    color: new util.Color('LightGray'),  opacity: 1,
+    color: new util.Color('white'),  opacity: 1,
     depth: -7.0 
   });
   
@@ -351,7 +306,8 @@ myfriendname + "对"+ myname+ "有不切实际的幻想"],
   contTextRelation = new visual.TextStim({
     win: psychoJS.window,
     name: 'contTextRelation',
-    text: 'continue',
+    //text: 'continue',
+    text: '下一题',
     font: 'Arial',
     units: 'norm', 
     pos: [0.6, (- 0.8)], height: 0.05,  wrapWidth: undefined, ori: 0,
@@ -393,7 +349,8 @@ myfriendname + "对"+ myname+ "有不切实际的幻想"],
   instrBlameSA = new visual.TextStim({
     win: psychoJS.window,
     name: 'instrBlameSA',
-    text: 'How strongly would you blame yourself?',
+    //text: 'How strongly would you blame yourself?',
+    text: '你会多强烈地责备自己?',
     font: 'Arial',
     units: 'norm', 
     pos: [0, 0.5], height: 0.05,  wrapWidth: undefined, ori: 0,
@@ -427,22 +384,24 @@ trialCount = 0;
   slider_blame_SA_label_1 = new visual.TextStim({
     win: psychoJS.window,
     name: 'slider_blame_SA_label_1',
-    text: 'not at all',
+    //text: 'not at all',
+    text: '一点也不',
     font: 'Arial',
     units: 'norm', 
     pos: [(-0.55), 0.05], height: 0.05,  wrapWidth: undefined, ori: 0,
-    color: new util.Color('LightGray'),  opacity: 1,
+    color: new util.Color('white'),  opacity: 1,
     depth: -10.0 
   });
 
   slider_blame_SA_label_2 = new visual.TextStim({
     win: psychoJS.window,
     name: 'slider_blame_SA_label_2',
-    text: 'very much',
+    //text: 'very much',
+    text: '非常强烈',
     font: 'Arial',
     units: 'norm', 
     pos: [0.55, 0.05], height: 0.05,  wrapWidth: undefined, ori: 0,
-    color: new util.Color('LightGray'),  opacity: 1,
+    color: new util.Color('white'),  opacity: 1,
     depth: -11.0 
   });
   
@@ -453,7 +412,8 @@ trialCount = 0;
   contTextBlame = new visual.TextStim({
     win: psychoJS.window,
     name: 'contTextBlameSA',
-    text: 'continue',
+    //text: 'continue',
+    text: '下一题',
     font: 'Arial',
     units: 'norm', 
     pos: [0.6, (- 0.8)], height: 0.05,  wrapWidth: undefined, ori: 0,
@@ -473,7 +433,8 @@ trialCount = 0;
   instrBlameOA = new visual.TextStim({
     win: psychoJS.window,
     name: 'instrBlameOA',
-    text: 'How strongly would you blame your friend?',
+    //text: 'How strongly would you blame your friend?',
+    text: '你会多强烈地责备你的朋友?',
     font: 'Arial',
     units: 'norm', 
     pos: [0, (-0.15)], height: 0.05,  wrapWidth: undefined, ori: 0,
@@ -488,28 +449,30 @@ trialCount = 0;
     granularity: 1, style: [visual.Slider.Style.RATING, visual.Slider.Style.TRIANGLE_MARKER],
     color: new util.Color('LightGray'), 
     fontFamily: 'HelveticaBold', bold: false, italic: false, depth: -9, 
-    flip: false, fontSizet: 0.05
+    flip: false, fontSize: 0.05
   });
   
   slider_blame_OA_label_1 = new visual.TextStim({
     win: psychoJS.window,
     name: 'slider_blame_OA_label_1',
-    text: 'not at all',
+    //text: 'not at all',
+    text: '一点也不',
     font: 'Arial',
     units: 'norm', 
     pos: [(-0.55), (-0.6)], height: 0.05,  wrapWidth: undefined, ori: 0,
-    color: new util.Color('LightGray'),  opacity: 1,
+    color: new util.Color('white'),  opacity: 1,
     depth: -12.0 
   });
 
   slider_blame_OA_label_2 = new visual.TextStim({
     win: psychoJS.window,
     name: 'slider_blame_OA_label_2',
-    text: 'very much',
+    //text: 'very much',
+    text: '非常强烈',
     font: 'Arial',
     units: 'norm', 
     pos: [0.55, (-0.6)], height: 0.05,  wrapWidth: undefined, ori: 0,
-    color: new util.Color('LightGray'),  opacity: 1,
+    color: new util.Color('white'),  opacity: 1,
     depth: -13.0 
   });
 
@@ -538,7 +501,8 @@ trialCount = 0;
   text_feelings = new visual.TextStim({
     win: psychoJS.window,
     name: 'text_feelings',
-    text: 'Please select the feeling that you would experience most strongly (select only one):',
+    //text: 'Please select the feeling that you would experience most strongly (select only one):',
+    text: '请选择最符合你感受的选项（只选择一项）',
     font: 'Arial',
     units: 'norm', 
     pos: [0, 0.5], height: 0.05,  wrapWidth: 500, ori: 0,
@@ -612,7 +576,8 @@ trialCount = 0;
   text_guilt = new visual.TextStim({
     win: psychoJS.window,
     name: 'text_guilt',
-    text: 'guilt',
+    //text: 'guilt',
+    text: '内疚',
     font: 'Arial',
     units: 'norm',
     alignHoriz: 'left',
@@ -624,7 +589,8 @@ trialCount = 0;
   text_shame = new visual.TextStim({
     win: psychoJS.window,
     name: 'text_shame',
-    text: 'shame',
+    //text: 'shame',
+    text: '羞愧',
     font: 'Arial',
     units: 'norm', 
     alignHoriz: 'left',
@@ -636,7 +602,8 @@ trialCount = 0;
   text_anger_self = new visual.TextStim({
     win: psychoJS.window,
     name: 'text_anger_self',
-    text: 'indignation / anger towards self',
+    //text: 'indignation / anger towards self',
+    text: '自我生气/愤怒',
     font: 'Arial',
     units: 'norm', 
     alignHoriz: 'left',
@@ -648,7 +615,8 @@ trialCount = 0;
   text_contempt_self = new visual.TextStim({
     win: psychoJS.window,
     name: 'text_contempt_self',
-    text: 'contempt / disgust towards self',
+    //text: 'contempt / disgust towards self',
+    text: '自我贬低/厌恶',
     font: 'Arial',
     units: 'norm', 
     alignHoriz: 'left',
@@ -660,7 +628,8 @@ trialCount = 0;
   text_contempt_friend = new visual.TextStim({
     win: psychoJS.window,
     name: 'text_contempt_friend',
-    text: 'contempt / disgust towards friend',
+    //text: 'contempt / disgust towards friend',
+    text: '贬低/厌恶朋友',
     font: 'Arial',
     units: 'norm', 
     alignHoriz: 'left',
@@ -672,7 +641,8 @@ trialCount = 0;
   text_anger_friend = new visual.TextStim({
     win: psychoJS.window,
     name: 'text_anger_friend',
-    text: 'indignation / anger towards friend',
+    //text: 'indignation / anger towards friend',
+    text: '对朋友生气/愤怒',
     font: 'Arial',
     units: 'norm', 
     alignHoriz: 'left',
@@ -684,7 +654,8 @@ trialCount = 0;
   text_no_feeling = new visual.TextStim({
     win: psychoJS.window,
     name: 'text_no_feeling',
-    text: 'no feeling / other feeling',
+    //text: 'no feeling / other feeling',
+    text: '没有感受或其他',
     font: 'Arial',
     units: 'norm', 
     alignHoriz: 'left',
@@ -700,7 +671,8 @@ trialCount = 0;
   contTextFeelings = new visual.TextStim({
     win: psychoJS.window,
     name: 'contTextFeelings',
-    text: 'continue',
+    //text: 'continue',
+    text: '下一题',
     font: 'Arial',
     units: 'norm', 
     pos: [0.6, (- 0.8)], height: 0.05,  wrapWidth: undefined, ori: 0,
@@ -753,7 +725,8 @@ trialCount = 0;
   text_actions = new visual.TextStim({
     win: psychoJS.window,
     name: 'text_actions',
-    text: 'Please select the action that you would most strongly feel like doing (select only one):',
+    //text: 'Please select the action that you would most strongly feel like doing (select only one):',
+    text: '请选择下列你最可能做的行为（只选择一项）',
     font: 'Arial',
     units: 'norm', 
     pos: [0, 0.5], height: 0.05,  wrapWidth: 500, ori: 0,
@@ -827,7 +800,8 @@ trialCount = 0;
   text_distance_self = new visual.TextStim({
     win: psychoJS.window,
     name: 'text_distance_self',
-    text: 'feel like creating distance from yourself',
+    //text: 'feel like creating distance from yourself',
+    text: '想要远离自己',
     font: 'Arial',
     units: 'norm',
     alignHoriz: 'left',
@@ -839,7 +813,8 @@ trialCount = 0;
   text_attack_self = new visual.TextStim({
     win: psychoJS.window,
     name: 'text_attack_self',
-    text: 'feel like verbally or physically attacking / punishing yourself',
+    //text: 'feel like verbally or physically attacking / punishing yourself',
+    text: '想要用言语或肢体行为攻击/惩罚自己',
     font: 'Arial',
     units: 'norm', 
     alignHoriz: 'left',
@@ -851,7 +826,8 @@ trialCount = 0;
   text_hiding = new visual.TextStim({
     win: psychoJS.window,
     name: 'text_hiding',
-    text: 'feel like hiding',
+    //text: 'feel like hiding',
+    text: '想要躲藏起来',
     font: 'Arial',
     units: 'norm', 
     alignHoriz: 'left',
@@ -863,7 +839,8 @@ trialCount = 0;
   text_apologising = new visual.TextStim({
     win: psychoJS.window,
     name: 'text_apologising',
-    text: 'feel like apologising / fixing what you have done',
+    //text: 'feel like apologising / fixing what you have done',
+    text: '想要道歉/修复你所做的',
     font: 'Arial',
     units: 'norm', 
     alignHoriz: 'left',
@@ -875,7 +852,8 @@ trialCount = 0;
   text_distance_friend = new visual.TextStim({
     win: psychoJS.window,
     name: 'text_distance_friend',
-    text: 'feel like creating a distance from your friend',
+    //text: 'feel like creating a distance from your friend',
+    text: '想要疏远你的朋友',
     font: 'Arial',
     units: 'norm', 
     alignHoriz: 'left',
@@ -887,7 +865,8 @@ trialCount = 0;
   text_verbal_friend = new visual.TextStim({
     win: psychoJS.window,
     name: 'text_verbal_friend',
-    text: 'feel like verbally or physically attacking / punishing your friend',
+    //text: 'feel like verbally or physically attacking / punishing your friend',
+    text: '想要用言语或肢体攻击/惩罚你的朋友',
     font: 'Arial',
     units: 'norm', 
     alignHoriz: 'left',
@@ -899,7 +878,8 @@ trialCount = 0;
   text_no_action = new visual.TextStim({
     win: psychoJS.window,
     name: 'text_no_action',
-    text: 'no action / other action',
+    //text: 'no action / other action',
+    text: '什么也不做/其他',
     font: 'Arial',
     units: 'norm', 
     alignHoriz: 'left',
@@ -915,7 +895,8 @@ trialCount = 0;
   contTextActions = new visual.TextStim({
     win: psychoJS.window,
     name: 'contTextActions',
-    text: 'continue',
+    //text: 'continue',
+    text: '下一题',
     font: 'Arial',
     units: 'norm', 
     pos: [0.6, (- 0.8)], height: 0.05,  wrapWidth: undefined, ori: 0,
@@ -943,12 +924,12 @@ trialCount = 0;
     depth: -19.0 
   });
   
-    // Initialize components for Routine "thanks"
+  // Initialize components for Routine "thanks"
   thanksClock = new util.Clock();
   thanksText = new visual.TextStim({
     win: psychoJS.window,
     name: 'thanksText',
-    text: 'The task has finished - thank you!\n\n Please do not close your browser until you see a green message!',
+    text: '一项任务已经完成 - 稍后将自动跳转至下一页面\n\n 〇在看到绿色的提示前，请不要关闭此页面',
     font: 'Arial',
     units: 'norm', 
     pos: [0, 0], height: 0.1,  wrapWidth: undefined, ori: 0,
@@ -978,7 +959,7 @@ function instructionsRoutineBegin(snapshot) {
     t = 0;
     instructionsClock.reset(); // clock
     frameN = -1;
-    
+   
     // update component parameters for each repeat
     checkbox = [contInstr];
     clicked = [];
@@ -994,10 +975,9 @@ function instructionsRoutineBegin(snapshot) {
     instructionsComponents.push(contTextInstr);
     instructionsComponents.push(contInstr);
     
-    instructionsComponents.forEach( function(thisComponent) {
+    for (const thisComponent of instructionsComponents)
       if ('status' in thisComponent)
         thisComponent.status = PsychoJS.Status.NOT_STARTED;
-       });
     return Scheduler.Event.NEXT;
   }
 }
@@ -1075,7 +1055,7 @@ function instructionsRoutineEachFrame(snapshot) {
 
     // check for quit (typically the Esc key)
     if (psychoJS.experiment.experimentEnded || psychoJS.eventManager.getKeys({keyList:['escape']}).length > 0) {
-      return quitPsychoJS('The [Escape] key was pressed. Goodbye!', false);
+      return quitPsychoJS('您已按下[esc]键，感谢您的参与！', false);
     }
     
     // check if the Routine should terminate
@@ -1084,11 +1064,11 @@ function instructionsRoutineEachFrame(snapshot) {
     }
     
     continueRoutine = false;  // reverts to True if at least one component still running
-    instructionsComponents.forEach( function(thisComponent) {
+    for (const thisComponent of instructionsComponents)
       if ('status' in thisComponent && thisComponent.status !== PsychoJS.Status.FINISHED) {
         continueRoutine = true;
+        break;
       }
-    });
     
     // refresh the screen if continuing
     if (continueRoutine) {
@@ -1102,11 +1082,11 @@ function instructionsRoutineEachFrame(snapshot) {
 function instructionsRoutineEnd(snapshot) {
   return function () {
     //------Ending Routine 'instructions'-------
-    instructionsComponents.forEach( function(thisComponent) {
+    for (const thisComponent of instructionsComponents) {
       if (typeof thisComponent.setAutoDraw === 'function') {
         thisComponent.setAutoDraw(false);
       }
-    });
+    }
     // store data for thisExp (ExperimentHandler)
     // the Routine "instructions" was not non-slip safe, so reset the non-slip timer
     routineTimer.reset();
@@ -1123,7 +1103,7 @@ function relationRoutineBegin(snapshot) {
     t = 0;
     relationClock.reset(); // clock
     frameN = -1;
-    
+ 
     // update component parameters for each repeat
     checkbox = [contRelation];
     clicked = [];
@@ -1143,10 +1123,9 @@ function relationRoutineBegin(snapshot) {
     relationComponents.push(contTextRelation);
     relationComponents.push(contRelation);
     
-    relationComponents.forEach( function(thisComponent) {
+    for (const thisComponent of relationComponents)
       if ('status' in thisComponent)
         thisComponent.status = PsychoJS.Status.NOT_STARTED;
-       });
     return Scheduler.Event.NEXT;
   }
 }
@@ -1174,6 +1153,7 @@ function relationRoutineEachFrame(snapshot) {
         }
     } catch (err) {}
     
+
     // *text_relation* updates
     if (t >= 0.0 && text_relation.status === PsychoJS.Status.NOT_STARTED) {
       // keep track of start time/frame for later
@@ -1202,7 +1182,7 @@ function relationRoutineEachFrame(snapshot) {
       slider_relation_label_1.setAutoDraw(true);
     }
     
-    // *slider_relation_label_2* updates
+        // *slider_relation_label_2* updates
     if (t >= 0.0 && slider_relation_label_2.status === PsychoJS.Status.NOT_STARTED) {
       // keep track of start time/frame for later
       slider_relation_label_2.tStart = t;  // (not accounting for frame time here)
@@ -1210,7 +1190,6 @@ function relationRoutineEachFrame(snapshot) {
       
       slider_relation_label_2.setAutoDraw(true);
     }
-
 
     // *mouse_relation* updates
     if (t >= 0.0 && mouse_relation.status === PsychoJS.Status.NOT_STARTED) {
@@ -1264,7 +1243,7 @@ function relationRoutineEachFrame(snapshot) {
 
     // check for quit (typically the Esc key)
     if (psychoJS.experiment.experimentEnded || psychoJS.eventManager.getKeys({keyList:['escape']}).length > 0) {
-      return quitPsychoJS('The [Escape] key was pressed. Goodbye!', false);
+      return quitPsychoJS('您已按下[esc]键，感谢您的参与！', false);
     }
     
     // check if the Routine should terminate
@@ -1273,11 +1252,11 @@ function relationRoutineEachFrame(snapshot) {
     }
     
     continueRoutine = false;  // reverts to True if at least one component still running
-    relationComponents.forEach( function(thisComponent) {
+    for (const thisComponent of relationComponents)
       if ('status' in thisComponent && thisComponent.status !== PsychoJS.Status.FINISHED) {
         continueRoutine = true;
+        break;
       }
-    });
     
     // refresh the screen if continuing
     if (continueRoutine) {
@@ -1291,11 +1270,11 @@ function relationRoutineEachFrame(snapshot) {
 function relationRoutineEnd(snapshot) {
   return function () {
     //------Ending Routine 'relation'-------
-    relationComponents.forEach( function(thisComponent) {
+    for (const thisComponent of relationComponents) {
       if (typeof thisComponent.setAutoDraw === 'function') {
         thisComponent.setAutoDraw(false);
       }
-    });
+    }
     psychoJS.experiment.addData('slider_relation.response', slider_relation.getRating());
     psychoJS.experiment.addData('slider_relation.rt', slider_relation.getRT());
     // store data for thisExp (ExperimentHandler)
@@ -1311,7 +1290,7 @@ var currentLoop;
 var msgProgress;
 
 // initialising number of items on stimulus list
-var num_items = 54;
+var num_items = 6;
 
 function trialsLoopBegin(trialsLoopScheduler) {
   // set up handler to look after randomisation of conditions etc
@@ -1325,11 +1304,10 @@ function trialsLoopBegin(trialsLoopScheduler) {
   
   psychoJS.experiment.addLoop(trials); // add the loop to the experiment
   currentLoop = trials;  // we're now the current loop
-
+  
   // Schedule all the trials in the trialList:
-  trials.forEach(function() {
+  for (const thisTrial of trials) {
     const snapshot = trials.getSnapshot();
-
     trialsLoopScheduler.add(importConditions(snapshot));
     trialsLoopScheduler.add(blameRoutineBegin(snapshot));
     trialsLoopScheduler.add(blameRoutineEachFrame(snapshot));
@@ -1341,7 +1319,7 @@ function trialsLoopBegin(trialsLoopScheduler) {
     trialsLoopScheduler.add(actionsRoutineEachFrame(snapshot));
     trialsLoopScheduler.add(actionsRoutineEnd(snapshot));
     trialsLoopScheduler.add(endLoopIteration(trialsLoopScheduler, snapshot));
-  });
+  }
 
   return Scheduler.Event.NEXT;
 }
@@ -1356,6 +1334,64 @@ var blameComponents;
 
 function blameRoutineBegin(snapshot) {
   return function () {
+    myname = expInfo["你的名字是"]
+    myfriendname = expInfo["你最好的朋友是"]
+    mydictionary = {
+      "is apathetic towards":[myname + "对" + myfriendname + "冷漠",
+      myfriendname + "对" + myname + "冷漠"],
+      "is boastful towards":[myname + "对" + myfriendname + "自我吹嘘",
+      myfriendname + "对" + myname + "自我吹嘘"],
+      'is bossy with':[myname + "对" + myfriendname + '发号施令',
+      myfriendname + "对" + myname + '发号施令'],
+      'is careless towards':[  myname + "不在乎" + myfriendname,
+      myfriendname + "不在乎" + myname],
+      'is cruel towards':[myname + '对' + myfriendname +"残忍",
+      myfriendname + '对' + myname +"残忍"],
+      'is deceitful towards':[myname + '欺骗' + myfriendname,
+      myfriendname + '欺骗' + myname],
+      'is disagreeable towards':[myname + "让" + myfriendname + "不愉快",
+      myfriendname + "让" + myname + "不愉快"],
+      'is dishonest with':[myname + "对" + myfriendname + "不诚实",
+      myfriendname + "对" + myname + "不诚实"],
+      'is greedy towards':[myname + "对" + myfriendname + "贪婪",
+      myfriendname + "对" + myname + "贪婪"],
+      'is helpless towards':[myname + "对" + myfriendname + "毫无帮助",
+      myfriendname + "对" + myname + "毫无帮助"],
+      'is ignorant towards':[myname + "忽视" + myfriendname,
+      myfriendname + "忽视" + myname],
+      'is impatient with':[myname + "对" + myfriendname + "不耐烦",
+      myfriendname + "对" + myname + "不耐烦"],
+      'is jealous towards':[myname + "嫉妒" + myfriendname,
+      myfriendname + "嫉妒" + myname],
+      'is possessive towards':[myname +"对"+ myfriendname + "有强占有欲",
+      myfriendname + "对"+ myname + "有强占有欲"],
+      'is prejudiced towards':[myname + "对"+ myfriendname+ "有偏见",
+      myfriendname + "对"+ myname+ "有偏见"],
+      'is quarrelsome with':[myname + "和" + myfriendname + "争吵",
+      myfriendname + "和" + myname + "争吵"],
+      'is rebellious towards':[myname + "背叛" + myfriendname,
+      myfriendname + "背叛" + myname],
+      'is rough towards':[myname + "对"+ myfriendname + "粗暴",
+      myfriendname + "对"+ myname +"粗暴"],
+      'is selfish towards':[myname + "对"+ myfriendname + "自私",
+      myfriendname + "对"+ myname +"自私"],
+      'is stingy towards':[myname + "对"+ myfriendname + "小气",
+      myfriendname + "对"+ myname +"小气"],
+      'is temperamental with':[myname + "对"+ myfriendname+ "喜怒无常",
+      myfriendname + "对"+ myname+ "喜怒无常"],
+      'is touchy with':[myname + "对"+ myfriendname+ "敏感易怒",
+      myfriendname + "对"+ myname+ "敏感易怒"],
+      'is tough towards':[myname + "对"+ myfriendname+ "要求严格",
+      myfriendname + "对"+ myname+ "要求严格"],
+      'is vain towards':[myname + "对"+ myfriendname+ "强硬",
+      myfriendname + "对"+ myname+ "强硬"],
+      'is competitive with':[myname + "对"+ myfriendname+ "争强好胜",
+      myfriendname + "对"+ myname+ "争强好胜"],
+      'is firm with':[myname + "对"+ myfriendname+ "严厉",
+      myfriendname + "对"+ myname+ "严厉"],
+      'is romantic towards':[myname + "对"+ myfriendname+ "想入非非",
+      myfriendname + "对"+ myname+ "想入非非"],
+      }
     //------Prepare to start Routine 'blame'-------
     t = 0;
     blame_Clock.reset(); // clock
@@ -1363,21 +1399,23 @@ function blameRoutineBegin(snapshot) {
     
     // show right order of agency based on agency_stimulus input
     if ((agency === "self")) {
-        text_stimulus.setText(((((expInfo["your name"] + " ") + verb_stimulus) + " ") + expInfo["your best friend"]));
+        //text_stimulus.setText(((((expInfo["你的名字是"] + " ") + verb_stimulus) + " ") + expInfo["你最好的朋友是"]));
+        text_stimulus.setText(mydictionary[verb_stimulus][0]);
     } else {
         if ((agency === "other")) {
-            text_stimulus.setText(((((expInfo["your best friend"] + " ") + verb_stimulus) + " ") + expInfo["your name"]));
+            //text_stimulus.setText(((((expInfo["你最好的朋友是"] + " ") + verb_stimulus) + " ") + expInfo["你的名字是"]));
+            text_stimulus.setText(mydictionary[verb_stimulus][1]);
         }
     }
 
     // update component parameters for each repeat
     trialCount += 1;
-    msgProgress = ((trialCount.toString() + "/54"));
+    msgProgress = ((trialCount.toString() + "/6"));
     progressBlame.text=msgProgress;
     
     slider_blame_SA.reset()
     slider_blame_OA.reset()
-
+    
     // setup some python lists for storing info about the mouse_blame
     mouse_blame.clicked_name = [];
     gotValidClick = false; // until a click is received
@@ -1398,11 +1436,10 @@ function blameRoutineBegin(snapshot) {
     blameComponents.push(mouse_blame);
     blameComponents.push(contTextBlame);
     blameComponents.push(contBlame);
-
-    blameComponents.forEach( function(thisComponent) {
+    
+    for (const thisComponent of blameComponents)
       if ('status' in thisComponent)
         thisComponent.status = PsychoJS.Status.NOT_STARTED;
-       });
     return Scheduler.Event.NEXT;
   }
 }
@@ -1412,11 +1449,11 @@ function blameRoutineEachFrame(snapshot) {
     //------Loop for each frame of Routine 'blame'-------
     continueRoutine = true; // until we're told otherwise
     // get current time
-    t = blameClock.getTime();
+    t = blame_Clock.getTime();
     frameN = frameN + 1;// number of completed frames (so 0 is the first frame)
     
     // update/draw components on each frame
-    // update slider properties blame SA
+     // update slider properties blame SA
     try { 
         if (slider_blame_SA._markerColor.int !== col_marker.int) {
             slider_blame_SA._markerColor = col_marker;
@@ -1446,7 +1483,6 @@ function blameRoutineEachFrame(snapshot) {
         }
     } catch (err) {}
 
-
     // *box_stimulus* updates
     if (t >= 0.0 && box_stimulus.status === PsychoJS.Status.NOT_STARTED) {
       // keep track of start time/frame for later
@@ -1464,7 +1500,6 @@ function blameRoutineEachFrame(snapshot) {
       
       text_stimulus.setAutoDraw(true);
     }
-
     
     // *instrBlameSA* updates
     if (t >= 0.0 && instrBlameSA.status === PsychoJS.Status.NOT_STARTED) {
@@ -1483,7 +1518,6 @@ function blameRoutineEachFrame(snapshot) {
       
       instrBlameOA.setAutoDraw(true);
     }
-
     
     // *progressBlame* updates
     if (t >= 0.0 && progressBlame.status === PsychoJS.Status.NOT_STARTED) {
@@ -1494,6 +1528,7 @@ function blameRoutineEachFrame(snapshot) {
       progressBlame.setAutoDraw(true);
     }
 
+    
     // *slider_blame_SA* updates
     if (t >= 0.0 && slider_blame_SA.status === PsychoJS.Status.NOT_STARTED) {
       // keep track of start time/frame for later
@@ -1548,6 +1583,7 @@ function blameRoutineEachFrame(snapshot) {
       slider_blame_OA_label_2.setAutoDraw(true);
     }
 
+
     // *mouse_blame* updates
     if (t >= 0.0 && mouse_blame.status === PsychoJS.Status.NOT_STARTED) {
       // keep track of start time/frame for later
@@ -1577,7 +1613,7 @@ function blameRoutineEachFrame(snapshot) {
         }
       }
     }
-
+    
     // *contTextBlame* updates
     if (t >= 0.0 && contTextBlame.status === PsychoJS.Status.NOT_STARTED) {
       // keep track of start time/frame for later
@@ -1599,7 +1635,7 @@ function blameRoutineEachFrame(snapshot) {
 
     // check for quit (typically the Esc key)
     if (psychoJS.experiment.experimentEnded || psychoJS.eventManager.getKeys({keyList:['escape']}).length > 0) {
-      return quitPsychoJS('The [Escape] key was pressed. Goodbye!', false);
+      return quitPsychoJS('您已按下[esc]键，感谢您的参与！', false);
     }
     
     // check if the Routine should terminate
@@ -1608,11 +1644,11 @@ function blameRoutineEachFrame(snapshot) {
     }
     
     continueRoutine = false;  // reverts to True if at least one component still running
-    blameComponents.forEach( function(thisComponent) {
+    for (const thisComponent of blameComponents)
       if ('status' in thisComponent && thisComponent.status !== PsychoJS.Status.FINISHED) {
         continueRoutine = true;
+        break;
       }
-    });
     
     // refresh the screen if continuing
     if (continueRoutine) {
@@ -1626,16 +1662,15 @@ function blameRoutineEachFrame(snapshot) {
 function blameRoutineEnd(snapshot) {
   return function () {
     //------Ending Routine 'blame'-------
-    blameComponents.forEach( function(thisComponent) {
+    for (const thisComponent of blameComponents) {
       if (typeof thisComponent.setAutoDraw === 'function') {
         thisComponent.setAutoDraw(false);
       }
-    });
+    }
     psychoJS.experiment.addData('slider_blame_SA.response', slider_blame_SA.getRating());
     psychoJS.experiment.addData('slider_blame_SA.rt', slider_blame_SA.getRT());
     psychoJS.experiment.addData('slider_blame_OA.response', slider_blame_OA.getRating());
     psychoJS.experiment.addData('slider_blame_OA.rt', slider_blame_OA.getRT());
-    
     // store data for thisExp (ExperimentHandler)
     // the Routine "blame" was not non-slip safe, so reset the non-slip timer
     routineTimer.reset();
@@ -1643,7 +1678,6 @@ function blameRoutineEnd(snapshot) {
     return Scheduler.Event.NEXT;
   };
 }
-
 
 var feelingsComponents;
 var checkbox;
@@ -1653,7 +1687,7 @@ var bufferTime;
 var clickClock;
 var lastClickTime;
 var thisClickTime;
-var boxCount; 
+var boxCount = 0;
 
 function feelingsRoutineBegin(snapshot) {
   return function () {
@@ -1661,13 +1695,15 @@ function feelingsRoutineBegin(snapshot) {
     t = 0;
     feelingsClock.reset(); // clock
     frameN = -1;
-    
-    // show right order of agency based on agency_stimulus input
+
+   // show right order of agency based on agency_stimulus input
     if ((agency === "self")) {
-        text_stimulus_3.setText(((((expInfo["your name"] + " ") + verb_stimulus) + " ") + expInfo["your best friend"]));
+        //text_stimulus_3.setText(((((expInfo["你的名字是"] + " ") + verb_stimulus) + " ") + expInfo["你最好的朋友是"]));
+        text_stimulus_3.setText(mydictionary[verb_stimulus][0]);
     } else {
         if ((agency === "other")) {
-            text_stimulus_3.setText(((((expInfo["your best friend"] + " ") + verb_stimulus) + " ") + expInfo["your name"]));
+            //text_stimulus_3.setText(((((expInfo["你最好的朋友是"] + " ") + verb_stimulus) + " ") + expInfo["你的名字是"]));
+            text_stimulus_3.setText(mydictionary[verb_stimulus][1]);
         }
     }
     
@@ -1683,7 +1719,7 @@ function feelingsRoutineBegin(snapshot) {
     boxCount = 0;
     
     // update component parameters for each repeat
-    msgProgress = ((trialCount.toString() + "/54"));
+    msgProgress = ((trialCount.toString() + "/6"));
     progressFeelings.text=msgProgress;
     
     // setup some python lists for storing info about the mouse_feeling
@@ -1734,10 +1770,9 @@ function feelingsRoutineBegin(snapshot) {
     feelingsComponents.push(contFeelings);
     feelingsComponents.push(progressFeelings);
     
-    feelingsComponents.forEach( function(thisComponent) {
+    for (const thisComponent of feelingsComponents)
       if ('status' in thisComponent)
         thisComponent.status = PsychoJS.Status.NOT_STARTED;
-       });
     return Scheduler.Event.NEXT;
   }
 }
@@ -1749,30 +1784,27 @@ function feelingsRoutineEachFrame(snapshot) {
     // get current time
     t = feelingsClock.getTime();
     frameN = frameN + 1;// number of completed frames (so 0 is the first frame)
-    
     // update/draw components on each frame
-    // mark selection with black, undo when selecting again
+    // update colour of box upon selection (black = selected, white = "unselected")
     for (var thisBox, _pj_c = 0, _pj_a = checkbox, _pj_b = _pj_a.length; (_pj_c < _pj_b); _pj_c += 1) {
         thisBox = _pj_a[_pj_c];
         if (mouse_feeling.isPressedIn(thisBox)) {
             thisClickTime = clickClock.getTime();
             if (((thisClickTime - lastClickTime) > bufferTime)) {
-                console.log(thisBox.fillColor)
-                console.log(thisBox.fillColor['_rgb'])
-                if ((thisBox.fillColor['_rgb'][2] !== 0)) {
+              if ((thisBox.fillColor['_rgb'][2] !== 0)) {
                     thisBox.fillColor = new util.Color("black");
                     thisBox.lineColor = new util.Color("black");
                     ++boxCount;
-                } else {
+            } else {
                     thisBox.fillColor = new util.Color("white");
                     thisBox.lineColor = new util.Color("white");
-                    --boxCount;
+                    --boxCount; 
                 }
             }
             lastClickTime = thisClickTime;
         }
     }
-
+    
     // *box_stimulus_3* updates
     if (t >= 0.0 && box_stimulus_3.status === PsychoJS.Status.NOT_STARTED) {
       // keep track of start time/frame for later
@@ -1791,7 +1823,6 @@ function feelingsRoutineEachFrame(snapshot) {
       text_stimulus_3.setAutoDraw(true);
     }
 
-    
     // *text_feelings* updates
     if (t >= 0.0 && text_feelings.status === PsychoJS.Status.NOT_STARTED) {
       // keep track of start time/frame for later
@@ -1829,6 +1860,7 @@ function feelingsRoutineEachFrame(snapshot) {
       
       anger_self.setAutoDraw(true);
     }
+
     
     // *contempt_self* updates
     if (t >= 0.0 && contempt_self.status === PsychoJS.Status.NOT_STARTED) {
@@ -1888,7 +1920,7 @@ function feelingsRoutineEachFrame(snapshot) {
       
       text_shame.setAutoDraw(true);
     }
-
+    
     // *text_anger_self* updates
     if (t >= 0.0 && text_anger_self.status === PsychoJS.Status.NOT_STARTED) {
       // keep track of start time/frame for later
@@ -1897,7 +1929,8 @@ function feelingsRoutineEachFrame(snapshot) {
       
       text_anger_self.setAutoDraw(true);
     }
-    
+
+
     // *text_contempt_self* updates
     if (t >= 0.0 && text_contempt_self.status === PsychoJS.Status.NOT_STARTED) {
       // keep track of start time/frame for later
@@ -1939,6 +1972,7 @@ function feelingsRoutineEachFrame(snapshot) {
 
     // *mouse_feeling* updates
     if (t >= 0.0 && mouse_feeling.status === PsychoJS.Status.NOT_STARTED) {
+    
       // keep track of start time/frame for later
       mouse_feeling.tStart = t;  // (not accounting for frame time here)
       mouse_feeling.frameNStart = frameN;  // exact frame index
@@ -1953,30 +1987,29 @@ function feelingsRoutineEachFrame(snapshot) {
       if (!_mouseButtons.every( (e,i,) => (e == prevButtonState[i]) )) { // button state changed?
         prevButtonState = _mouseButtons;
         if (_mouseButtons.reduce( (e, acc) => (e+acc) ) > 0) { // state changed to a new click
-          mouse_feeling.time.push(mouse_feeling.mouseClock.getTime());
-          // check if the mouse was inside our 'clickable' objects
-          gotValidClick = false;
-          for (const obj of [guilt, shame, anger_self, contempt_self, contempt_friend, anger_friend, no_feeling]) {
-            if (obj.contains(mouse_feeling)) {
-              mouse_feeling.clicked_name.push(obj.name)
+            mouse_feeling.time.push(mouse_feeling.mouseClock.getTime());
+            // check if the mouse was inside our 'clickable' objects
+            gotValidClick = false;
+            for (const obj of [guilt, shame, anger_self, contempt_self, contempt_friend, anger_friend, no_feeling]) {
+                if (obj.contains(mouse_feeling)) {
+                    mouse_feeling.clicked_name.push(obj.name);
+                }
             }
-          }
- 
-          // check if selected continue button
-          for (const cont_obj of [contFeelings]) {
-            if (cont_obj.contains(mouse_feeling)) {
-              gotValidClick = true
-            }
-
+          
+            // check if selected continue button
+            for (const cont_obj of [contFeelings]) {
+                if (cont_obj.contains(mouse_feeling)) {
+                  gotValidClick = true
+                }
           }
         }
       }
     }
-    
+
     if (gotValidClick === true && boxCount === 1) { // abort routine on response
             continueRoutine = false;
     }
-         
+            
     // *contTextFeelings* updates
     if (t >= 0.0 && contTextFeelings.status === PsychoJS.Status.NOT_STARTED) {
       // keep track of start time/frame for later
@@ -2008,7 +2041,7 @@ function feelingsRoutineEachFrame(snapshot) {
 
     // check for quit (typically the Esc key)
     if (psychoJS.experiment.experimentEnded || psychoJS.eventManager.getKeys({keyList:['escape']}).length > 0) {
-      return quitPsychoJS('The [Escape] key was pressed. Goodbye!', false);
+      return quitPsychoJS('您已按下[esc]键，感谢您的参与！', false);
     }
     
     // check if the Routine should terminate
@@ -2017,11 +2050,11 @@ function feelingsRoutineEachFrame(snapshot) {
     }
     
     continueRoutine = false;  // reverts to True if at least one component still running
-    feelingsComponents.forEach( function(thisComponent) {
+    for (const thisComponent of feelingsComponents)
       if ('status' in thisComponent && thisComponent.status !== PsychoJS.Status.FINISHED) {
         continueRoutine = true;
+        break;
       }
-    });
     
     // refresh the screen if continuing
     if (continueRoutine) {
@@ -2035,20 +2068,20 @@ function feelingsRoutineEachFrame(snapshot) {
 function feelingsRoutineEnd(snapshot) {
   return function () {
     //------Ending Routine 'feelings'-------
-    feelingsComponents.forEach( function(thisComponent) {
+    for (const thisComponent of feelingsComponents) {
       if (typeof thisComponent.setAutoDraw === 'function') {
         thisComponent.setAutoDraw(false);
       }
-    });
+    }
 
     // store data for thisExp (ExperimentHandler)
     _mouseButtons = mouse_feeling.getPressed();
     psychoJS.experiment.addData('verb_stimulus', verb_stimulus);
     psychoJS.experiment.addData('agency', agency);
-
+    
     if (mouse_feeling.clicked_name.length > 0) {
       psychoJS.experiment.addData('mouse_feeling.clicked_name', mouse_feeling.clicked_name);
-      psychoJS.experiment.addData('mouse_feeling.time', mouse_feeling.mouseClock.getTime());  
+      psychoJS.experiment.addData('mouse_feeling.time', mouse_feeling.mouseClock.getTime());
     }
     // the Routine "feelings" was not non-slip safe, so reset the non-slip timer
     routineTimer.reset();
@@ -2065,13 +2098,15 @@ function actionsRoutineBegin(snapshot) {
     t = 0;
     actionsClock.reset(); // clock
     frameN = -1;
-    
-    // show right order of agency based on agency_stimulus input
+
+   // show right order of agency based on agency_stimulus input
     if ((agency === "self")) {
-        text_stimulus_4.setText(((((expInfo["your name"] + " ") + verb_stimulus) + " ") + expInfo["your best friend"]));
+        //text_stimulus_4.setText(((((expInfo["你的名字是"] + " ") + verb_stimulus) + " ") + expInfo["你最好的朋友是"]));
+        text_stimulus_4.setText(mydictionary[verb_stimulus][0]);
     } else {
         if ((agency === "other")) {
-            text_stimulus_4.setText(((((expInfo["your best friend"] + " ") + verb_stimulus) + " ") + expInfo["your name"]));
+            //text_stimulus_4.setText(((((expInfo["你最好的朋友是"] + " ") + verb_stimulus) + " ") + expInfo["你的名字是"]));
+            text_stimulus_4.setText(mydictionary[verb_stimulus][1]);
         }
     }
     
@@ -2087,7 +2122,7 @@ function actionsRoutineBegin(snapshot) {
     boxCount = 0;
     
     // update component parameters for each repeat
-    msgProgress = ((trialCount.toString() + "/54"));
+    msgProgress = ((trialCount.toString() + "/6"));
     progressActions.text=msgProgress;
 
     // setup some python lists for storing info about the mouse_action
@@ -2113,7 +2148,6 @@ function actionsRoutineBegin(snapshot) {
             blocks[items].lineColor = new util.Color('white');
         }
     }
-    
 
     // keep track of which components have finished
     actionsComponents = [];
@@ -2139,10 +2173,9 @@ function actionsRoutineBegin(snapshot) {
     actionsComponents.push(contAction);
     actionsComponents.push(progressActions);
     
-    actionsComponents.forEach( function(thisComponent) {
+    for (const thisComponent of actionsComponents)
       if ('status' in thisComponent)
         thisComponent.status = PsychoJS.Status.NOT_STARTED;
-       });
     return Scheduler.Event.NEXT;
   }
 }
@@ -2155,7 +2188,7 @@ function actionsRoutineEachFrame(snapshot) {
     t = actionsClock.getTime();
     frameN = frameN + 1;// number of completed frames (so 0 is the first frame)
     // update/draw components on each frame
-       
+   
     // update checkboxes to change colour upon selection
     for (var thisBox, _pj_c = 0, _pj_a = checkbox, _pj_b = _pj_a.length; (_pj_c < _pj_b); _pj_c += 1) {
         thisBox = _pj_a[_pj_c];
@@ -2177,7 +2210,7 @@ function actionsRoutineEachFrame(snapshot) {
             lastClickTime = thisClickTime;
         }
     }
-    
+
     // *box_stimulus_4* updates
     if (t >= 0.0 && box_stimulus_4.status === PsychoJS.Status.NOT_STARTED) {
       // keep track of start time/frame for later
@@ -2186,7 +2219,7 @@ function actionsRoutineEachFrame(snapshot) {
       
       box_stimulus_4.setAutoDraw(true);
     }
-  
+    
     // *text_stimulus_4* updates
     if (t >= 0.0 && text_stimulus_4.status === PsychoJS.Status.NOT_STARTED) {
       // keep track of start time/frame for later
@@ -2195,7 +2228,6 @@ function actionsRoutineEachFrame(snapshot) {
       
       text_stimulus_4.setAutoDraw(true);
     }
-
     
     // *text_actions* updates
     if (t >= 0.0 && text_actions.status === PsychoJS.Status.NOT_STARTED) {
@@ -2215,7 +2247,7 @@ function actionsRoutineEachFrame(snapshot) {
       
       distance_self.setAutoDraw(true);
     }
-    
+
     // *attack_self* updates
     if (t >= 0.0 && attack_self.status === PsychoJS.Status.NOT_STARTED) {
       // keep track of start time/frame for later
@@ -2224,6 +2256,7 @@ function actionsRoutineEachFrame(snapshot) {
      
       attack_self.setAutoDraw(true);
     }
+
 
     // *hiding* updates
     if (t >= 0.0 && hiding.status === PsychoJS.Status.NOT_STARTED) {
@@ -2293,6 +2326,7 @@ function actionsRoutineEachFrame(snapshot) {
       text_attack_self.setAutoDraw(true);
     }
 
+
     // *text_hiding* updates
     if (t >= 0.0 && text_hiding.status === PsychoJS.Status.NOT_STARTED) {
       // keep track of start time/frame for later
@@ -2352,25 +2386,25 @@ function actionsRoutineEachFrame(snapshot) {
       mouse_action.mouseClock.reset();
       prevButtonState = mouse_action.getPressed();  // if button is down already this ISN'T a new click
       }
+      
     if (mouse_action.status === PsychoJS.Status.STARTED) {  // only update if started and not finished!
       _mouseButtons = mouse_action.getPressed();
       if (!_mouseButtons.every( (e,i,) => (e == prevButtonState[i]) )) { // button state changed?
         prevButtonState = _mouseButtons;
         if (_mouseButtons.reduce( (e, acc) => (e+acc) ) > 0) { // state changed to a new click
-          mouse_action.time.push(mouse_action.mouseClock.getTime());
-          // check if the mouse was inside our 'clickable' objects
-          gotValidClick = false;
-          for (const obj of [distance_self, attack_self, hiding, apologising, distance_friend, verbal_friend, no_action]) {
-            if (obj.contains(mouse_action)) {
-              mouse_action.clicked_name.push(obj.name)
+            mouse_action.time.push(mouse_action.mouseClock.getTime());
+            // check if the mouse was inside our 'clickable' objects
+            gotValidClick = false;
+            for (const obj of [distance_self, attack_self, hiding, apologising, distance_friend, verbal_friend, no_action]) {
+                if (obj.contains(mouse_action)) {
+                    mouse_action.clicked_name.push(obj.name);
             }
           }
-
-        for (const cont_obj of [contAction]) {
-            if (cont_obj.contains(mouse_action)) {
-                gotValidClick = true;
+          
+          for (const cont_obj of [contAction]) {
+              if (cont_obj.contains(mouse_action)) {
+                  gotValidClick = true;
               }
-
           }
         }
       }
@@ -2379,7 +2413,7 @@ function actionsRoutineEachFrame(snapshot) {
     if (gotValidClick === true && boxCount === 1) { // abort routine on response
             continueRoutine = false;
     }
-
+    
     // *contTextActions* updates
     if (t >= 0.0 && contTextActions.status === PsychoJS.Status.NOT_STARTED) {
       // keep track of start time/frame for later
@@ -2411,7 +2445,7 @@ function actionsRoutineEachFrame(snapshot) {
 
     // check for quit (typically the Esc key)
     if (psychoJS.experiment.experimentEnded || psychoJS.eventManager.getKeys({keyList:['escape']}).length > 0) {
-      return quitPsychoJS('The [Escape] key was pressed. Goodbye!', false);
+      return quitPsychoJS('您已按下[esc]键，感谢您的参与！', false);
     }
     
     // check if the Routine should terminate
@@ -2420,11 +2454,11 @@ function actionsRoutineEachFrame(snapshot) {
     }
     
     continueRoutine = false;  // reverts to True if at least one component still running
-    actionsComponents.forEach( function(thisComponent) {
+    for (const thisComponent of actionsComponents)
       if ('status' in thisComponent && thisComponent.status !== PsychoJS.Status.FINISHED) {
         continueRoutine = true;
+        break;
       }
-    });
     
     // refresh the screen if continuing
     if (continueRoutine) {
@@ -2438,14 +2472,18 @@ function actionsRoutineEachFrame(snapshot) {
 function actionsRoutineEnd(snapshot) {
   return function () {
     //------Ending Routine 'actions'-------
-    actionsComponents.forEach( function(thisComponent) {
+    for (const thisComponent of actionsComponents) {
       if (typeof thisComponent.setAutoDraw === 'function') {
         thisComponent.setAutoDraw(false);
       }
-    });
+    }
     // store data for thisExp (ExperimentHandler)
     _mouseButtons = mouse_action.getPressed();
-    
+    //add 1/26 09:39
+    // if (trialCount == 3){
+    //     continueRoutine = false
+    // }
+        
     if (mouse_action.clicked_name.length > 0) {
       psychoJS.experiment.addData('mouse_action.clicked_name', mouse_action.clicked_name);
       psychoJS.experiment.addData('mouse_action.time', mouse_action.mouseClock.getTime());
@@ -2472,10 +2510,9 @@ function thanksRoutineBegin(snapshot) {
     thanksComponents = [];
     thanksComponents.push(thanksText);
     
-    thanksComponents.forEach( function(thisComponent) {
+    for (const thisComponent of thanksComponents)
       if ('status' in thisComponent)
         thisComponent.status = PsychoJS.Status.NOT_STARTED;
-       });
     return Scheduler.Event.NEXT;
   }
 }
@@ -2498,6 +2535,8 @@ function thanksRoutineEachFrame(snapshot) {
       thanksText.frameNStart = frameN;  // exact frame index
       
       thanksText.setAutoDraw(true);
+      //Update 2024/01/29
+      //window.location.replace("https://www.baidu.com");
     }
 
     frameRemains = 0.0 + 3 - psychoJS.window.monitorFramePeriod * 0.75;  // most of one frame period left
@@ -2506,7 +2545,7 @@ function thanksRoutineEachFrame(snapshot) {
     }
     // check for quit (typically the Esc key)
     if (psychoJS.experiment.experimentEnded || psychoJS.eventManager.getKeys({keyList:['escape']}).length > 0) {
-      return quitPsychoJS('The [Escape] key was pressed. Goodbye!', false);
+      return quitPsychoJS('您已按下[esc]键，感谢您的参与！', false);
     }
     
     // check if the Routine should terminate
@@ -2515,11 +2554,11 @@ function thanksRoutineEachFrame(snapshot) {
     }
     
     continueRoutine = false;  // reverts to True if at least one component still running
-    thanksComponents.forEach( function(thisComponent) {
+    for (const thisComponent of thanksComponents)
       if ('status' in thisComponent && thisComponent.status !== PsychoJS.Status.FINISHED) {
         continueRoutine = true;
+        break;
       }
-    });
     
     // refresh the screen if continuing
     if (continueRoutine && routineTimer.getTime() > 0) {
@@ -2533,11 +2572,11 @@ function thanksRoutineEachFrame(snapshot) {
 function thanksRoutineEnd(snapshot) {
   return function () {
     //------Ending Routine 'thanks'-------
-    thanksComponents.forEach( function(thisComponent) {
+    for (const thisComponent of thanksComponents) {
       if (typeof thisComponent.setAutoDraw === 'function') {
         thisComponent.setAutoDraw(false);
       }
-    });
+    }
     return Scheduler.Event.NEXT;
   };
 }
@@ -2577,9 +2616,10 @@ function quitPsychoJS(message, isCompleted) {
     psychoJS.experiment.nextEntry();
   }
   
-  
+  //message = "temp";
   psychoJS.window.close();
   psychoJS.quit({message: message, isCompleted: isCompleted});
-  
+  //TrialUpdate_2024/01/29 尝试实现自动跳转页面
+  window.location.replace("https://www.wjx.cn/vm/h4oz4gw.aspx");
   return Scheduler.Event.QUIT;
 }

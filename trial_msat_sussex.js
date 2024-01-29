@@ -207,7 +207,7 @@ function experimentInit() {
     win: psychoJS.window,
     name: 'instrText',
     //text: 'The first screen will ask a general question. \n\nThen, you will see short statements describing your social behaviour towards 你最好的朋友是, or describing social behaviour of 你最好的朋友是 towards you.  \n\nPlease indicate how you would feel about the described behaviour.\n    ',
-    text: '欢迎参加，下面是我们在日常生活中可能会对朋友做的一些行为，或朋友对我们做的一些行为\n\n当你读到这些句子时，请尝试想象自己身临其境。\n然后，评出你有多大可能性做出一些常见的感受和反应。',
+    text: '欢迎参加，下面是我们可能会对朋友做的一些行为，或朋友对我们做的一些行为\n当你读到这些句子时，请尝试想象自己身临其境。\n然后，评出你有多大可能性做出一些常见的反应和感受。',
     font: 'Arial',
     units: 'norm', 
     pos: [0, 0], height: 0.08,  wrapWidth: undefined, ori: 0,
@@ -389,7 +389,7 @@ trialCount = 0;
     font: 'Arial',
     units: 'norm', 
     pos: [(-0.55), 0.05], height: 0.05,  wrapWidth: undefined, ori: 0,
-    color: new util.Color('LightGray'),  opacity: 1,
+    color: new util.Color('white'),  opacity: 1,
     depth: -10.0 
   });
 
@@ -401,7 +401,7 @@ trialCount = 0;
     font: 'Arial',
     units: 'norm', 
     pos: [0.55, 0.05], height: 0.05,  wrapWidth: undefined, ori: 0,
-    color: new util.Color('LightGray'),  opacity: 1,
+    color: new util.Color('white'),  opacity: 1,
     depth: -11.0 
   });
   

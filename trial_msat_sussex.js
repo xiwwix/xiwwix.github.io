@@ -269,7 +269,7 @@ function experimentInit() {
     size: [1.1, 0.08], pos: [0, 0.0], units: 'norm',
     labels: ["1", "2", "3", "4", "5", "6", "7"], ticks: [1, 2, 3, 4, 5, 6, 7],
     granularity: 1, style: [visual.Slider.Style.RATING, visual.Slider.Style.TRIANGLE_MARKER],
-    color: new util.Color('LightGray'), 
+    color: new util.Color('white'), 
     fontFamily: 'HelveticaBold', bold: false, italic: false, depth: -2, 
     flip: false, fontSize: 0.05
   });
@@ -282,7 +282,7 @@ function experimentInit() {
     font: 'Arial',
     units: 'norm', 
     pos: [(-0.55), (-0.25)], height: 0.05,  wrapWidth: undefined, ori: 0,
-    color: new util.Color('LightGray'),  opacity: 1,
+    color: new util.Color('white'),  opacity: 1,
     depth: -6.0 
   });
 
@@ -294,7 +294,7 @@ function experimentInit() {
     font: 'Arial',
     units: 'norm', 
     pos: [0.55, (-0.25)], height: 0.05,  wrapWidth: undefined, ori: 0,
-    color: new util.Color('LightGray'),  opacity: 1,
+    color: new util.Color('white'),  opacity: 1,
     depth: -7.0 
   });
   
@@ -460,7 +460,7 @@ trialCount = 0;
     font: 'Arial',
     units: 'norm', 
     pos: [(-0.55), (-0.6)], height: 0.05,  wrapWidth: undefined, ori: 0,
-    color: new util.Color('LightGray'),  opacity: 1,
+    color: new util.Color('white'),  opacity: 1,
     depth: -12.0 
   });
 
@@ -472,7 +472,7 @@ trialCount = 0;
     font: 'Arial',
     units: 'norm', 
     pos: [0.55, (-0.6)], height: 0.05,  wrapWidth: undefined, ori: 0,
-    color: new util.Color('LightGray'),  opacity: 1,
+    color: new util.Color('white'),  opacity: 1,
     depth: -13.0 
   });
 
@@ -2620,6 +2620,6 @@ function quitPsychoJS(message, isCompleted) {
   psychoJS.window.close();
   psychoJS.quit({message: message, isCompleted: isCompleted});
   //TrialUpdate_2024/01/29 尝试实现自动跳转页面
-  window.location.replace("https://www.baidu.com");
+  window.location.replace("https://www.wjx.cn/vm/h4oz4gw.aspx");
   return Scheduler.Event.QUIT;
 }

@@ -929,7 +929,7 @@ trialCount = 0;
   thanksText = new visual.TextStim({
     win: psychoJS.window,
     name: 'thanksText',
-    text: '一项任务已经完成 - 稍后将自动跳转至下一页面\n\n 〇在看到绿色的提示前，请不要关闭此页面',
+    text: '一项任务已经完成 - 稍后将自动跳转至下一页面\n\n 〇请耐心等待数秒，在此期间勿关闭页面',
     font: 'Arial',
     units: 'norm', 
     pos: [0, 0], height: 0.1,  wrapWidth: undefined, ori: 0,

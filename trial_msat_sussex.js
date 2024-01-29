@@ -207,7 +207,7 @@ function experimentInit() {
     win: psychoJS.window,
     name: 'instrText',
     //text: 'The first screen will ask a general question. \n\nThen, you will see short statements describing your social behaviour towards 你最好的朋友是, or describing social behaviour of 你最好的朋友是 towards you.  \n\nPlease indicate how you would feel about the described behaviour.\n    ',
-    text: '欢迎参加，下面是我们可能会对朋友做的一些行为，或朋友对我们做的一些行为\n当你读到这些句子时，请尝试想象自己身临其境。\n然后，评出你有多大可能性做出一些常见的反应和感受。',
+    text: '欢迎参加，\n下面是我们可能会对朋友做的一些行为，或朋友对我们做的一些行为\n当你读到这些句子时，请尝试想象自己身临其境。\n然后，评出你有多大可能性做出一些常见的反应和感受。',
     font: 'Arial',
     units: 'norm', 
     pos: [0, 0], height: 0.08,  wrapWidth: undefined, ori: 0,
@@ -929,7 +929,7 @@ trialCount = 0;
   thanksText = new visual.TextStim({
     win: psychoJS.window,
     name: 'thanksText',
-    text: '一项任务已经完成 - 稍后将自动跳转至下一页面\n\n 〇请耐心等待数秒，在此期间勿关闭页面',
+    text: '一项任务已经完成 - 稍后将自动跳转至下一页面\n\n 〇请耐心等待，在此期间请勿关闭页面',
     font: 'Arial',
     units: 'norm', 
     pos: [0, 0], height: 0.1,  wrapWidth: undefined, ori: 0,

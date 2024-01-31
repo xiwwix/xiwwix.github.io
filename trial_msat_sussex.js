@@ -203,11 +203,12 @@ var routineTimer;
 function experimentInit() {
   // Initialize components for Routine "instructions"
   instructionsClock = new util.Clock();
+  myfriendname = expInfo["你最好的朋友是"];
   instrText = new visual.TextStim({
     win: psychoJS.window,
     name: 'instrText',
     //text: 'The first screen will ask a general question. \n\nThen, you will see short statements describing your social behaviour towards 你最好的朋友是, or describing social behaviour of 你最好的朋友是 towards you.  \n\nPlease indicate how you would feel about the described behaviour.\n    ',
-    text: '欢迎参加，\n下面是我们可能会对朋友做的一些行为，或朋友对我们做的一些行为\n当你读到这些句子时，请尝试想象自己身临其境。\n然后，评出你有多大可能性做出一些常见的反应和感受。',
+    text: '欢迎参加，\n下面是我们可能会对朋友做的一些行为，或朋友对我们做的一些行为\n当你读到这些句子时，请尝试想象自己身临其境。\n然后，评出你有多大可能性做出一些常见的行为和感受。',
     font: 'Arial',
     units: 'norm', 
     pos: [0, 0], height: 0.08,  wrapWidth: undefined, ori: 0,
@@ -256,7 +257,7 @@ function experimentInit() {
     win: psychoJS.window,
     name: 'text_relation',
     //text: 'Relative to what you know about other relationships, please rate how close you feel to 你最好的朋友是',
-    text: '和其他人相比，请给你和你最好朋友的关系评分',
+    text: '和其他人相比，请给你和'+myfriendname +'的关系评分',
     font: 'Arial',
     units: 'norm', 
     pos: [0, 0.5], height: 0.07,  wrapWidth: undefined, ori: 0,
@@ -434,7 +435,7 @@ trialCount = 0;
     win: psychoJS.window,
     name: 'instrBlameOA',
     //text: 'How strongly would you blame your friend?',
-    text: '你会多强烈地责备你的朋友?',
+    text: '你会多强烈地责备'+ myfriendname,
     font: 'Arial',
     units: 'norm', 
     pos: [0, (-0.15)], height: 0.05,  wrapWidth: undefined, ori: 0,
@@ -502,7 +503,7 @@ trialCount = 0;
     win: psychoJS.window,
     name: 'text_feelings',
     //text: 'Please select the feeling that you would experience most strongly (select only one):',
-    text: '请选择最符合你感受的选项（只选择一项）',
+    text: '请选择最符合你感受的选项（单选）',
     font: 'Arial',
     units: 'norm', 
     pos: [0, 0.5], height: 0.05,  wrapWidth: 500, ori: 0,
@@ -629,7 +630,7 @@ trialCount = 0;
     win: psychoJS.window,
     name: 'text_contempt_friend',
     //text: 'contempt / disgust towards friend',
-    text: '贬低/厌恶朋友',
+    text: '贬低/厌恶'+myfriendname,
     font: 'Arial',
     units: 'norm', 
     alignHoriz: 'left',
@@ -642,7 +643,7 @@ trialCount = 0;
     win: psychoJS.window,
     name: 'text_anger_friend',
     //text: 'indignation / anger towards friend',
-    text: '对朋友生气/愤怒',
+    text: '对'+myfriendname+'生气/愤怒',
     font: 'Arial',
     units: 'norm', 
     alignHoriz: 'left',
@@ -801,7 +802,7 @@ trialCount = 0;
     win: psychoJS.window,
     name: 'text_distance_self',
     //text: 'feel like creating distance from yourself',
-    text: '想要自我疏离（比如：让自己与问题保持距离，以他人立场反省发生在你和朋友间的冲突）',
+    text: '想要自我疏离（比如：让自己与问题保持距离，以他人立场反省发生在你和'+myfriendname+'间的冲突）',
     font: 'Arial',
     units: 'norm',
     alignHoriz: 'left',
@@ -853,7 +854,7 @@ trialCount = 0;
     win: psychoJS.window,
     name: 'text_distance_friend',
     //text: 'feel like creating a distance from your friend',
-    text: '想要疏远你的朋友',
+    text: '想要疏远'+myfriendname,
     font: 'Arial',
     units: 'norm', 
     alignHoriz: 'left',
@@ -866,7 +867,7 @@ trialCount = 0;
     win: psychoJS.window,
     name: 'text_verbal_friend',
     //text: 'feel like verbally or physically attacking / punishing your friend',
-    text: '想要用言语或肢体攻击/惩罚你的朋友',
+    text: '想要用言语或肢体攻击/惩罚'+myfriendname,
     font: 'Arial',
     units: 'norm', 
     alignHoriz: 'left',
@@ -2619,7 +2620,13 @@ function quitPsychoJS(message, isCompleted) {
   //message = "temp";
   psychoJS.window.close();
   psychoJS.quit({message: message, isCompleted: isCompleted});
-  //TrialUpdate_2024/01/29 尝试实现自动跳转页面
+  //TrialUpdate_2024/01/29 自动跳转页面
+  setTimeout(console.log("waiting..."),3000)
   window.location.replace("https://www.wjx.cn/vm/h4oz4gw.aspx");
   return Scheduler.Event.QUIT;
 }
+
+//2024/01/31_To do：
+//增加按键跳转
+//你和你的朋友的关系->显示名字
+//首页嵌入图片

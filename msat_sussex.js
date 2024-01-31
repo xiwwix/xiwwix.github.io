@@ -28,8 +28,8 @@ psychoJS.openWindow({
 
 // store info about the experiment session:
 let expName = 'msat_sussex';  // from the Builder filename that created this script
-//let expInfo = {'participant': 'ID', '姓名': '', '你最好的朋友是': '', 'session': ''};
-let expInfo = {'编号': '', '姓名': '', '你最好的朋友是': '','年龄':'','性别':'','组别':''};
+//let expInfo = {'participant': 'ID', '你的名字是': '', '你最好的朋友是': '', 'session': ''};
+let expInfo = {'编号': '', '你的名字是': '', '你最好的朋友是': '','年龄':'','性别':'','组别':''};
 
 // Start code blocks for 'Before Experiment'
 // properties marker slider
@@ -48,7 +48,10 @@ psychoJS.scheduleCondition(function() { return (psychoJS.gui.dialogComponent.but
 
 // flowScheduler gets run if the participants presses OK
 flowScheduler.add(updateInfo); // add timeStamp
-flowScheduler.add(experimentInit);
+//flowScheduler.add(experimentInit);
+
+//Update_Trial 2024/01/31 尝试在指导语界面展示图片
+flowScheduler.add(myExperimentInit);
 
 var myname;
 var myfriendname;
@@ -69,6 +72,9 @@ flowScheduler.add(thanksRoutineBegin());
 flowScheduler.add(thanksRoutineEachFrame());
 flowScheduler.add(thanksRoutineEnd());
 flowScheduler.add(quitPsychoJS, '', true);
+//Trial_Update 2024/01/31 尝试添加一个函数以实现跳转功能
+//失败了
+//flowScheduler.add(myRelocation());
 
 // quit if user presses Cancel in dialog box:
 dialogCancelScheduler.add(quitPsychoJS, '', false);
@@ -77,7 +83,8 @@ psychoJS.start({
   expName: expName,
   expInfo: expInfo,
   resources: [
-      {'name': 'MSAT_conditions.xls', 'path': 'resources/MSAT_conditions.xls'}
+      {'name': 'MSAT_conditions.xls', 'path': 'resources/MSAT_conditions2.xls'},
+      {'name':'trial.jpg','path':'resources/trial.jpg'}
   ]
 });
 
@@ -106,6 +113,7 @@ function updateInfo() {
 // instructions
 var instructionsClock;
 var instrText;
+var instrPicture;
 var mouse_instr;
 var contTextInstr;
 var contInstr;
@@ -200,19 +208,33 @@ var globalClock;
 var routineTimer;
 
 
-function experimentInit() {
+function myExperimentInit() {
   // Initialize components for Routine "instructions"
   instructionsClock = new util.Clock();
+  myfriendname = expInfo["你最好的朋友是"];
+
   instrText = new visual.TextStim({
     win: psychoJS.window,
     name: 'instrText',
     //text: 'The first screen will ask a general question. \n\nThen, you will see short statements describing your social behaviour towards 你最好的朋友是, or describing social behaviour of 你最好的朋友是 towards you.  \n\nPlease indicate how you would feel about the described behaviour.\n    ',
-    text: '欢迎参加，下面是我们在日常生活中可能会对朋友做的一些行为，或朋友对我们做的一些行为\n\n当你读到这些句子时，请尝试想象自己身临其境。\n然后，评出你有多大可能性做出一些常见的感受和反应。',
+    text: '欢迎参加，\n下面是我们可能会对朋友做的一些行为，或朋友对我们做的一些行为\n当你读到这些句子时，请尝试想象自己身临其境。\n然后，评出你有多大可能性做出一些常见的行为和感受。',
     font: 'Arial',
     units: 'norm', 
     pos: [0, 0], height: 0.08,  wrapWidth: undefined, ori: 0,
     color: new util.Color('white'),  opacity: 1,
     depth: 0.0 
+  });
+
+  //尝试将上面的指导语改成实例的图片TAT
+  //不太行
+
+  instrPicture = new visual.ImageStim({
+    win: psychoJS.window,
+    name: 'instrPicture',
+    image: 'trial.jpg',
+    units: 'norm',
+    pos: [0, 0],
+    size: [0.5, 0.5],
   });
   
   // shuffle
@@ -256,7 +278,8 @@ function experimentInit() {
     win: psychoJS.window,
     name: 'text_relation',
     //text: 'Relative to what you know about other relationships, please rate how close you feel to 你最好的朋友是',
-    text: '和其他人相比，请给你和你最好朋友的关系评分',
+    text: '和其他人相比，请给你和'+myfriendname +'的关系评分',
+    font: 'Arial',
     units: 'norm', 
     pos: [0, 0.5], height: 0.07,  wrapWidth: undefined, ori: 0,
     color: new util.Color('white'),  opacity: 1,
@@ -268,7 +291,7 @@ function experimentInit() {
     size: [1.1, 0.08], pos: [0, 0.0], units: 'norm',
     labels: ["1", "2", "3", "4", "5", "6", "7"], ticks: [1, 2, 3, 4, 5, 6, 7],
     granularity: 1, style: [visual.Slider.Style.RATING, visual.Slider.Style.TRIANGLE_MARKER],
-    color: new util.Color('LightGray'), 
+    color: new util.Color('white'), 
     fontFamily: 'HelveticaBold', bold: false, italic: false, depth: -2, 
     flip: false, fontSize: 0.05
   });
@@ -281,7 +304,7 @@ function experimentInit() {
     font: 'Arial',
     units: 'norm', 
     pos: [(-0.55), (-0.25)], height: 0.05,  wrapWidth: undefined, ori: 0,
-    color: new util.Color('LightGray'),  opacity: 1,
+    color: new util.Color('white'),  opacity: 1,
     depth: -6.0 
   });
 
@@ -293,7 +316,7 @@ function experimentInit() {
     font: 'Arial',
     units: 'norm', 
     pos: [0.55, (-0.25)], height: 0.05,  wrapWidth: undefined, ori: 0,
-    color: new util.Color('LightGray'),  opacity: 1,
+    color: new util.Color('white'),  opacity: 1,
     depth: -7.0 
   });
   
@@ -349,7 +372,7 @@ function experimentInit() {
     win: psychoJS.window,
     name: 'instrBlameSA',
     //text: 'How strongly would you blame yourself?',
-    text: '你会多强烈地责怪自己?',
+    text: '你会多强烈地责备自己?',
     font: 'Arial',
     units: 'norm', 
     pos: [0, 0.5], height: 0.05,  wrapWidth: undefined, ori: 0,
@@ -388,7 +411,7 @@ trialCount = 0;
     font: 'Arial',
     units: 'norm', 
     pos: [(-0.55), 0.05], height: 0.05,  wrapWidth: undefined, ori: 0,
-    color: new util.Color('LightGray'),  opacity: 1,
+    color: new util.Color('white'),  opacity: 1,
     depth: -10.0 
   });
 
@@ -400,7 +423,7 @@ trialCount = 0;
     font: 'Arial',
     units: 'norm', 
     pos: [0.55, 0.05], height: 0.05,  wrapWidth: undefined, ori: 0,
-    color: new util.Color('LightGray'),  opacity: 1,
+    color: new util.Color('white'),  opacity: 1,
     depth: -11.0 
   });
   
@@ -433,7 +456,7 @@ trialCount = 0;
     win: psychoJS.window,
     name: 'instrBlameOA',
     //text: 'How strongly would you blame your friend?',
-    text: '你会多强烈地责怪你的朋友?',
+    text: '你会多强烈地责备'+ myfriendname,
     font: 'Arial',
     units: 'norm', 
     pos: [0, (-0.15)], height: 0.05,  wrapWidth: undefined, ori: 0,
@@ -459,7 +482,7 @@ trialCount = 0;
     font: 'Arial',
     units: 'norm', 
     pos: [(-0.55), (-0.6)], height: 0.05,  wrapWidth: undefined, ori: 0,
-    color: new util.Color('LightGray'),  opacity: 1,
+    color: new util.Color('white'),  opacity: 1,
     depth: -12.0 
   });
 
@@ -471,7 +494,7 @@ trialCount = 0;
     font: 'Arial',
     units: 'norm', 
     pos: [0.55, (-0.6)], height: 0.05,  wrapWidth: undefined, ori: 0,
-    color: new util.Color('LightGray'),  opacity: 1,
+    color: new util.Color('white'),  opacity: 1,
     depth: -13.0 
   });
 
@@ -501,7 +524,7 @@ trialCount = 0;
     win: psychoJS.window,
     name: 'text_feelings',
     //text: 'Please select the feeling that you would experience most strongly (select only one):',
-    text: '请选择最符合你感受的选项（只选择一项）',
+    text: '请选择最符合你感受的选项（单选）',
     font: 'Arial',
     units: 'norm', 
     pos: [0, 0.5], height: 0.05,  wrapWidth: 500, ori: 0,
@@ -602,7 +625,7 @@ trialCount = 0;
     win: psychoJS.window,
     name: 'text_anger_self',
     //text: 'indignation / anger towards self',
-    text: '自我生气/愤怒',
+    text: '对自己生气/愤怒',
     font: 'Arial',
     units: 'norm', 
     alignHoriz: 'left',
@@ -615,7 +638,7 @@ trialCount = 0;
     win: psychoJS.window,
     name: 'text_contempt_self',
     //text: 'contempt / disgust towards self',
-    text: '自我贬低/厌恶',
+    text: '自我贬低/自我厌恶',
     font: 'Arial',
     units: 'norm', 
     alignHoriz: 'left',
@@ -628,7 +651,7 @@ trialCount = 0;
     win: psychoJS.window,
     name: 'text_contempt_friend',
     //text: 'contempt / disgust towards friend',
-    text: '贬低/厌恶朋友',
+    text: '贬低/厌恶'+myfriendname,
     font: 'Arial',
     units: 'norm', 
     alignHoriz: 'left',
@@ -641,7 +664,7 @@ trialCount = 0;
     win: psychoJS.window,
     name: 'text_anger_friend',
     //text: 'indignation / anger towards friend',
-    text: '对朋友生气/愤怒',
+    text: '对'+myfriendname+'生气/愤怒',
     font: 'Arial',
     units: 'norm', 
     alignHoriz: 'left',
@@ -654,7 +677,7 @@ trialCount = 0;
     win: psychoJS.window,
     name: 'text_no_feeling',
     //text: 'no feeling / other feeling',
-    text: '没有感受或其他',
+    text: '没有感受/其他',
     font: 'Arial',
     units: 'norm', 
     alignHoriz: 'left',
@@ -725,7 +748,7 @@ trialCount = 0;
     win: psychoJS.window,
     name: 'text_actions',
     //text: 'Please select the action that you would most strongly feel like doing (select only one):',
-    text: '请选择下列你最可能做的行为（只选择一项）',
+    text: '请选择下列你最可能做的行为（单选）',
     font: 'Arial',
     units: 'norm', 
     pos: [0, 0.5], height: 0.05,  wrapWidth: 500, ori: 0,
@@ -800,7 +823,7 @@ trialCount = 0;
     win: psychoJS.window,
     name: 'text_distance_self',
     //text: 'feel like creating distance from yourself',
-    text: '想要远离自己',
+    text: '想要自我疏离（比如：让自己与问题保持距离，以他人立场反省发生在你和'+myfriendname+'间的冲突）',
     font: 'Arial',
     units: 'norm',
     alignHoriz: 'left',
@@ -852,7 +875,7 @@ trialCount = 0;
     win: psychoJS.window,
     name: 'text_distance_friend',
     //text: 'feel like creating a distance from your friend',
-    text: '想要疏远你的朋友',
+    text: '想要疏远'+myfriendname,
     font: 'Arial',
     units: 'norm', 
     alignHoriz: 'left',
@@ -865,7 +888,7 @@ trialCount = 0;
     win: psychoJS.window,
     name: 'text_verbal_friend',
     //text: 'feel like verbally or physically attacking / punishing your friend',
-    text: '想要用言语或肢体攻击/惩罚你的朋友',
+    text: '想要用言语或肢体攻击/惩罚'+myfriendname,
     font: 'Arial',
     units: 'norm', 
     alignHoriz: 'left',
@@ -928,7 +951,7 @@ trialCount = 0;
   thanksText = new visual.TextStim({
     win: psychoJS.window,
     name: 'thanksText',
-    text: '一项任务已经完成 - 稍后将自动跳转至下一页面\n\n 〇在看到绿色的提示前，请不要关闭此页面',
+    text: '该实验结束，稍后浏览器将跳转至另一网站，开始第二部分问卷调查。',
     font: 'Arial',
     units: 'norm', 
     pos: [0, 0], height: 0.1,  wrapWidth: undefined, ori: 0,
@@ -970,6 +993,8 @@ function instructionsRoutineBegin(snapshot) {
     // keep track of which components have finished
     instructionsComponents = [];
     instructionsComponents.push(instrText);
+    //instructionsComponents.push(instrPicture);
+    instrPicture.setImage('trial.jpg', false);
     instructionsComponents.push(mouse_instr);
     instructionsComponents.push(contTextInstr);
     instructionsComponents.push(contInstr);
@@ -1289,7 +1314,7 @@ var currentLoop;
 var msgProgress;
 
 // initialising number of items on stimulus list
-var num_items = 54;
+var num_items = 6;
 
 function trialsLoopBegin(trialsLoopScheduler) {
   // set up handler to look after randomisation of conditions etc
@@ -1333,64 +1358,64 @@ var blameComponents;
 
 function blameRoutineBegin(snapshot) {
   return function () {
-    myname = " " + expInfo["姓名"] + " "
-    myfriendname = " " + expInfo["你最好的朋友是"] + " "
+    myname = expInfo["你的名字是"]
+    myfriendname = expInfo["你最好的朋友是"]
     mydictionary = {
-    "is apathetic towards":[myname + "对" + myfriendname + "冷漠",
-    myfriendname + "对" + myname + "冷漠"],
-    "is boastful towards":[myname + "对" + myfriendname + "自我吹嘘",
-    myfriendname + "对" + myname + "自我吹嘘"],
-    'is bossy with':[myname + "对" + myfriendname + '发号施令',
-    myfriendname + "对" + myname + '发号施令'],
-    'is careless towards':[  myname + "不在乎" + myfriendname,
-    myfriendname + "不在乎" + myname],
-    'is cruel towards':[myname + '对' + myfriendname +"残忍",
-    myfriendname + '对' + myname +"残忍"],
-    'is deceitful towards':[myname + '欺骗' + myfriendname,
-    myfriendname + '欺骗' + myname],
-    'is disagreeable towards':[myname + "让" + myfriendname + "不愉快",
-    myfriendname + "让" + myname + "不愉快"],
-    'is dishonest with':[myname + "对" + myfriendname + "不诚实",
-    myfriendname + "对" + myname + "不诚实"],
-    'is greedy towards':[myname + "对" + myfriendname + "贪婪",
-    myfriendname + "对" + myname + "贪婪"],
-    'is helpless towards':[myname + "对" + myfriendname + "毫无帮助",
-    myfriendname + "对" + myname + "毫无帮助"],
-    'is ignorant towards':[myname + "忽视" + myfriendname,
-    myfriendname + "忽视" + myname],
-    'is impatient with':[myname + "对" + myfriendname + "不耐烦",
-    myfriendname + "对" + myname + "不耐烦"],
-    'is jealous towards':[myname + "嫉妒" + myfriendname,
-    myfriendname + "嫉妒" + myname],
-    'is possessive towards':[myname +"对"+ myfriendname + "有强占有欲",
-    myfriendname + "对"+ myname + "有强占有欲"],
-    'is prejudiced towards':[myname + "对"+ myfriendname+ "有偏见",
-    myfriendname + "对"+ myname+ "有偏见"],
-    'is quarrelsome with':[myname + "和" + myfriendname + "争吵",
-    myfriendname + "和" + myname + "争吵"],
-    'is rebellious towards':[myname + "背叛" + myfriendname,
-    myfriendname + "背叛" + myname],
-    'is rough towards':[myname + "对"+ myfriendname + "粗暴",
-    myfriendname + "对"+ myname +"粗暴"],
-    'is selfish towards':[myname + "对"+ myfriendname + "自私",
-    myfriendname + "对"+ myname +"自私"],
-    'is stingy towards':[myname + "对"+ myfriendname + "小气",
-    myfriendname + "对"+ myname +"小气"],
-    'is temperamental with':[myname + "对"+ myfriendname+ "喜怒无常",
-    myfriendname + "对"+ myname+ "喜怒无常"],
-    'is touchy with':[myname + "对"+ myfriendname+ "敏感易怒",
-    myfriendname + "对"+ myname+ "敏感易怒"],
-    'is tough towards':[myname + "对"+ myfriendname+ "要求严格",
-    myfriendname + "对"+ myname+ "要求严格"],
-    'is vain towards':[myname + "对"+ myfriendname+ "强硬",
-    myfriendname + "对"+ myname+ "强硬"],
-    'is competitive with':[myname + "对"+ myfriendname+ "争强好胜",
-    myfriendname + "对"+ myname+ "争强好胜"],
-    'is firm with':[myname + "对"+ myfriendname+ "严厉",
-    myfriendname + "对"+ myname+ "严厉"],
-    'is romantic towards':[myname + "对"+ myfriendname+ "想入非非",
-    myfriendname + "对"+ myname+ "想入非非"],
-    }
+      "is apathetic towards":[myname + "对" + myfriendname + "冷漠",
+      myfriendname + "对" + myname + "冷漠"],
+      "is boastful towards":[myname + "对" + myfriendname + "自我吹嘘",
+      myfriendname + "对" + myname + "自我吹嘘"],
+      'is bossy with':[myname + "对" + myfriendname + '发号施令',
+      myfriendname + "对" + myname + '发号施令'],
+      'is careless towards':[  myname + "不在乎" + myfriendname,
+      myfriendname + "不在乎" + myname],
+      'is cruel towards':[myname + '对' + myfriendname +"残忍",
+      myfriendname + '对' + myname +"残忍"],
+      'is deceitful towards':[myname + '欺骗' + myfriendname,
+      myfriendname + '欺骗' + myname],
+      'is disagreeable towards':[myname + "让" + myfriendname + "不愉快",
+      myfriendname + "让" + myname + "不愉快"],
+      'is dishonest with':[myname + "对" + myfriendname + "不诚实",
+      myfriendname + "对" + myname + "不诚实"],
+      'is greedy towards':[myname + "对" + myfriendname + "贪婪索取",
+      myfriendname + "对" + myname + "贪婪索取"],
+      'is helpless towards':[myname + "对" + myfriendname + "毫无帮助",
+      myfriendname + "对" + myname + "毫无帮助"],
+      'is ignorant towards':[myname + "忽视" + myfriendname,
+      myfriendname + "忽视" + myname],
+      'is impatient with':[myname + "对" + myfriendname + "不耐烦",
+      myfriendname + "对" + myname + "不耐烦"],
+      'is jealous towards':[myname + "嫉妒" + myfriendname,
+      myfriendname + "嫉妒" + myname],
+      'is possessive towards':[myname +"对"+ myfriendname + "有强占有欲",
+      myfriendname + "对"+ myname + "有强占有欲"],
+      'is prejudiced towards':[myname + "对"+ myfriendname+ "有偏见",
+      myfriendname + "对"+ myname+ "有偏见"],
+      'is quarrelsome with':[myname + "和" + myfriendname + "争吵",
+      myfriendname + "和" + myname + "争吵"],
+      'is rebellious towards':[myname + "和" + myfriendname + "对着干",
+      myfriendname + "和" + myname + "对着干"],
+      'is rough towards':[myname + "对"+ myfriendname + "粗暴",
+      myfriendname + "对"+ myname +"粗暴"],
+      'is selfish towards':[myname + "对"+ myfriendname + "自私",
+      myfriendname + "对"+ myname +"自私"],
+      'is stingy towards':[myname + "对"+ myfriendname + "小气",
+      myfriendname + "对"+ myname +"小气"],
+      'is temperamental with':[myname + "对"+ myfriendname+ "喜怒无常",
+      myfriendname + "对"+ myname+ "喜怒无常"],
+      'is touchy with':[myname + "对"+ myfriendname+ "敏感易怒",
+      myfriendname + "对"+ myname+ "敏感易怒"],
+      'is tough towards':[myname + "对"+ myfriendname+ "要求严格",
+      myfriendname + "对"+ myname+ "要求严格"],
+      'is vain towards':[myname + "对"+ myfriendname+ "强硬",
+      myfriendname + "对"+ myname+ "强硬"],
+      'is competitive with':[myname + "对"+ myfriendname+ "争强好胜",
+      myfriendname + "对"+ myname+ "争强好胜"],
+      'is firm with':[myname + "对"+ myfriendname+ "严厉",
+      myfriendname + "对"+ myname+ "严厉"],
+      'is romantic towards':[myname + "对"+ myfriendname+ "想入非非",
+      myfriendname + "对"+ myname+ "想入非非"],
+      }
     //------Prepare to start Routine 'blame'-------
     t = 0;
     blame_Clock.reset(); // clock
@@ -1398,11 +1423,11 @@ function blameRoutineBegin(snapshot) {
     
     // show right order of agency based on agency_stimulus input
     if ((agency === "self")) {
-        //text_stimulus.setText(((((expInfo["姓名"] + " ") + verb_stimulus) + " ") + expInfo["你最好的朋友是"]));
+        //text_stimulus.setText(((((expInfo["你的名字是"] + " ") + verb_stimulus) + " ") + expInfo["你最好的朋友是"]));
         text_stimulus.setText(mydictionary[verb_stimulus][0]);
     } else {
         if ((agency === "other")) {
-            //text_stimulus.setText(((((expInfo["你最好的朋友是"] + " ") + verb_stimulus) + " ") + expInfo["姓名"]));
+            //text_stimulus.setText(((((expInfo["你最好的朋友是"] + " ") + verb_stimulus) + " ") + expInfo["你的名字是"]));
             text_stimulus.setText(mydictionary[verb_stimulus][1]);
         }
     }
@@ -1697,11 +1722,11 @@ function feelingsRoutineBegin(snapshot) {
 
    // show right order of agency based on agency_stimulus input
     if ((agency === "self")) {
-        //text_stimulus_3.setText(((((expInfo["姓名"] + " ") + verb_stimulus) + " ") + expInfo["你最好的朋友是"]));
+        //text_stimulus_3.setText(((((expInfo["你的名字是"] + " ") + verb_stimulus) + " ") + expInfo["你最好的朋友是"]));
         text_stimulus_3.setText(mydictionary[verb_stimulus][0]);
     } else {
         if ((agency === "other")) {
-            //text_stimulus_3.setText(((((expInfo["你最好的朋友是"] + " ") + verb_stimulus) + " ") + expInfo["姓名"]));
+            //text_stimulus_3.setText(((((expInfo["你最好的朋友是"] + " ") + verb_stimulus) + " ") + expInfo["你的名字是"]));
             text_stimulus_3.setText(mydictionary[verb_stimulus][1]);
         }
     }
@@ -2100,11 +2125,11 @@ function actionsRoutineBegin(snapshot) {
 
    // show right order of agency based on agency_stimulus input
     if ((agency === "self")) {
-        //text_stimulus_4.setText(((((expInfo["姓名"] + " ") + verb_stimulus) + " ") + expInfo["你最好的朋友是"]));
+        //text_stimulus_4.setText(((((expInfo["你的名字是"] + " ") + verb_stimulus) + " ") + expInfo["你最好的朋友是"]));
         text_stimulus_4.setText(mydictionary[verb_stimulus][0]);
     } else {
         if ((agency === "other")) {
-            //text_stimulus_4.setText(((((expInfo["你最好的朋友是"] + " ") + verb_stimulus) + " ") + expInfo["姓名"]));
+            //text_stimulus_4.setText(((((expInfo["你最好的朋友是"] + " ") + verb_stimulus) + " ") + expInfo["你的名字是"]));
             text_stimulus_4.setText(mydictionary[verb_stimulus][1]);
         }
     }
@@ -2478,7 +2503,11 @@ function actionsRoutineEnd(snapshot) {
     }
     // store data for thisExp (ExperimentHandler)
     _mouseButtons = mouse_action.getPressed();
-
+    //add 1/26 09:39
+    // if (trialCount == 3){
+    //     continueRoutine = false
+    // }
+        
     if (mouse_action.clicked_name.length > 0) {
       psychoJS.experiment.addData('mouse_action.clicked_name', mouse_action.clicked_name);
       psychoJS.experiment.addData('mouse_action.time', mouse_action.mouseClock.getTime());
@@ -2530,6 +2559,8 @@ function thanksRoutineEachFrame(snapshot) {
       thanksText.frameNStart = frameN;  // exact frame index
       
       thanksText.setAutoDraw(true);
+      //Update 2024/01/29
+      //window.location.replace("https://www.baidu.com");
     }
 
     frameRemains = 0.0 + 3 - psychoJS.window.monitorFramePeriod * 0.75;  // most of one frame period left
@@ -2574,6 +2605,11 @@ function thanksRoutineEnd(snapshot) {
   };
 }
 
+function sleep(d){
+  for(var t = Date.now();Date.now() - t <= d;);
+}
+
+
 function endLoopIteration(scheduler, snapshot) {
   // ------Prepare for next entry------
   return function () {
@@ -2596,6 +2632,12 @@ function endLoopIteration(scheduler, snapshot) {
   };
 }
 
+// function myrelocation(event){
+//   if (event.keyCode == 32) {
+//     window.location.replace("https://www.wjx.cn/vm/h4oz4gw.aspx");
+//   } 
+// }
+
 function importConditions(currentLoop) {
   return function () {
     psychoJS.importAttributes(currentLoop.getCurrentTrial());
@@ -2605,13 +2647,43 @@ function importConditions(currentLoop) {
 
 function quitPsychoJS(message, isCompleted) {
   // Check for and save orphaned data
+  // if (psychoJS.experiment.isEntryEmpty()) {
+  //   psychoJS.experiment.nextEntry();
+  // }
+
+  //psychoJS.window.close();
+  //setTimeout(window.location.replace("./index2.html"),20000);
+
+
+  // psychoJS.window.close();
+  // psychoJS.quit({message: message, isCompleted: isCompleted});
+
+
+  //TrialUpdate_2024/01/29 自动跳转页面
+  sleep(20000);
+  myRelocation(message,isCompleted);
+  //document.addEventListener('keydown', myrelocation);
+  //window.location.replace("./index2.html");
+  //myRelocation();
+  return Scheduler.Event.QUIT;
+}
+
+function myRelocation(message,isCompleted) {
   if (psychoJS.experiment.isEntryEmpty()) {
     psychoJS.experiment.nextEntry();
   }
-  
-  
   psychoJS.window.close();
   psychoJS.quit({message: message, isCompleted: isCompleted});
-  
-  return Scheduler.Event.QUIT;
+  window.location.replace("https://www.wjx.cn/vm/h4oz4gw.aspx");
 }
+// function myrelocation() {
+//   var flag = confirm("数据保存已完成，请点击确定以跳转");
+//   if(flag) {
+//     window.location.replace("https://www.wjx.cn/vm/h4oz4gw.aspx")
+//   }
+// }
+
+//2024/01/31_To do：
+//增加按键跳转 -done
+//你和你的朋友的关系->显示名字 -done
+//首页嵌入图片 -什么逆天功能啊

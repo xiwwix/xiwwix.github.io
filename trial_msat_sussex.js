@@ -1354,7 +1354,7 @@ function blameRoutineBegin(snapshot) {
       'is dishonest with':[myname + "对" + myfriendname + "不诚实",
       myfriendname + "对" + myname + "不诚实"],
       'is greedy towards':[myname + "对" + myfriendname + "贪婪索取",
-      myfriendname + "对" + myname + "贪婪"],
+      myfriendname + "对" + myname + "贪婪索取"],
       'is helpless towards':[myname + "对" + myfriendname + "毫无帮助",
       myfriendname + "对" + myname + "毫无帮助"],
       'is ignorant towards':[myname + "忽视" + myfriendname,

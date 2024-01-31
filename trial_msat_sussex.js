@@ -48,7 +48,10 @@ psychoJS.scheduleCondition(function() { return (psychoJS.gui.dialogComponent.but
 
 // flowScheduler gets run if the participants presses OK
 flowScheduler.add(updateInfo); // add timeStamp
-flowScheduler.add(experimentInit);
+//flowScheduler.add(experimentInit);
+
+//Update_Trial 2024/01/31 尝试在指导语界面展示图片
+flowScheduler.add(myExperimentInit);
 
 var myname;
 var myfriendname;
@@ -80,7 +83,8 @@ psychoJS.start({
   expName: expName,
   expInfo: expInfo,
   resources: [
-      {'name': 'MSAT_conditions.xls', 'path': 'resources/MSAT_conditions.xls'}
+      {'name': 'MSAT_conditions.xls', 'path': 'resources/MSAT_conditions.xls'},
+      {'name':'trial.jpg','path':'resources/trial.jpg'}
   ]
 });
 
@@ -109,6 +113,7 @@ function updateInfo() {
 // instructions
 var instructionsClock;
 var instrText;
+var instrPicture;
 var mouse_instr;
 var contTextInstr;
 var contInstr;
@@ -203,20 +208,33 @@ var globalClock;
 var routineTimer;
 
 
-function experimentInit() {
+function myExperimentInit() {
   // Initialize components for Routine "instructions"
   instructionsClock = new util.Clock();
   myfriendname = expInfo["你最好的朋友是"];
+
   instrText = new visual.TextStim({
     win: psychoJS.window,
     name: 'instrText',
     //text: 'The first screen will ask a general question. \n\nThen, you will see short statements describing your social behaviour towards 你最好的朋友是, or describing social behaviour of 你最好的朋友是 towards you.  \n\nPlease indicate how you would feel about the described behaviour.\n    ',
-    text: '欢迎参加，\n下面是我们可能会对朋友做的一些行为，或朋友对我们做的一些行为\n当你读到这些句子时，请尝试想象自己身临其境。\n然后，评出你有多大可能性做出一些常见的行为和感受。',
+    text: '欢迎参加！\n\n下面是你可能会对朋友做的一些行为，或朋友对你做的一些行为，\n当读到这些句子时，请尝试想象自己身临其境。然后，评出你的感受和可能做出的反应。',
     font: 'Arial',
     units: 'norm', 
-    pos: [0, 0], height: 0.08,  wrapWidth: undefined, ori: 0,
+    pos: [-0.85, 0], height: 0.08,  alignHoriz:'left',wrapWidth: undefined, ori: 0,
     color: new util.Color('white'),  opacity: 1,
     depth: 0.0 
+  });
+
+  //尝试将上面的指导语改成实例的图片TAT
+  //不太行
+
+  instrPicture = new visual.ImageStim({
+    win: psychoJS.window,
+    name: 'instrPicture',
+    image: 'trial.jpg',
+    units: 'norm',
+    pos: [0, 0],
+    size: [0.5, 0.5],
   });
   
   // shuffle
@@ -933,7 +951,7 @@ trialCount = 0;
   thanksText = new visual.TextStim({
     win: psychoJS.window,
     name: 'thanksText',
-    text: '一项任务已经完成 - 稍后将进行下一项任务\n\n 〇请耐心等待直至绿色弹窗出现，在此期间请勿关闭页面\n弹窗出现后页面将自动跳转，您无需操作',
+    text: '预实验结束，稍后浏览器将跳转至正式实验',
     font: 'Arial',
     units: 'norm', 
     pos: [0, 0], height: 0.1,  wrapWidth: undefined, ori: 0,
@@ -975,6 +993,8 @@ function instructionsRoutineBegin(snapshot) {
     // keep track of which components have finished
     instructionsComponents = [];
     instructionsComponents.push(instrText);
+    //instructionsComponents.push(instrPicture);
+    instrPicture.setImage('trial.jpg', false);
     instructionsComponents.push(mouse_instr);
     instructionsComponents.push(contTextInstr);
     instructionsComponents.push(contInstr);
@@ -2585,6 +2605,11 @@ function thanksRoutineEnd(snapshot) {
   };
 }
 
+function sleep(d){
+  for(var t = Date.now();Date.now() - t <= d;);
+}
+
+
 function endLoopIteration(scheduler, snapshot) {
   // ------Prepare for next entry------
   return function () {
@@ -2622,20 +2647,35 @@ function importConditions(currentLoop) {
 
 function quitPsychoJS(message, isCompleted) {
   // Check for and save orphaned data
-  if (psychoJS.experiment.isEntryEmpty()) {
-    psychoJS.experiment.nextEntry();
-  }
+  // if (psychoJS.experiment.isEntryEmpty()) {
+  //   psychoJS.experiment.nextEntry();
+  // }
 
-  psychoJS.window.close();
-  psychoJS.quit({message: message, isCompleted: isCompleted});
+  //psychoJS.window.close();
+  //setTimeout(window.location.replace("./index2.html"),20000);
+
+
+  // psychoJS.window.close();
+  // psychoJS.quit({message: message, isCompleted: isCompleted});
+
+
   //TrialUpdate_2024/01/29 自动跳转页面
-  setTimeout(console.log("waiting..."),8000);
+  sleep(25000);
+  myRelocation(message,isCompleted);
   //document.addEventListener('keydown', myrelocation);
-  window.location.replace("https://www.wjx.cn/vm/h4oz4gw.aspx");
+  //window.location.replace("./index2.html");
   //myRelocation();
   return Scheduler.Event.QUIT;
 }
 
+function myRelocation(message,isCompleted) {
+  if (psychoJS.experiment.isEntryEmpty()) {
+    psychoJS.experiment.nextEntry();
+  }
+  psychoJS.window.close();
+  psychoJS.quit({message: message, isCompleted: isCompleted});
+  window.location.replace("./index2.html");
+}
 // function myrelocation() {
 //   var flag = confirm("数据保存已完成，请点击确定以跳转");
 //   if(flag) {
@@ -2644,6 +2684,6 @@ function quitPsychoJS(message, isCompleted) {
 // }
 
 //2024/01/31_To do：
-//增加按键跳转 done
-//你和你的朋友的关系->显示名字
-//首页嵌入图片
+//增加按键跳转 -done
+//你和你的朋友的关系->显示名字 -done
+//首页嵌入图片 -什么逆天功能啊

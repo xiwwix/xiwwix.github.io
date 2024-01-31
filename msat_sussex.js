@@ -1405,16 +1405,16 @@ function blameRoutineBegin(snapshot) {
       myfriendname + "对"+ myname+ "喜怒无常"],
       'is touchy with':[myname + "对"+ myfriendname+ "敏感易怒",
       myfriendname + "对"+ myname+ "敏感易怒"],
-      'is tough towards':[myname + "对"+ myfriendname+ "要求严格",
-      myfriendname + "对"+ myname+ "要求严格"],
-      'is vain towards':[myname + "对"+ myfriendname+ "强硬",
+      'is tough towards':[myname + "对"+ myfriendname+ "强硬",
       myfriendname + "对"+ myname+ "强硬"],
-      'is competitive with':[myname + "对"+ myfriendname+ "争强好胜",
-      myfriendname + "对"+ myname+ "争强好胜"],
+      'is vain towards':[myname + "对"+ myfriendname+ "白费心思",
+      myfriendname + "对"+ myname+ "白费心思"],
+      'is competitive with':[myname + "事事都要压倒胜过"+ myfriendname,
+      myfriendname + "事事都要压倒胜过"+myname],
       'is firm with':[myname + "对"+ myfriendname+ "严厉",
       myfriendname + "对"+ myname+ "严厉"],
-      'is romantic towards':[myname + "对"+ myfriendname+ "想入非非",
-      myfriendname + "对"+ myname+ "想入非非"],
+      'is romantic towards':[myname + "对"+ myfriendname+ "产生爱意",
+      myfriendname + "对"+ myname+ "产生爱意"],
       }
     //------Prepare to start Routine 'blame'-------
     t = 0;

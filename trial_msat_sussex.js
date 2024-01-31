@@ -69,6 +69,9 @@ flowScheduler.add(thanksRoutineBegin());
 flowScheduler.add(thanksRoutineEachFrame());
 flowScheduler.add(thanksRoutineEnd());
 flowScheduler.add(quitPsychoJS, '', true);
+//Trial_Update 2024/01/31 尝试添加一个函数以实现跳转功能
+//失败了
+//flowScheduler.add(myRelocation());
 
 // quit if user presses Cancel in dialog box:
 dialogCancelScheduler.add(quitPsychoJS, '', false);
@@ -930,7 +933,7 @@ trialCount = 0;
   thanksText = new visual.TextStim({
     win: psychoJS.window,
     name: 'thanksText',
-    text: '一项任务已经完成 - 稍后将自动跳转至下一页面\n\n 〇请耐心等待，在此期间请勿关闭页面',
+    text: '一项任务已经完成 - 稍后将进行下一项任务\n\n 〇请耐心等待直至绿色弹窗出现，在此期间请勿关闭页面\n弹窗出现后页面将自动跳转，您无需操作',
     font: 'Arial',
     units: 'norm', 
     pos: [0, 0], height: 0.1,  wrapWidth: undefined, ori: 0,
@@ -2604,6 +2607,12 @@ function endLoopIteration(scheduler, snapshot) {
   };
 }
 
+// function myrelocation(event){
+//   if (event.keyCode == 32) {
+//     window.location.replace("https://www.wjx.cn/vm/h4oz4gw.aspx");
+//   } 
+// }
+
 function importConditions(currentLoop) {
   return function () {
     psychoJS.importAttributes(currentLoop.getCurrentTrial());
@@ -2616,15 +2625,23 @@ function quitPsychoJS(message, isCompleted) {
   if (psychoJS.experiment.isEntryEmpty()) {
     psychoJS.experiment.nextEntry();
   }
-  
-  //message = "temp";
+
   psychoJS.window.close();
   psychoJS.quit({message: message, isCompleted: isCompleted});
   //TrialUpdate_2024/01/29 自动跳转页面
-  setTimeout(console.log("waiting..."),3000)
+  setTimeout(console.log("waiting..."),8000);
+  //document.addEventListener('keydown', myrelocation);
   window.location.replace("https://www.wjx.cn/vm/h4oz4gw.aspx");
+  //myRelocation();
   return Scheduler.Event.QUIT;
 }
+
+// function myrelocation() {
+//   var flag = confirm("数据保存已完成，请点击确定以跳转");
+//   if(flag) {
+//     window.location.replace("https://www.wjx.cn/vm/h4oz4gw.aspx")
+//   }
+// }
 
 //2024/01/31_To do：
 //增加按键跳转

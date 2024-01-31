@@ -2644,6 +2644,6 @@ function quitPsychoJS(message, isCompleted) {
 // }
 
 //2024/01/31_To do：
-//增加按键跳转
+//增加按键跳转 done
 //你和你的朋友的关系->显示名字
 //首页嵌入图片

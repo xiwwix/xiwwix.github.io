@@ -331,18 +331,18 @@ int main() {
 }</code></pre>
 
 <h2 id="1002-A-B-Problem-Templated"><a href="#1002-A-B-Problem-Templated" class="headerlink" title="1002. A+B Problem Templated"></a>1002. A+B Problem Templated</h2><p>ψ(｀∇´)ψ是另一道A+B！<br>需要注意的是只需要完成函数的定义即可~</p>
-<pre><code>class Solution {
-	public:
-		&#x2F;**
-		* [完成A+B的计算]
-		* @param  a [整数A]
-		* @param  b [整数B]
-		* @return   [A+B的值]
-		*&#x2F;
-		int solve(int a, int b) {
-			return a+b;
-		}
-	};</code></pre>
+<pre><code>  class Solution {
+public:
+	&#x2F;**
+	* [完成A+B的计算]
+	* @param  a [整数A]
+	* @param  b [整数B]
+	* @return   [A+B的值]
+	*&#x2F;
+	int solve(int a, int b) {
+		return a+b;
+	}
+};</code></pre>
 
 <h2 id="1003-数据结构开课啦"><a href="#1003-数据结构开课啦" class="headerlink" title="1003. 数据结构开课啦"></a>1003. 数据结构开课啦</h2><p>PPT上有答案，需要注意的是答案一行一个，提交的时候记得选择text作为语言</p>
 <pre><code>数据结构
@@ -467,45 +467,44 @@ int main() {
 <pre><code>#include &lt;bits&#x2F;stdc++.h&gt;
 
 using namespace std;
-int nums1[100003]; 
+int nums1[100003];
 int nums2[100003]; 
 
 int main() {
-	int m,n; 
-	int flag &#x3D; 1; &#x2F;&#x2F; 定义一个标志变量flag，用于判断是否已经输出过结果
-	scanf(&quot;%d %d&quot;,&amp;m,&amp;n); 
-	for (int i &#x3D; 0; i &lt; m; i++) { 
-		scanf(&quot;%d&quot;,&amp;nums1[i]);
-	}
-	for (int i &#x3D; 0; i &lt; n; i++) { 
-		scanf(&quot;%d&quot;,&amp;nums2[i]);
-	}
+    int m,n; 
+    int flag &#x3D; 1; &#x2F;&#x2F;定义一个标志变量flag，初始值为1，用来标记是否已经输出结果
+    scanf(&quot;%d %d&quot;,&amp;m,&amp;n); 
+    for (int i &#x3D; 0; i &lt; m; i++) { 
+        scanf(&quot;%d&quot;,&amp;nums1[i]);
+    }
+    for (int i &#x3D; 0; i &lt; n; i++) { 
+        scanf(&quot;%d&quot;,&amp;nums2[i]);
+    }
 
-	int point &#x3D; 0; &#x2F;&#x2F; 定义一个指针变量point，用于遍历数组
-	while (point &lt; n &amp;&amp; point &lt; m) { &#x2F;&#x2F; 当point小于两组数字长度的最小值时，进行循环
-		if (nums1[point] &lt; nums2[point]) { &#x2F;&#x2F; 如果第一组数字小于第二组数字
-			printf(&quot;%d&quot;,-1); &#x2F;&#x2F; 输出-1
-			flag &#x3D; 0; &#x2F;&#x2F; 将flag置为0，表示已经输出过结果，当然你直接return 0结束程序也可以
-			break; &#x2F;&#x2F; 跳出循环
-		}else if (nums1[point] &gt; nums2[point]) { &#x2F;&#x2F; 如果第一组数字大于第二组数字
-			printf(&quot;%d&quot;,1); &#x2F;&#x2F; 输出1
-			flag &#x3D; 0; &#x2F;&#x2F; 将flag置为0，表示已经输出过结果
-			break; &#x2F;&#x2F; 跳出循环
-		}
-		point++; &#x2F;&#x2F; 移动指针到下一个元素
-	}
-	if (flag) { &#x2F;&#x2F; 如果flag仍然为1，说明没有输出过结果
-		if (n &#x3D;&#x3D; m) { &#x2F;&#x2F; 如果两组数字个数相等
-			printf(&quot;%d&quot;,0); &#x2F;&#x2F; 输出0
-		}else if (m &gt; n) { &#x2F;&#x2F; 如果第一组数字个数大于第二组
-			printf(&quot;%d&quot;,1); &#x2F;&#x2F; 输出1
-		}else { &#x2F;&#x2F; 否则，第一组数字个数小于第二组
-			printf(&quot;%d&quot;,-1); &#x2F;&#x2F; 输出-1
-		}
-	}
-	return 0;
-}
-</code></pre>
+    int point &#x3D; 0; &#x2F;&#x2F;定义一个变量point，用来记录当前比较的索引位置
+    while (point &lt; n &amp;&amp; point &lt; m) { &#x2F;&#x2F;当point小于两组数字的长度时，进行循环比较
+        if (nums1[point] &lt; nums2[point]) { &#x2F;&#x2F; 如果第一组数字在当前索引位置的值小于第二组
+            printf(&quot;%d&quot;,-1); 
+            flag &#x3D; 0; &#x2F;&#x2F; 设置flag为0，表示已经输出了结果
+            break; &#x2F;&#x2F;跳出循环，当然你如果直接return 0也可以
+        } else if (nums1[point] &gt; nums2[point]) { &#x2F;&#x2F; 如果第一组数字在当前索引位置的值大于第二组
+            printf(&quot;%d&quot;,1);
+            flag &#x3D; 0; &#x2F;&#x2F; 设置flag为0，表示已经输出了结果
+            break;
+        }
+        point++; &#x2F;&#x2F; 如果两组数字在当前索引位置的值相等，增加索引
+    }
+    if (flag) { &#x2F;&#x2F; 如果flag仍为1，说明没有在循环中输出结果
+        if (n &#x3D;&#x3D; m) { &#x2F;&#x2F; 如果两组数字的个数相等
+            printf(&quot;%d&quot;,0); 
+        } else if (m &gt; n) { &#x2F;&#x2F; 如果第一组数字的个数大于第二组
+            printf(&quot;%d&quot;,1); 
+        } else { &#x2F;&#x2F; 如果第一组数字的个数小于第二组
+            printf(&quot;%d&quot;,-1); 
+        }
+    }
+    return 0;
+}</code></pre>
 <p>时间复杂度：瓶颈在读入，需要<code>O(m+n)</code>；最坏情况下，遍历到比较短的那个数组结束即可，<code>O(min(m,n))</code></p>
 
   </div>

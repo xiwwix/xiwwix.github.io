@@ -356,15 +356,11 @@ int main() {
 <h2 id="1004-线性表插入删除操作"><a href="#1004-线性表插入删除操作" class="headerlink" title="1004. 线性表插入删除操作"></a>1004. 线性表插入删除操作</h2><p>大 的 来 了<br>题面略显抽象，没有给出q的范围，而且没有特意说明k是0索引还是1索引，只能说要求全靠脑补 + 根据样例猜</p>
 <p>分析一下题目，发现主要的任务就是写两个函数，实现：</p>
 <ul>
-<li>删除第$k$个元素</li>
-<li>在第$k$个元素后面插入元素$x$</li>
+<li>删除第<code>k</code>个元素</li>
+<li>在第<code>k</code>个元素后面插入元素<code>x</code></li>
 </ul>
 <p>不难想到使用链表以保证删除和插入元素的效率，最坏情况下每次删除和插入的位置都在尾部，理论复杂度$O(nq)$</p>
-<p>一些在写代码过程中的想法：</p>
-<ol>
-<li>可以声明一个无意义的<code>head</code>结点，这样就可以把“删除第$k$个元素理解成“从<code>head</code>结点出发，移动<code>k</code>次后删除当前结点”，插入元素同理，降低思维和编码难度</li>
-<li>注意读题，<code>k</code>有可能是不合法的，也即<code>k</code>大于当前链表长度，或者说遍历到结点不存在。所以在遍历删除和插入中，需要加入判断条件<code>nowNode != NULL</code>，防止越界<br>另一种更高效的方式是维护一个变量<code>len</code>用于保存链表长度，如果判断出<code>len &lt; k</code>，则直接输出-1（删除）或者忽略（插入），这样还可以减少遍历的次数，运行时间应该会更短</li>
-</ol>
+<p>一些在写代码过程中的想法：<br>1.可以声明一个无意义的<code>head</code>结点，这样就可以把“删除第$k$个元素理解成“从<code>head</code>结点出发，移动<code>k</code>次后删除当前结点”，插入元素同理，降低思维和编码难度<br>2.注意读题，<code>k</code>有可能是不合法的，也即<code>k</code>大于当前链表长度，或者说遍历到结点不存在。所以在遍历删除和插入中，需要加入判断条件<code>nowNode != NULL</code>，防止越界<br>另一种更高效的方式是维护一个变量<code>len</code>用于保存链表长度，如果判断出<code>len &lt; k</code>，则直接输出-1（删除）或者忽略（插入），这样还可以减少遍历的次数，运行时间应该会更短</p>
 <p>以下是参考代码，使用<code>kimi</code>辅助生成了注释</p>
 <pre><code>#include &lt;bits&#x2F;stdc++.h&gt;
 using namespace std;
@@ -466,7 +462,51 @@ int main() {
 }</code></pre>
 
 <p>其他小知识：在C++中可以用<code>new</code>代替<code>malloc</code>用于创建结构体哦！（￣︶￣）↗　</p>
-<h1 id="1005-线性表的比较"><a href="#1005-线性表的比较" class="headerlink" title="1005. 线性表的比较"></a>1005. 线性表的比较</h1><p>省流：比较字典序</p>
+<h2 id="1005-线性表的比较"><a href="#1005-线性表的比较" class="headerlink" title="1005. 线性表的比较"></a>1005. 线性表的比较</h2><p>省流：比较字典序</p>
+<p>我的理解大致是这样的：从头开始比较相同位置<code>i</code>上A数组和B数组的值的大小，如果有不一样则直接返回结果；<br>如果一直比到较短的数组结束，两个数组目前所有位置上的数都一样，则较长的数组大<br>感觉这种理解方式比较好写好调</p>
+<pre><code>#include &lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+int nums1[100003]; 
+int nums2[100003]; 
+
+int main() {
+	int m,n; 
+	int flag &#x3D; 1; &#x2F;&#x2F; 定义一个标志变量flag，用于判断是否已经输出过结果
+	scanf(&quot;%d %d&quot;,&amp;m,&amp;n); 
+	for (int i &#x3D; 0; i &lt; m; i++) { 
+		scanf(&quot;%d&quot;,&amp;nums1[i]);
+	}
+	for (int i &#x3D; 0; i &lt; n; i++) { 
+		scanf(&quot;%d&quot;,&amp;nums2[i]);
+	}
+
+	int point &#x3D; 0; &#x2F;&#x2F; 定义一个指针变量point，用于遍历数组
+	while (point &lt; n &amp;&amp; point &lt; m) { &#x2F;&#x2F; 当point小于两组数字长度的最小值时，进行循环
+		if (nums1[point] &lt; nums2[point]) { &#x2F;&#x2F; 如果第一组数字小于第二组数字
+			printf(&quot;%d&quot;,-1); &#x2F;&#x2F; 输出-1
+			flag &#x3D; 0; &#x2F;&#x2F; 将flag置为0，表示已经输出过结果，当然你直接return 0结束程序也可以
+			break; &#x2F;&#x2F; 跳出循环
+		}else if (nums1[point] &gt; nums2[point]) { &#x2F;&#x2F; 如果第一组数字大于第二组数字
+			printf(&quot;%d&quot;,1); &#x2F;&#x2F; 输出1
+			flag &#x3D; 0; &#x2F;&#x2F; 将flag置为0，表示已经输出过结果
+			break; &#x2F;&#x2F; 跳出循环
+		}
+		point++; &#x2F;&#x2F; 移动指针到下一个元素
+	}
+	if (flag) { &#x2F;&#x2F; 如果flag仍然为1，说明没有输出过结果
+		if (n &#x3D;&#x3D; m) { &#x2F;&#x2F; 如果两组数字个数相等
+			printf(&quot;%d&quot;,0); &#x2F;&#x2F; 输出0
+		}else if (m &gt; n) { &#x2F;&#x2F; 如果第一组数字个数大于第二组
+			printf(&quot;%d&quot;,1); &#x2F;&#x2F; 输出1
+		}else { &#x2F;&#x2F; 否则，第一组数字个数小于第二组
+			printf(&quot;%d&quot;,-1); &#x2F;&#x2F; 输出-1
+		}
+	}
+	return 0;
+}
+
+时间复杂度：瓶颈在读入，需要&#96;O(m+n)&#96;；最坏情况下，遍历到比较短的那个数组结束即可，&#96;O(min(m,n))&#96;</code></pre>
 
   </div>
   <div id=""></div>

@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		
+<title>心双2024数据结构1001-1005题解-Quiet</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="shortcut icon" type="image/x-icon" href="/image/favicon.ico">
+
+<link rel="stylesheet" href="/css/index.css">
+
+
+
+<meta name="keywords" content="2024心双数据结构EOJ习题,">
+<meta name="description" content="About me">
+
+
+<script src="/js/jquery.min.js"></script>
+
+
+<script src="/js/index.js"></script>
+
+
+<script src="/js/fancybox.umd.js"></script>
+
+
+<script src="/js/fancybox-images.js"></script>
+
+
+<script src="/js/gitalk.min.js"></script>
+
+
+<script src="/js/hljs.min.js"></script>
+ 
+<script>hljs.highlightAll();</script>
+
+	<meta name="generator" content="Hexo 7.3.0"></head>
+
+	<body>
+		
+	<div class="header">
+		<div class="header-top" id="header-top">
+			<div class="h-left">
+				<a href="/">
+					<img src="/image/logo.png" alt="Quiet">
+				</a>
+			</div>
+			<div class="h-right">
+				<ul>
+					
+						
+								<li>
+									<a href="/">
+										HOME
+									</a>
+									<span class="dot"></span>
+								</li>
+								
+									
+						
+								<li>
+									<a href="/archives">
+										ARCHIVE
+									</a>
+									<span class="dot"></span>
+								</li>
+								
+									
+						
+								<li>
+									<a href="/categories">
+										CATEGORIES
+									</a>
+									<span class="dot"></span>
+								</li>
+								
+									
+						
+								<li>
+									<a href="/tags">
+										TAGS
+									</a>
+									<span class="dot"></span>
+								</li>
+								
+									
+						
+								<li>
+									<a href="/links">
+										LINKS
+									</a>
+									<span class="dot"></span>
+								</li>
+								
+									
+						
+								<li>
+									<a href="/about">
+										ABOUT
+									</a>
+									<span class="dot"></span>
+								</li>
+								
+									
+				</ul>
+			</div>
+			<div class="h-right-close">
+				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+					<path fill="none" d="M0 0h24v24H0z" />
+					<path d="M3 4h18v2H3V4zm0 7h18v2H3v-2zm0 7h18v2H3v-2z" fill="rgba(68,68,68,1)" />
+				</svg>
+			</div>
+		</div>
+	</div>
+	<div class="sidebar">
+    <div class="topo">
+        <h2>Joey</h2>
+    </div>
+    <ul>
+        
+        <li>
+            <a href="/">HOME</a>
+        </li>
+        
+        <li>
+            <a href="/archives">ARCHIVE</a>
+        </li>
+        
+        <li>
+            <a href="/categories">CATEGORIES</a>
+        </li>
+        
+        <li>
+            <a href="/tags">TAGS</a>
+        </li>
+        
+        <li>
+            <a href="/links">LINKS</a>
+        </li>
+        
+        <li>
+            <a href="/about">ABOUT</a>
+        </li>
+        
+    </ul>
+    <div class="my_foot">
+        
+        <a target="_blank" rel="noopener" href="https://github.com/79E/hexo-theme-quiet">
+            <img src="https://cdn.jsdelivr.net/gh/duogongneng/MyBlogImg/imggithub.png" alt="Quiet主题">
+        </a>
+        
+    </div>
+</div>
+<div class='shelter'>
+</div>
+<style>
+    .shelter{
+        background-color: #333;
+        opacity:0.5;
+        cursor: pointer;
+        display: none; 
+        position: fixed;
+        left: 0;
+        top: 0; 
+        right: 0;
+        bottom: 0;
+        z-index: 1998;
+    }
+    .sidebar {
+        width: 66%;
+        height: 100%;
+        position: fixed;
+        top: 0;
+        right: -100%;
+        bottom: 0;
+        background: #fff;
+        z-index: 1999;
+        text-align: center;
+        box-shadow: -6px 0 20px rgba(98, 94, 94, .815);
+    }
+
+    .topo {
+        width: 100%;
+        height: 200px;
+        background: url(https://api.ixiaowai.cn/gqapi/gqapi.php) no-repeat;
+        background-size: 100% 100%;
+        position: relative;
+        display: flex;
+        align-items: flex-end
+    }
+
+    .topo h2 {
+        color: #fff;
+        z-index: 1;
+        position: relative;
+        margin: 0 0 10px 10px;
+        font-size: 1.2em;
+        box-sizing: border-box
+    }
+
+    .topo:before {
+        content: '';
+        background-image: url(/image/pattern.png);
+        background-repeat: repeat;
+        height: 100%;
+        left: 0;
+        position: absolute;
+        top: 0;
+        width: 100%;
+        z-index: 1
+    }
+
+    .sidebar ul {
+        width: 100%;
+        margin-top: 50px
+    }
+
+    .sidebar ul li {
+        height: 50px;
+        list-style: none;
+        font-size: 1.2em;
+        text-align: right;
+        margin-right: 10px
+    }
+
+    .sidebar ul li a {
+        display: grid;
+        color: #5d606a;
+        text-overflow: ellipsis;
+        width: 100%;
+        text-decoration: none
+    }
+
+    .my_foot {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+        position: absolute;
+        bottom: 0
+    }
+
+    .my_foot a {
+        text-decoration: none;
+        margin-right: 10px;
+        display: inline-block
+    }
+
+    .my_foot a img {
+        width: 30px;
+        height: 30px
+    }
+</style>
+
+<script>
+    $( function () {
+	$( '.h-right-close>svg' )
+		.click( function () {
+			$( '.sidebar' )
+				.animate( {
+					right: "0"
+				}, 500 );
+			$( '.shelter' )
+				.fadeIn( "slow" )
+		} );
+	$( '.shelter' )
+		.click( function ( e ) {
+			$( '.sidebar' )
+				.animate( {
+					right: "-100%"
+				}, 500 );
+			$( '.shelter' )
+				.fadeOut( "slow" )
+		} )
+} )
+
+</script>
+
+<div class="post">
+    <div class="post-header-background post-header-img"
+    style="background: url('https://api.ixiaowai.cn/gqapi/gqapi.php')" 
+>
+    <div class="post-header-background-content">
+        <ul class="post-header-tag">
+            
+            
+            <li><a href="/tags/2024心双数据结构EOJ习题">2024心双数据结构EOJ习题</a></li>
+            
+            
+        </ul>
+        
+        <h1>心双2024数据结构1001-1005题解</h1>
+        <div class="post-header-info">
+            <div class="post-header-info-author">
+                
+                    <svg t="1604839279282" class="icon" viewBox="0 0 1024 1024" version="1.1"
+                        xmlns="http://www.w3.org/2000/svg" p-id="2901" width="20" height="20">
+                        <path
+                            d="M513 956.3c-247.7 0-448-200.3-448-448S265.3 66.2 513 66.2s448 200.3 448 448-200.3 442.1-448 442.1z m0-830.9c-212.2 0-388.8 170.7-388.8 388.8C124.2 726.3 294.9 903 513 903c212.2 0 388.8-170.7 388.8-388.8S725.2 125.4 513 125.4z m0 430.2c-94.2 0-170.7-76.5-170.7-170.7S418.8 207.8 513 207.8s170.7 76.5 170.7 170.7S607.2 555.6 513 555.6z m0-289.1c-64.6 0-112 52.8-112 112s47.4 117.9 112 117.9 112-52.8 112-112-47.4-117.9-112-117.9z m0 689.8c-135.7 0-259-58.7-341.9-158.9l-11.8-17.8 11.8-17.8c76.5-117.9 206.2-188.5 347.8-188.5 135.7 0 265 64.6 341.9 182.6l11.8 17.8-11.8 17.8C778 897.1 648.7 956.3 513 956.3zM230.3 773.2C300.9 849.7 406.9 897 513 897c112 0 218.1-47.4 288.6-129.8-70.5-88.2-170.7-135.6-282.7-135.6s-218.1 53.3-288.6 141.6z"
+                            p-id="2902" fill="#ffffff"></path>
+                    </svg>
+                    
+                <span class="post-header-info-author-text"> <a target="_blank" rel="noopener" href="https://github.com/xiwwix">xiwwwix</a></span>
+                <div class="post-header-info-author-categories">
+                    
+                         <a href="../../categories/教程/" target="_blank" >教程</a>
+                    
+                </div>
+                <p>2024-09-22 23:47:21</p>
+            </div>
+        </div>
+    </div>
+</div>
+    <div class="post-content" id="content">
+  
+  <div id="article" class="post-content-info">
+    
+
+    <p>写在前面：因为本菜鸡水平比较有限，题解仅供参考~</p>
+<p>一般使用C++语言（因为py被ban了，而且C太难用了2333），为了锻炼代码水平，<code>medium</code>及以下题目不使用STL，不过<code>medium</code>以上可能也不一定做得出来（？）</p>
+<p>自认代码风格还凑合（不过大括号不换行，而且习惯万能头），不太爱写注释（有时可能会gpt帮忙生成一些）</p>
+<p>如果有其他问题，请随时联系我修改~</p>
+<h2 id="1001-A-B-Problem"><a href="#1001-A-B-Problem" class="headerlink" title="1001. A+B Problem"></a>1001. A+B Problem</h2><p>(&#x2F;ω＼)是一道A+B！</p>
+<pre><code>#include &lt;bits&#x2F;stdc++.h&gt;
+
+int main() {
+	long long a,b;
+	scanf(&quot;%lld %lld&quot;,&amp;a,&amp;b);
+	printf(&quot;%lld&quot;,a+b);
+	return 0;
+}</code></pre>
+
+<h2 id="1002-A-B-Problem-Templated"><a href="#1002-A-B-Problem-Templated" class="headerlink" title="1002. A+B Problem Templated"></a>1002. A+B Problem Templated</h2><p>ψ(｀∇´)ψ是另一道A+B！<br>需要注意的是只需要完成函数的定义即可~</p>
+<pre><code>class Solution {
+	public:
+		&#x2F;**
+		* [完成A+B的计算]
+		* @param  a [整数A]
+		* @param  b [整数B]
+		* @return   [A+B的值]
+		*&#x2F;
+		int solve(int a, int b) {
+			return a+b;
+		}
+	};</code></pre>
+
+<h2 id="1003-数据结构开课啦"><a href="#1003-数据结构开课啦" class="headerlink" title="1003. 数据结构开课啦"></a>1003. 数据结构开课啦</h2><p>PPT上有答案，需要注意的是答案一行一个，提交的时候记得选择text作为语言</p>
+<pre><code>数据结构
+数据结构
+数据结构
+树
+存储
+多
+多对多</code></pre>
+
+<h2 id="1004-线性表插入删除操作"><a href="#1004-线性表插入删除操作" class="headerlink" title="1004. 线性表插入删除操作"></a>1004. 线性表插入删除操作</h2><p>大 的 来 了<br>题面略显抽象，没有给出q的范围，而且没有特意说明k是0索引还是1索引，只能说要求全靠脑补 + 根据样例猜</p>
+<p>分析一下题目，发现主要的任务就是写两个函数，实现：</p>
+<ul>
+<li>删除第$k$个元素</li>
+<li>在第$k$个元素后面插入元素$x$</li>
+</ul>
+<p>不难想到使用链表以保证删除和插入元素的效率，最坏情况下每次删除和插入的位置都在尾部，理论复杂度$O(nq)$</p>
+<p>一些在写代码过程中的想法：</p>
+<ol>
+<li>可以声明一个无意义的<code>head</code>结点，这样就可以把“删除第$k$个元素理解成“从<code>head</code>结点出发，移动<code>k</code>次后删除当前结点”，插入元素同理，降低思维和编码难度</li>
+<li>注意读题，<code>k</code>有可能是不合法的，也即<code>k</code>大于当前链表长度，或者说遍历到结点不存在。所以在遍历删除和插入中，需要加入判断条件<code>nowNode != NULL</code>，防止越界<br>另一种更高效的方式是维护一个变量<code>len</code>用于保存链表长度，如果判断出<code>len &lt; k</code>，则直接输出-1（删除）或者忽略（插入），这样还可以减少遍历的次数，运行时间应该会更短</li>
+</ol>
+<p>以下是参考代码，使用<code>kimi</code>辅助生成了注释</p>
+<pre><code>#include &lt;bits&#x2F;stdc++.h&gt;
+using namespace std;
+
+&#x2F;&#x2F; 定义链表的节点结构
+struct Node {
+    int data; &#x2F;&#x2F; 节点存储的数据
+    Node* nextNode; &#x2F;&#x2F; 指向下一个节点的指针
+};
+
+&#x2F;&#x2F; 创建一个新的节点并初始化数据
+Node* createNode(int num) {
+    Node* newNode &#x3D; new Node; &#x2F;&#x2F; 使用 new 创建一个新的 Node 对象
+    newNode-&gt;data &#x3D; num; &#x2F;&#x2F; 设置节点的数据
+    newNode-&gt;nextNode &#x3D; NULL; &#x2F;&#x2F; 设置节点的下一个指针为 NULL
+    return newNode; &#x2F;&#x2F; 返回新创建的节点
+}
+
+&#x2F;&#x2F; 初始化头节点，初始值为0
+Node* head &#x3D; createNode(0); 
+
+&#x2F;&#x2F; 删除操作
+void Delete(int k) {
+    Node* preNode &#x3D; head; &#x2F;&#x2F; 指向当前节点的前一个节点
+    Node* nowNode &#x3D; head; &#x2F;&#x2F; 指向当前节点
+    &#x2F;&#x2F; 移动 nowNode 到第 k 个节点
+    for (int i &#x3D; 0; i &lt; k &amp;&amp; nowNode !&#x3D; NULL; i++) {
+        preNode &#x3D; nowNode;
+        nowNode &#x3D; nowNode-&gt;nextNode;
+    }
+    &#x2F;&#x2F; 如果 nowNode 为 NULL，说明 k 超出了链表长度
+    if (nowNode &#x3D;&#x3D; NULL) {
+        printf(&quot;%d\n&quot;, -1);
+        return;
+    }
+    &#x2F;&#x2F; 输出被删除的节点的数据
+    printf(&quot;%d\n&quot;, nowNode-&gt;data);
+    &#x2F;&#x2F; 如果删除的是头节点
+    if (nowNode &#x3D;&#x3D; head) {
+        head &#x3D; head-&gt;nextNode; &#x2F;&#x2F; 将头节点移动到下一个节点
+    } else {
+        &#x2F;&#x2F; 否则，将前一个节点的 next 指向当前节点的下一个节点
+        preNode-&gt;nextNode &#x3D; nowNode-&gt;nextNode;
+    }
+    &#x2F;&#x2F; 删除当前节点，释放内存
+    delete nowNode;
+}
+
+&#x2F;&#x2F; 插入操作
+void Insert(int k, int x) {
+    Node* nowNode &#x3D; head; &#x2F;&#x2F; 指向当前节点
+    &#x2F;&#x2F; 移动 nowNode 到第 k 个节点的前一个节点
+    for (int i &#x3D; 0; i &lt; k &amp;&amp; nowNode !&#x3D; NULL; i++) {
+        nowNode &#x3D; nowNode-&gt;nextNode;
+    }
+    &#x2F;&#x2F; 创建一个新节点
+    Node* newNode &#x3D; createNode(x);
+    &#x2F;&#x2F; 如果 nowNode 为 NULL，说明插入位置在链表末尾
+    if (nowNode &#x3D;&#x3D; NULL) {
+        newNode-&gt;nextNode &#x3D; NULL;
+    } else {
+        &#x2F;&#x2F; 将新节点插入到链表中
+        newNode-&gt;nextNode &#x3D; nowNode-&gt;nextNode;
+    }
+    &#x2F;&#x2F; 将新节点链接到链表中
+    if (nowNode &#x3D;&#x3D; NULL) {
+        head &#x3D; newNode; &#x2F;&#x2F; 如果插入到链表头部
+    } else {
+        nowNode-&gt;nextNode &#x3D; newNode;
+    }
+}
+
+&#x2F;&#x2F; 主函数
+int main() {
+    int n, q, a;
+    cin &gt;&gt; n; &#x2F;&#x2F; 读取链表的长度
+    Node* preNode &#x3D; head; &#x2F;&#x2F; 初始化前一个节点为头节点
+    &#x2F;&#x2F; 构建链表
+    for (int i &#x3D; 0; i &lt; n; i++) {
+        cin &gt;&gt; a; &#x2F;&#x2F; 读取节点数据
+        Node* node &#x3D; createNode(a); &#x2F;&#x2F; 创建新节点
+        preNode-&gt;nextNode &#x3D; node; &#x2F;&#x2F; 将新节点链接到链表
+        preNode &#x3D; node; &#x2F;&#x2F; 更新前一个节点为当前节点
+    }
+    cin &gt;&gt; q; &#x2F;&#x2F; 读取操作的数量
+    int cmd, k, x;
+    &#x2F;&#x2F; 执行操作
+    for (int j &#x3D; 0; j &lt; q; j++) {
+        cin &gt;&gt; cmd; &#x2F;&#x2F; 读取操作命令
+        if (cmd &#x3D;&#x3D; 1) {
+            cin &gt;&gt; k &gt;&gt; x; &#x2F;&#x2F; 读取插入操作的参数
+            Insert(k, x); &#x2F;&#x2F; 执行插入操作
+        } else if (cmd &#x3D;&#x3D; 2) {
+            cin &gt;&gt; k; &#x2F;&#x2F; 读取删除操作的参数
+            Delete(k); &#x2F;&#x2F; 执行删除操作
+        }
+    }
+    return 0;
+}</code></pre>
+
+<p>其他小知识：在C++中可以用<code>new</code>代替<code>malloc</code>用于创建结构体哦！（￣︶￣）↗　</p>
+<h1 id="1005-线性表的比较"><a href="#1005-线性表的比较" class="headerlink" title="1005. 线性表的比较"></a>1005. 线性表的比较</h1><p>省流：比较字典序</p>
+
+  </div>
+  <div id=""></div>
+</div>
+
+<script>
+  
+Fancybox.bind('[data-fancybox="fancybox-gallery-img"]', {
+  dragToClose: true,
+  Toolbar: true,
+  closeButton: "top",
+  Image: {
+    zoom: true,
+  },
+  on: {
+    initCarousel: (fancybox) => {
+      const slide = fancybox.Carousel.slides[fancybox.Carousel.page];
+      fancybox.$container.style.setProperty(
+        "--bg-image",
+        `url("${slide.$thumb.src}")`
+      );
+    },
+    "Carousel.change": (fancybox, carousel, to, from) => {
+      const slide = carousel.slides[to];
+      fancybox.$container.style.setProperty(
+        "--bg-image",
+        `url("${slide.$thumb.src}")`
+      );
+    },
+  },
+});
+</script>
+
+<style>
+    #noneimg img {
+        display: none;
+        z-index: 9999;
+        /* width: 600px !important; */
+        min-width: 0%;
+        max-width: 90%;
+        max-height: 80%;
+        border-radius: 0px;
+        position: fixed;
+        box-shadow: 0 0 0px #c3c3c300 !important;
+        left: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        margin: auto !important;
+    }
+
+    @media screen and (max-width:600px) {
+        #noneimg img {
+            max-width: 88%
+        }
+    }
+</style>
+
+    <div class="post-paging">
+    
+    <a href="/2024/09/28/hello-world/">
+        <div class="post-paging-last">
+            <span>上一篇</span>
+            <p>About me</p>
+        </div>
+    </a>
+    
+
+    
+</div>
+</div>
+		
+<div class="footer">
+	<div class="Copyright">
+		©2024 By Joey. 主题：<a
+			style="text-decoration: none;display: contents; color: #898F9F;"
+			target="_blank" rel="noopener" href="https://github.com/79e/hexo-theme-quiet">Quiet</a>
+	</div>
+	<div class="contact">
+		
+		<a target="_blank" rel="noopener" href="https://github.com/79E/hexo-theme-quiet">
+			<img src="https://cdn.jsdelivr.net/gh/duogongneng/MyBlogImg/imggithub.png" alt="Quiet主题">
+		</a>
+		
+	</div>
+</div>
+
+<script src="/js/gotop.js"></script>
+
+
+<style type="text/css">
+    @media screen and (min-width: 600px) {
+        .goTop>span {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            opacity: 0.8;
+            background: rgba(18, 24, 58, 0.06);
+            text-align: center;
+            transition: border .5s;
+            border: 1px solid rgba(18, 24, 58, 0.06);
+
+            -moz-transition: border .5s;
+            /* Firefox 4 */
+            -webkit-transition: border .5s;
+            /* Safari 和 Chrome */
+            -o-transition: border .5s;
+            /* Opera */
+        }
+
+        .goTop>span:hover {
+            border: 1px solid #6680B3;
+        }
+
+
+        .goTop {
+            position: fixed;
+            right: 30px;
+            bottom: 80px;
+        }
+
+        .goTop>span>svg {
+            width: 20px;
+            height: 20px;
+            opacity: 0.7;
+        }
+
+    }
+
+    @media screen and (max-width: 600px) {
+        .goTop {
+            display: none;
+        }
+    }
+</style>
+<div class="goTop" id="js-go_top">
+    <span>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+            <g>
+                <path d="M13 12v8h-2v-8H4l8-8 8 8z"></path>
+            </g>
+        </svg>
+    </span>
+</div>
+<script>
+    $( '#js-go_top' )
+	.gotoTop( {
+		offset: 500,
+		speed: 300,
+		animationShow: {
+			'transform': 'translate(0,0)',
+			'transition': 'transform .5s ease-in-out'
+		},
+		animationHide: {
+			'transform': 'translate(100px,0)',
+			'transition': 'transform .5s ease-in-out'
+		}
+	} );
+</script>
+
+
+    <!-- Gitalk -->
+    <script>
+        const data = '{"clientID":"02b3c","clientSecret":"adfc7b4","repo":"gimment","owner":"duneng","admin":"duneng"}'
+        const gitalk = new Gitalk({
+            ...JSON.parse( data),
+            id:location.pathname,
+            distractionFreeMode:false
+        })
+        
+        if(Boolean('false')){
+            gitalk.render('gitalk-container')
+        }
+    </script>
+
+<script>
+	console.log('\n %c Hexo-Quiet 主题 %c https://github.com/79e/hexo-theme-quiet \n', 'color: #fadfa3; background: #030307; padding:5px 0;', 'background: #fadfa3; padding:5px 0;')
+</script>
+	</body>
+</html>
+

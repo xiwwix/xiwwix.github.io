@@ -316,7 +316,101 @@
   <div id="article" class="post-content-info">
     
 
-    
+    <h2 id="1006-线性链表的插入与删除"><a href="#1006-线性链表的插入与删除" class="headerlink" title="1006. 线性链表的插入与删除"></a>1006. 线性链表的插入与删除</h2><p>实现线性链表的插入与删除操作，只需要补全插入和删除函数的定义<br>注意题目里还提到了<code>head</code>指向链表的首元结点，<strong>如果链表为空，<code>head</code>为<code>NULL</code></strong></p>
+<p>插入操作中：<br><code>tar</code>，<code>val</code>表示将存放新值<code>val</code>的节点插入到值为<code>val</code>的节点之后，保证链表如果不为空就一定有<code>tar</code>，如果有多个<code>tar</code>插在第一个后面，如果链表为空<strong>将<code>head</code>指向这个新的节点</strong></p>
+<p>删除操作中：<br><code>tar</code>表示删除存放值为<code>tar</code>的节点（若有多个节点存放的值是<code>tar</code>，则删除第一个）<br>如果链表为空则忽略当前操作</p>
+<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>先看一眼主函数，发现已经定义了头结点</p>
+<ul>
+<li><p>对于插入操作，因为无论如何都要插进去一个新节点，所以可以先创建一个<code>new_node</code>（C风格就用<code>malloc</code>，C++用<code>new</code>）<br>然后判断链表是否为空（也即<code>head</code>是否为<code>NULL</code>，在题目定义结构体的下面那行写了），如果为空则将<code>head</code>指向这个新的节点，如果不为空则从头结点开始遍历，直到找到值为<code>tar</code>的结点</p>
+</li>
+<li><p>对于删除操作，首先判断链表是否为空（还是<code>head</code>是否为<code>NULL</code>），链表为空则忽略<br>然后遍历链表直到找到值为<code>tar</code>的结点即可<br>因为是单向链表，所以需要维护两个结点，一个<code>pre</code>表示“前一个结点”，一个<code>tmp</code>表示“当前结点”，删除操作可以被分解成两个部分：</p>
+<ul>
+<li>将<code>pre</code>结点的<code>next</code>指向<code>tmp</code>的<code>next</code></li>
+<li>删除<code>tmp</code>结点（C语言用<code>free</code>，C++使用delete，注意这两个不能混着使用）</li>
+</ul>
+</li>
+</ul>
+<p>顺带注意一下，根据主函数要求，插入和删除函数都需要返回的是头结点的指针</p>
+<p>参考代码：</p>
+<pre><code>
+&#x2F;&#x2F; 插入操作函数：在链表中找到值为 tar 的节点，并在其后插入一个新节点，值为 val
+NODE* insertLinklist(NODE* head, int tar, int val) {
+    &#x2F;&#x2F; 创建一个新节点，并初始化它的值和指针
+    NODE* new_node &#x3D; new NODE;  &#x2F;&#x2F; 动态分配内存
+    new_node-&gt;data &#x3D; val;       &#x2F;&#x2F; 为新节点赋值
+    new_node-&gt;next &#x3D; nullptr;   &#x2F;&#x2F; 新节点的 next 指针设为 nullptr，C语言写成 NULL
+
+    &#x2F;&#x2F; 如果链表为空（即 head 为 nullptr），则将新节点作为链表的头节点
+    if (!head) {
+        head &#x3D; new_node;  &#x2F;&#x2F; 新节点成为头节点
+        return head;      &#x2F;&#x2F; 返回更新后的链表
+    }
+
+    &#x2F;&#x2F; 如果链表不为空，遍历链表，找到值为 tar 的节点
+    NODE* tmp &#x3D; head;
+    while (tmp &amp;&amp; tmp-&gt;data !&#x3D; tar) {
+        tmp &#x3D; tmp-&gt;next;  &#x2F;&#x2F; 向下一个节点移动
+    }
+
+    &#x2F;&#x2F; 如果找到了值为 tar 的节点，则将新节点插入到该节点后面
+    if (tmp) {
+        new_node-&gt;next &#x3D; tmp-&gt;next;  &#x2F;&#x2F; 新节点的 next 指向 tar 节点的下一个节点
+        tmp-&gt;next &#x3D; new_node;        &#x2F;&#x2F; tar 节点的 next 指向新节点
+    }
+
+    &#x2F;&#x2F; 返回链表的头节点
+    return head;
+}
+
+&#x2F;&#x2F; 删除操作函数：在链表中找到值为 tar 的第一个节点并删除它
+NODE* deleteLinklist(NODE* head, int tar) {
+    &#x2F;&#x2F; 如果链表为空，直接返回（不做任何操作）
+    if (!head) {
+        return head;  &#x2F;&#x2F; 返回空链表
+    }
+
+    &#x2F;&#x2F; 如果要删除的节点是头节点，直接将头节点删除，并将链表头指向下一个节点
+    if (head-&gt;data &#x3D;&#x3D; tar) {
+        NODE* temp &#x3D; head;   &#x2F;&#x2F; 暂存当前头节点的指针
+        head &#x3D; head-&gt;next;   &#x2F;&#x2F; 将头节点移动到下一个节点
+        delete temp;         &#x2F;&#x2F; 释放之前头节点的内存
+        return head;         &#x2F;&#x2F; 返回更新后的链表
+    }
+
+    &#x2F;&#x2F; 如果要删除的节点不是头节点，遍历链表
+    NODE* tmp &#x3D; head;
+    NODE* pre &#x3D; nullptr;  &#x2F;&#x2F; 用来跟踪当前节点的前一个节点
+    while (tmp &amp;&amp; tmp-&gt;data !&#x3D; tar) {
+        pre &#x3D; tmp;         &#x2F;&#x2F; 记录前一个节点
+        tmp &#x3D; tmp-&gt;next;   &#x2F;&#x2F; 移动到下一个节点
+    }
+
+    &#x2F;&#x2F; 如果找到了值为 tar 的节点，则将它从链表中删除
+    if (tmp) {
+        pre-&gt;next &#x3D; tmp-&gt;next;  &#x2F;&#x2F; 前一个节点的 next 指向要删除节点的下一个节点
+        delete tmp;             &#x2F;&#x2F; 释放要删除节点的内存
+    }
+
+    &#x2F;&#x2F; 返回链表的头节点
+    return head;
+}
+</code></pre>
+
+<h2 id="1007-环形双向链表的删除操作"><a href="#1007-环形双向链表的删除操作" class="headerlink" title="1007. 环形双向链表的删除操作"></a>1007. 环形双向链表的删除操作</h2><p>主要有3个部分的操作：</p>
+<ol>
+<li>第一部分，根据输入值构建环形双向链表</li>
+<li>第二部分，获取输入值，这个值的结点在链表中不存在则输出<code>-1</code>，存在则删除所有相同值的结点</li>
+<li>最后输出所有剩下的结点</li>
+</ol>
+<p>难点：环形双向链表的具体实现；遍历时怎么删除所有和目标值相同的结点</p>
+<p>对应到写代码的话，主要是要做这几件事：</p>
+<ul>
+<li>定义链表结点，因为是双向的链表，所以需要定义<code>pre</code>和<code>next</code>两个指针</li>
+<li>一个函数用来插入结点</li>
+<li>用于删除的函数</li>
+<li>（可选）将最后打印剩余结点的操作也封装成函数</li>
+</ul>
+
   </div>
   <div id=""></div>
 </div>

@@ -326,7 +326,7 @@
 <li><p>对于删除操作，首先判断链表是否为空（还是<code>head</code>是否为<code>NULL</code>），链表为空则忽略<br>然后遍历链表直到找到值为<code>tar</code>的结点即可<br>因为是单向链表，所以需要维护两个结点，一个<code>pre</code>表示“前一个结点”，一个<code>tmp</code>表示“当前结点”，删除操作可以被分解成两个部分：</p>
 <ul>
 <li>将<code>pre</code>结点的<code>next</code>指向<code>tmp</code>的<code>next</code></li>
-<li>删除<code>tmp</code>结点（C语言用<code>free</code>，C++使用delete，注意这两个不能混着使用）</li>
+<li>删除<code>tmp</code>结点（C语言用<code>free</code>，C++使用<code>delete</code>，注意这两个不能混着使用）</li>
 </ul>
 </li>
 </ul>
@@ -396,6 +396,7 @@ NODE* deleteLinklist(NODE* head, int tar) {
 }
 </code></pre>
 
+<p>题目没给判题细节和数据范围，假设原链表长度为<code>n</code>，操作次数为<code>q</code>，最坏情况下每次插入或删除都在尾部，需要遍历整个链表，时间复杂度<code>O(nq)</code></p>
 <h2 id="1007-环形双向链表的删除操作"><a href="#1007-环形双向链表的删除操作" class="headerlink" title="1007. 环形双向链表的删除操作"></a>1007. 环形双向链表的删除操作</h2><p>主要有3个部分的操作：</p>
 <ol>
 <li>第一部分，根据输入值构建环形双向链表</li>
@@ -410,6 +411,81 @@ NODE* deleteLinklist(NODE* head, int tar) {
 <li>用于删除的函数</li>
 <li>（可选）将最后打印剩余结点的操作也封装成函数</li>
 </ul>
+<h2 id="1008-线性表去重"><a href="#1008-线性表去重" class="headerlink" title="1008. 线性表去重"></a>1008. 线性表去重</h2><p>C语言课上应该做过基本一样的题目</p>
+<p>这题有三类做法：</p>
+<ol>
+<li>（C语言课上同款）先排序，然后遍历<br>注意特判头或尾，这里代码的思路是先放第一个数进答案，从第二个数开始，只有该数与前一个数不相同时才放入答案</li>
+</ol>
+<pre><code>#include &lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+int nums[1005];
+
+int main() {
+    int n;
+    cin &gt;&gt; n;
+
+    vector&lt;int&gt; ans;
+
+    for (int i &#x3D; 0; i &lt; n; ++i) {
+        cin &gt;&gt; nums[i];
+    }
+
+    sort(nums, nums + n);
+
+    ans.push_back(nums[0]);
+
+    for (int i &#x3D; 1; i &lt; n; ++i) {
+        if (nums[i] !&#x3D; nums[i - 1]) {
+            ans.push_back(nums[i]);
+        }
+    }
+
+    for (int i &#x3D; 0; i &lt; ans.size(); ++i) {
+        cout &lt;&lt; ans[i] &lt;&lt; &quot; &quot;;
+    }
+    cout &lt;&lt; endl;
+
+    return 0;
+}</code></pre>
+
+<p>复杂度<code>O(nlogn)</code>，瓶颈在排序</p>
+<ol start="2">
+<li><p>计数排序<br>如果发现一道题的复杂度瓶颈在于排序，而且元素的值域不大（小于1e7），就可以考虑使用计数排序</p>
+<p><a target="_blank" rel="noopener" href="https://oi-wiki.org/basic/counting-sort/">何为计数排序</a></p>
+<p>简单来说，就是<strong>巧妙利用数组下标</strong>，比如说你现在的数组<code>A = [1,1,3,2,1,2]</code>，值域是1~3，那么你就可以开一个新的数组<code>C</code>，用<code>C[i]</code>表示<strong>A数组中数字<code>i</code>出现了几次</strong>，于是得到<code>C = [0,3,2,1]</code>（0开始索引）</p>
+<p>然后，如果你想输出排序后的<code>C</code>数组，相当于只要遍历它，输出<code>C[i]</code>次<code>i</code>的值就可以了<br>例如<code>i = 1</code>时<code>C[i] = 3</code>，说明原数组中1出现了3次，需要输出3个1</p>
+<p>而在这道题中，因为重复的数只要输出一遍，所以可以将刚刚的<code>int</code>数组<code>C</code>改成一个<code>bool</code>数组<code>exist</code>，用<code>exist[i]</code>表示原数组中是否出现过数字<code>i</code>，这样更省空间</p>
+<p>设原数组长度为<code>n</code>，值域大小为<code>m</code>，时间复杂度<code>O(n+m)</code>。所以说，在值域不大的情况下，计数排序是一种好用的算法</p>
+</li>
+</ol>
+<pre><code>
+#include &lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+bool exist[105];
+
+int main() {
+	int n,num;
+	cin&gt;&gt;n;
+	for (int i &#x3D; 0;i &lt; n;i++) {
+		cin&gt;&gt;num;
+		exist[num] &#x3D; true;
+	}
+	for (int j &#x3D; 0;j&lt;&#x3D;101;j++) {
+		if (exist[j]) {
+			printf(&quot;%d &quot;,j);
+		}
+	}
+	return 0;
+}
+</code></pre>
+
+<ol start="3">
+<li>哈希表<br>和计数排序法思路大同小异，就是记录出现过的数字即可</li>
+</ol>
 
   </div>
   <div id=""></div>

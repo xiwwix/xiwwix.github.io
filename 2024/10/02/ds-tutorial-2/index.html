@@ -396,7 +396,7 @@ NODE* deleteLinklist(NODE* head, int tar) {
 }
 </code></pre>
 
-<p>题目没给判题细节和数据范围，假设原链表长度为<code>n</code>，操作次数为<code>q</code>，最坏情况下每次插入或删除都在尾部，需要遍历整个链表，时间复杂度<code>O(nq)</code></p>
+<p>题目没给判题细节和数据范围，假设原链表长度为<code>n</code>，操作次数为<code>q</code>，最坏情况下每次插入或删除都在尾部，都需要遍历整个链表，时间复杂度<code>O(nq)</code></p>
 <h2 id="1007-环形双向链表的删除操作"><a href="#1007-环形双向链表的删除操作" class="headerlink" title="1007. 环形双向链表的删除操作"></a>1007. 环形双向链表的删除操作</h2><p>主要有3个部分的操作：</p>
 <ol>
 <li>第一部分，根据输入值构建环形双向链表</li>
@@ -411,11 +411,120 @@ NODE* deleteLinklist(NODE* head, int tar) {
 <li>用于删除的函数</li>
 <li>（可选）将最后打印剩余结点的操作也封装成函数</li>
 </ul>
+<h4 id="插入："><a href="#插入：" class="headerlink" title="插入："></a>插入：</h4><p>在插入操作中，每次将新节点插入到当前链表的尾节点之后，并更新尾节点的<code>next</code>指针以及头节点的<code>pre</code>指针。<br>首先创建一个新节点，设置该节点的<code>pre</code>和<code>next</code>为<code>NULL</code></p>
+<ul>
+<li>如果链表为空（即链表只有头节点），将新节点插入到头节点后面，建立新节点与头节点的前后关系。</li>
+<li>如果链表非空，找到链表的尾节点，将新节点插入到尾节点后面</li>
+</ul>
+<h4 id="删除："><a href="#删除：" class="headerlink" title="删除："></a>删除：</h4><p>注意维护一个<code>flag</code>用来判断有没有找到目标值</p>
+<pre><code>#include &lt;bits&#x2F;stdc++.h&gt;
+using namespace std;
+
+&#x2F;&#x2F; 定义链表节点结构
+struct NODE {
+    int data;       &#x2F;&#x2F; 存储节点的值
+    NODE* pre;      &#x2F;&#x2F; 指向前驱节点
+    NODE* next;     &#x2F;&#x2F; 指向后继节点
+};
+
+&#x2F;&#x2F; 创建节点的函数
+NODE* createNode(int data) {
+    NODE* p &#x3D; (NODE*)malloc(sizeof(NODE));  &#x2F;&#x2F; 分配节点的内存
+    p-&gt;data &#x3D; data;    &#x2F;&#x2F; 设置节点的数据
+    p-&gt;pre &#x3D; NULL;     &#x2F;&#x2F; 初始化前驱节点为空
+    p-&gt;next &#x3D; NULL;    &#x2F;&#x2F; 初始化后继节点为空
+    return p;
+}
+
+&#x2F;&#x2F; 初始化链表的头节点
+NODE* head &#x3D; createNode(NULL);
+
+&#x2F;&#x2F; 插入节点到环形双向链表
+void Insert(int num) {
+    NODE* newNode &#x3D; createNode(num);  &#x2F;&#x2F; 创建新节点
+    &#x2F;&#x2F; 如果链表为空，插入到头节点之后
+    if (head-&gt;next &#x3D;&#x3D; head) {
+        head-&gt;pre &#x3D; newNode;
+        head-&gt;next &#x3D; newNode;
+        newNode-&gt;pre &#x3D; head;
+        newNode-&gt;next &#x3D; head;
+    } else {
+        &#x2F;&#x2F; 插入到尾节点之后，保持环形结构
+        NODE* lastNode &#x3D; head-&gt;pre;
+        head-&gt;pre &#x3D; newNode;
+        lastNode-&gt;next &#x3D; newNode;
+        newNode-&gt;next &#x3D; head;
+        newNode-&gt;pre &#x3D; lastNode;
+    }
+}
+
+&#x2F;&#x2F; 删除链表中所有值为num的节点
+void Delete(int num) {
+    NODE* tmp &#x3D; head-&gt;next;
+    bool flag &#x3D; false;  &#x2F;&#x2F; 用于判断是否找到待删除节点
+    while (tmp !&#x3D; head) {
+        if (tmp-&gt;data &#x3D;&#x3D; num) {
+            flag &#x3D; true;
+            NODE* preNode &#x3D; tmp-&gt;pre;
+            NODE* nextNode &#x3D; tmp-&gt;next;
+            preNode-&gt;next &#x3D; nextNode;  &#x2F;&#x2F; 更新前驱节点的后继指针
+            nextNode-&gt;pre &#x3D; preNode;   &#x2F;&#x2F; 更新后继节点的前驱指针
+            NODE* toDelete &#x3D; tmp;  &#x2F;&#x2F; 保存待删除节点
+            tmp &#x3D; tmp-&gt;next;       &#x2F;&#x2F; 继续遍历
+            &#x2F;&#x2F; free(toDelete);     &#x2F;&#x2F; 如果需要释放内存，可取消注释
+        } else {
+            tmp &#x3D; tmp-&gt;next;  &#x2F;&#x2F; 如果当前节点不匹配，继续下一个节点
+        }
+    }
+    &#x2F;&#x2F; 如果没有找到任何待删除的节点，输出-1
+    if (!flag) {
+        printf(&quot;%d\n&quot;, -1);
+    }
+}
+
+&#x2F;&#x2F; 输出链表中剩余的所有节点
+void printNodes(void) {
+    NODE* tmp &#x3D; head-&gt;next;
+    while (tmp !&#x3D; head) {
+        printf(&quot;%d &quot;, tmp-&gt;data);  &#x2F;&#x2F; 输出节点数据
+        tmp &#x3D; tmp-&gt;next;
+    }
+}
+
+int main() {
+    int num;
+    bool flag &#x3D; false;  &#x2F;&#x2F; 控制插入和删除的状态
+    &#x2F;&#x2F; 初始化头节点的前驱和后继为自身，形成环形结构
+    head-&gt;next &#x3D; head;
+    head-&gt;pre &#x3D; head;
+
+    while (cin &gt;&gt; num) {
+        if (num &#x3D;&#x3D; -1) {
+            &#x2F;&#x2F; 首次遇到-1，表示进入删除阶段
+            if (!flag) {
+                flag &#x3D; true;
+            } else {
+                &#x2F;&#x2F; 再次遇到-1，表示结束输入，输出剩余节点
+                printNodes();
+                break;
+            }
+        } else {
+            &#x2F;&#x2F; flag为false时，插入节点
+            if (!flag) {
+                Insert(num);
+            } else {
+                &#x2F;&#x2F; flag为true时，执行删除操作
+                Delete(num);
+            }
+        }
+    }
+    return 0;
+}
+</code></pre>
+
 <h2 id="1008-线性表去重"><a href="#1008-线性表去重" class="headerlink" title="1008. 线性表去重"></a>1008. 线性表去重</h2><p>C语言课上应该做过基本一样的题目</p>
 <p>这题有三类做法：</p>
-<ol>
-<li>（C语言课上同款）先排序，然后遍历<br>注意特判头或尾，这里代码的思路是先放第一个数进答案，从第二个数开始，只有该数与前一个数不相同时才放入答案</li>
-</ol>
+<h4 id="1-（C语言课上同款）先排序，然后遍历，跳过重复的值，只输出不重复的"><a href="#1-（C语言课上同款）先排序，然后遍历，跳过重复的值，只输出不重复的" class="headerlink" title="1.（C语言课上同款）先排序，然后遍历，跳过重复的值，只输出不重复的"></a>1.（C语言课上同款）先排序，然后遍历，跳过重复的值，只输出不重复的</h4><p>   注意特判头或尾，这里代码的思路是先输出第一个数，从第二个数开始，只有该数与前一个数不相同时才输出</p>
 <pre><code>#include &lt;bits&#x2F;stdc++.h&gt;
 
 using namespace std;
@@ -426,24 +535,18 @@ int main() {
     int n;
     cin &gt;&gt; n;
 
-    vector&lt;int&gt; ans;
-
     for (int i &#x3D; 0; i &lt; n; ++i) {
         cin &gt;&gt; nums[i];
     }
 
     sort(nums, nums + n);
 
-    ans.push_back(nums[0]);
+    printf(&quot;%d &quot;,nums[0]);
 
     for (int i &#x3D; 1; i &lt; n; ++i) {
         if (nums[i] !&#x3D; nums[i - 1]) {
-            ans.push_back(nums[i]);
+            cout &lt;&lt;  nums[i] &lt;&lt; &quot; &quot;;
         }
-    }
-
-    for (int i &#x3D; 0; i &lt; ans.size(); ++i) {
-        cout &lt;&lt; ans[i] &lt;&lt; &quot; &quot;;
     }
     cout &lt;&lt; endl;
 
@@ -451,15 +554,11 @@ int main() {
 }</code></pre>
 
 <p>复杂度<code>O(nlogn)</code>，瓶颈在排序</p>
-<ol start="2">
-<li><p>计数排序<br>如果发现一道题的复杂度瓶颈在于排序，而且元素的值域不大（小于1e7），就可以考虑使用计数排序</p>
-<p><a target="_blank" rel="noopener" href="https://oi-wiki.org/basic/counting-sort/">何为计数排序</a></p>
+<h4 id="2-计数排序"><a href="#2-计数排序" class="headerlink" title="2.计数排序"></a>2.计数排序</h4><p>如果发现一道题的复杂度瓶颈在于排序，而且元素的值域不大（小于1e7），就可以考虑使用计数排序<br><a target="_blank" rel="noopener" href="https://oi-wiki.org/basic/counting-sort/">何为计数排序</a></p>
 <p>简单来说，就是<strong>巧妙利用数组下标</strong>，比如说你现在的数组<code>A = [1,1,3,2,1,2]</code>，值域是1~3，那么你就可以开一个新的数组<code>C</code>，用<code>C[i]</code>表示<strong>A数组中数字<code>i</code>出现了几次</strong>，于是得到<code>C = [0,3,2,1]</code>（0开始索引）</p>
 <p>然后，如果你想输出排序后的<code>C</code>数组，相当于只要遍历它，输出<code>C[i]</code>次<code>i</code>的值就可以了<br>例如<code>i = 1</code>时<code>C[i] = 3</code>，说明原数组中1出现了3次，需要输出3个1</p>
 <p>而在这道题中，因为重复的数只要输出一遍，所以可以将刚刚的<code>int</code>数组<code>C</code>改成一个<code>bool</code>数组<code>exist</code>，用<code>exist[i]</code>表示原数组中是否出现过数字<code>i</code>，这样更省空间</p>
 <p>设原数组长度为<code>n</code>，值域大小为<code>m</code>，时间复杂度<code>O(n+m)</code>。所以说，在值域不大的情况下，计数排序是一种好用的算法</p>
-</li>
-</ol>
 <pre><code>
 #include &lt;bits&#x2F;stdc++.h&gt;
 
@@ -483,9 +582,82 @@ int main() {
 }
 </code></pre>
 
-<ol start="3">
-<li>哈希表<br>和计数排序法思路大同小异，就是记录出现过的数字即可</li>
-</ol>
+<h4 id="3-哈希表"><a href="#3-哈希表" class="headerlink" title="3.哈希表"></a>3.哈希表</h4><p>和计数排序法思路大同小异，就是记录出现过的数字即可</p>
+<h2 id="1009-线性表顺序查找"><a href="#1009-线性表顺序查找" class="headerlink" title="1009. 线性表顺序查找"></a>1009. 线性表顺序查找</h2><p>签到，直接遍历，题目有注明没有重复值，所以找到后直接输出并结束程序即可</p>
+<pre><code>#include &lt;bits&#x2F;stdc++.h&gt;
+using namespace std;
+
+int nums[10005];
+
+int main() {
+	int n,v;
+	cin&gt;&gt;n;
+	for (int i &#x3D; 0;i &lt; n;i++) {
+		cin&gt;&gt;nums[i];
+	}
+	cin&gt;&gt;v;
+	for (int i &#x3D; 0;i &lt; n;i++) {
+		if (nums[i] &#x3D;&#x3D; v) {
+			printf(&quot;%d&quot;,i);
+			return 0;
+		}
+	}
+	printf(&quot;%d&quot;,-1);
+	return 0;
+}</code></pre>
+
+<p>时间复杂度显然<code>O(n)</code></p>
+<h2 id="1010-线性表二分查找"><a href="#1010-线性表二分查找" class="headerlink" title="1010. 线性表二分查找"></a>1010. 线性表二分查找</h2><p>笑点解析：数据比较水，上一题的代码cv大法也能过</p>
+<pre><code>
+#include &lt;bits&#x2F;stdc++.h&gt;
+using namespace std;
+
+&#x2F;&#x2F; 定义一个大小为 1000005 的数组，用于存储输入的数字
+int nums[1000005];
+
+int main() {
+	int n, v;
+	&#x2F;&#x2F; 输入数组的大小 n
+	cin &gt;&gt; n;
+	&#x2F;&#x2F; 输入 n 个数字存入数组 nums 中
+	for (int i &#x3D; 0; i &lt; n; i++) {
+		cin &gt;&gt; nums[i];
+	}
+	&#x2F;&#x2F; 输入要查找的目标值 v
+	cin &gt;&gt; v;
+
+	&#x2F;&#x2F; 定义左右边界，l 为左边界，r 为右边界
+	int l &#x3D; 0, r &#x3D; n - 1;
+
+	&#x2F;&#x2F; 开始进行二分查找，当左边界小于等于右边界时，继续查找
+	while (l &lt;&#x3D; r) {
+		&#x2F;&#x2F; 计算中间位置，采用移位运算 (&gt;&gt;1) 以提高效率
+		int mid &#x3D; (l + r) &gt;&gt; 1;
+
+		&#x2F;&#x2F; 如果中间值小于目标值 v，则将左边界移动到 mid + 1，缩小查找范围
+		if (nums[mid] &lt; v) {
+			l &#x3D; mid + 1;
+		}
+		&#x2F;&#x2F; 如果中间值等于目标值 v，输出 mid（即找到目标值所在的索引）
+		else if (nums[mid] &#x3D;&#x3D; v) {
+			printf(&quot;%d&quot;, mid);
+			return 0;  &#x2F;&#x2F; 查找成功，程序退出
+		}
+		&#x2F;&#x2F; 如果中间值大于目标值 v，则将右边界移动到 mid - 1，缩小查找范围
+		else {
+			r &#x3D; mid - 1;
+		}
+	}
+
+	&#x2F;&#x2F; 如果未找到目标值 v，输出 -1 表示查找失败
+	printf(&quot;%d&quot;, -1);
+	return 0;
+}
+</code></pre>
+
+<p>稍微提一句，<code>int mid = (l + r) &gt;&gt; 1;</code>这句代码不是特别好，一些题里<code>l + r</code>很大，可能达到<code>int</code>类型上限的话，就会遇到溢出问题<br>来自一位巨佬的比较好的写法：<code>int mid = l + (r - l) / 2;</code></p>
+<p>二分的写法其实有很多种，但无非就是<code>l</code>、<code>r</code>、<code>mid</code>怎么取，还有循环结束条件不同</p>
+<p>个人比较喜欢这个，也觉得比较好记，记住<code>while (l &lt;= r)</code>、<code>l = mid + 1;</code>、<code>r = mid - 1;</code>这三句就行</p>
 
   </div>
   <div id=""></div>

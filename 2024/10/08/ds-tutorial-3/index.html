@@ -316,7 +316,127 @@
   <div id="article" class="post-content-info">
     
 
-    
+    <pre><code></code></pre>
+
+<p>考完一堆期中之后终于想起自己还有一个blog QAQ…</p>
+<h2 id="1011-经典的猜数游戏"><a href="#1011-经典的猜数游戏" class="headerlink" title="1011. 经典的猜数游戏"></a>1011. 经典的猜数游戏</h2><p>一道比较基础的交互题，你可以理解成：机器想了一个数字，你要靠“输出”的方式告诉机器你猜的数字是什么<br>然后，机器说一个词<code>big/small/equal</code>来告诉你猜得对不对，你需要再靠“输入”的方式从机器那里获得这个反馈<br>总的流程就是：你先猜一个数（输出，printf&#x2F;cout）——机器收到，告诉你猜得对不对——你靠输入得到这个反馈（scanf&#x2F;cin）——调整你猜的数字<br>那么要怎么猜呢？<br>如果你熟悉二分算法，那就直接写一个二分上去就可以了，如果不太理解可以看看下面的解释：</p>
+<p>我们假设，现在我想了1-100之间的数字，对于你的每次猜测，我都会告诉你“大了&#x2F;小了&#x2F;不对”<br>假如你不知道，你可能会先随便猜一个50，这时候我会告诉你大了，然后你肯定要猜更小的数字</p>
+<p>这时候，你可以选择猜49，48……以此类推，但如果我想的是1呢？你得问整整50遍……</p>
+<p>更高效的方法是，<strong>每次猜当前剩下的可能的区间的中间值（下取整）</strong><br>比方说刚才你猜50，我说大了，显然可能的数字只会在1-49之间，你猜中间值25；<br>如果我又说大了，可能值只会在1-24之间，你猜12；如果说小了，可能值则在26-49之间，你猜37<br>这样的好处是，无论在什么情况（即使你是非酋），你的总猜测次数是理论最小的</p>
+<p>参考代码如下，注意每次得到<code>big/small</code>的反馈后<code>mid</code>区间的调整</p>
+<pre><code>#include &lt;bits&#x2F;stdc++.h&gt;
+using namespace std;
+
+int main() {
+	int l &#x3D; -1e9;
+	int r &#x3D; 1e9;
+	string response;
+	while (true) {
+		int mid &#x3D; (l + r) &gt;&gt; 1;
+		cout &lt;&lt; mid &lt;&lt; endl;
+		cin &gt;&gt; response;
+		if (response &#x3D;&#x3D; &quot;equal&quot;) {
+			return 0;
+		} else if (response &#x3D;&#x3D; &quot;big&quot;) {
+			r &#x3D; mid - 1;
+		} else {
+			l &#x3D; mid + 1;
+		}
+	}
+	return 0;
+}</code></pre>
+
+<h1 id="1012-环形队列"><a href="#1012-环形队列" class="headerlink" title="1012. 环形队列"></a>1012. 环形队列</h1><p>循环队列板题，直接照搬ppt上代码即可<br>注意ppt上的循环队列实现留出了一个空位置，也就是相当于要把队列长度+1</p>
+<pre><code>#include &lt;bits&#x2F;stdc++.h&gt;
+using namespace std;
+
+#define MAX_N 100002
+
+int q[MAX_N];
+int front &#x3D; 0,rear &#x3D; 0;
+
+void enqueue(int x) {
+	if ((rear + 1) % MAX_N &#x3D;&#x3D; front) {
+		return;
+	}
+	q[rear] &#x3D; x;
+	rear &#x3D; (rear + 1) % MAX_N;
+}
+
+void dequeue(void) {
+	if (front &#x3D;&#x3D; rear) {
+		cout &lt;&lt; -1 &lt;&lt; endl;
+		return;
+	}
+	int e &#x3D; q[front];
+	front &#x3D; (front + 1) % MAX_N;
+	cout &lt;&lt; e &lt;&lt; endl;
+}
+
+int main() {
+	int t,x;
+	string ope;
+	cin &gt;&gt; t;
+	while(t--) {
+		cin &gt;&gt; ope;
+		if (ope &#x3D;&#x3D; &quot;enqueue&quot;) {
+			cin &gt;&gt; x;
+			enqueue(x);
+		} else {
+			dequeue();	
+		}
+	}
+	return 0;
+}</code></pre>
+
+<h1 id="1013-医疗调度系统"><a href="#1013-医疗调度系统" class="headerlink" title="1013. 医疗调度系统"></a>1013. 医疗调度系统</h1><p>一道<code>hard</code>题，可能很多人刚刚看到这一题的时候会觉得不难，以为直接把全国家的人口存在一个数组里，然后按照题意模拟就可以</p>
+<p>需要注意的是，题目提到<code>1 &lt;= P &lt;= 1000000000</code>，无论是直接存成数组（MLE）或者循环（TLE）都不行<br>好消息是，进程命令的数量很小<code>1 &lt;= C &lt;= 1000</code>，所以我们可以<strong>维护一个长度为<code>min(P,C)</code>的队列</strong>，这样长度最大也就是1000，可以使用<code>O(n^2)</code>的算法</p>
+<p>具体怎么做呢？<br><code>N</code>接收下一个公民：队列出队首<br><code>E x</code>加速公民：遍历队列，如果队列中有<code>x</code>，就把<code>x</code>从原来的位置上“揪出来”到队首，后面的人填上去；如果没有，则直接在队首插入<code>x</code></p>
+<pre><code>#include &lt;bits&#x2F;stdc++.h&gt;
+using namespace std;
+
+deque&lt;int&gt; q;
+
+int main() {
+	int p,c;
+	int cas &#x3D; 0;
+	while(cin &gt;&gt; p &gt;&gt; c) {
+		q.clear();
+		if (p &#x3D;&#x3D; 0 &amp;&amp; c &#x3D;&#x3D; 0) {
+			break;
+		}
+		printf(&quot;Case %d:\n&quot;,cas);
+		cas++;
+		int len &#x3D; min(p,c);
+		for (int i &#x3D; 1;i &lt;&#x3D; len;i++) {
+			q.push_back(i);
+		}
+		char ope;
+		int x;
+		while(c--) {
+			cin &gt;&gt; ope;
+			if (ope &#x3D;&#x3D; &#39;N&#39;) {
+				int tmp &#x3D; q.front();
+				cout &lt;&lt; tmp &lt;&lt; endl;
+				q.pop_front();
+				q.push_back(tmp);
+			} else {
+				cin &gt;&gt; x;
+				for (int i &#x3D; 0;i &lt; q.size();i++) {
+					if (q[i] &#x3D;&#x3D; x) {
+						q.erase(q.begin() + i);
+						break;
+					}
+				}
+				q.push_front(x);
+			}
+		}
+	}
+	return 0;
+}</code></pre>
+
+<p>PS：金牌助教在课上提出了一个双指针做法，他的想法是只用维护一个变量tmp作为“正常排队的人”，一个队列作为插队队列，如果插队队列非空，优先出队，否则输出tmp，并且tmp++<br>但是坏消息是这个想法被打acm的同学华丽丽地hack掉了……（乐），以下是打acm的同学构造的一组数据：<br>3 5<br>E 2<br>N<br>N<br>N<br>N<br>正确输出应该是2 1 3 2，但是用学长的这种方法会得到2 1 2 3的错误答案，也就是说这种做法不能很好地处理“插队”的情况，如果一个人被优先服务过了，他本来应该被从正常排队的位置丢到队伍最后，但是学长的方法还是没办法处理这个问题</p>
+
   </div>
   <div id=""></div>
 </div>
@@ -375,6 +495,13 @@ Fancybox.bind('[data-fancybox="fancybox-gallery-img"]', {
 </style>
 
     <div class="post-paging">
+    
+    <a href="/2024/10/17/bytedance-exercises/">
+        <div class="post-paging-last">
+            <span>上一篇</span>
+            <p>字节跳动青训入营做题记录（部分）</p>
+        </div>
+    </a>
     
 
     

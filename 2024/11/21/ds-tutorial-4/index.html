@@ -1,0 +1,883 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		
+<title>心双2024数据结构1016-1020题解-xiwwwix's blog</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="shortcut icon" type="image/x-icon" href="/image/mylogo.ico">
+
+<link rel="stylesheet" href="/css/index.css">
+
+
+
+<meta name="keywords" content="2024心双数据结构EOJ习题,">
+<meta name="description" content="ds-tutorial">
+
+
+<script src="/js/jquery.min.js"></script>
+
+
+<script src="/js/index.js"></script>
+
+
+<script src="/js/fancybox.umd.js"></script>
+
+
+<script src="/js/fancybox-images.js"></script>
+
+
+<script src="/js/gitalk.min.js"></script>
+
+
+<script src="/js/hljs.min.js"></script>
+ 
+<script>hljs.highlightAll();</script>
+
+	<meta name="generator" content="Hexo 7.3.0"></head>
+
+	<body>
+		
+	<div class="header">
+		<div class="header-top" id="header-top">
+			<div class="h-left">
+				<a href="/">
+					<img src="/image/logo.png" alt="Quiet">
+				</a>
+			</div>
+			<div class="h-right">
+				<ul>
+					
+						
+								<li>
+									<a href="/">
+										HOME
+									</a>
+									<span class="dot"></span>
+								</li>
+								
+									
+						
+								<li>
+									<a href="/archives">
+										ARCHIVE
+									</a>
+									<span class="dot"></span>
+								</li>
+								
+									
+						
+								<li>
+									<a href="/categories">
+										CATEGORIES
+									</a>
+									<span class="dot"></span>
+								</li>
+								
+									
+						
+								<li>
+									<a href="/tags">
+										TAGS
+									</a>
+									<span class="dot"></span>
+								</li>
+								
+									
+						
+								<li>
+									<a href="/links">
+										LINKS
+									</a>
+									<span class="dot"></span>
+								</li>
+								
+									
+						
+								<li>
+									<a href="/about">
+										ABOUT
+									</a>
+									<span class="dot"></span>
+								</li>
+								
+									
+				</ul>
+			</div>
+			<div class="h-right-close">
+				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+					<path fill="none" d="M0 0h24v24H0z" />
+					<path d="M3 4h18v2H3V4zm0 7h18v2H3v-2zm0 7h18v2H3v-2z" fill="rgba(68,68,68,1)" />
+				</svg>
+			</div>
+		</div>
+	</div>
+	<div class="sidebar">
+    <div class="topo">
+        <h2>xiwwwix</h2>
+    </div>
+    <ul>
+        
+        <li>
+            <a href="/">HOME</a>
+        </li>
+        
+        <li>
+            <a href="/archives">ARCHIVE</a>
+        </li>
+        
+        <li>
+            <a href="/categories">CATEGORIES</a>
+        </li>
+        
+        <li>
+            <a href="/tags">TAGS</a>
+        </li>
+        
+        <li>
+            <a href="/links">LINKS</a>
+        </li>
+        
+        <li>
+            <a href="/about">ABOUT</a>
+        </li>
+        
+    </ul>
+    <div class="my_foot">
+        
+        <a target="_blank" rel="noopener" href="https://github.com/xiwwix">
+            <img src="https://cdn.jsdelivr.net/gh/duogongneng/MyBlogImg/imggithub.png" alt="Quiet主题">
+        </a>
+        
+    </div>
+</div>
+<div class='shelter'>
+</div>
+<style>
+    .shelter{
+        background-color: #333;
+        opacity:0.5;
+        cursor: pointer;
+        display: none; 
+        position: fixed;
+        left: 0;
+        top: 0; 
+        right: 0;
+        bottom: 0;
+        z-index: 1998;
+    }
+    .sidebar {
+        width: 66%;
+        height: 100%;
+        position: fixed;
+        top: 0;
+        right: -100%;
+        bottom: 0;
+        background: #fff;
+        z-index: 1999;
+        text-align: center;
+        box-shadow: -6px 0 20px rgba(98, 94, 94, .815);
+    }
+
+    .topo {
+        width: 100%;
+        height: 200px;
+        background: url(https://api.ixiaowai.cn/gqapi/gqapi.php) no-repeat;
+        background-size: 100% 100%;
+        position: relative;
+        display: flex;
+        align-items: flex-end
+    }
+
+    .topo h2 {
+        color: #fff;
+        z-index: 1;
+        position: relative;
+        margin: 0 0 10px 10px;
+        font-size: 1.2em;
+        box-sizing: border-box
+    }
+
+    .topo:before {
+        content: '';
+        background-image: url(/image/pattern.png);
+        background-repeat: repeat;
+        height: 100%;
+        left: 0;
+        position: absolute;
+        top: 0;
+        width: 100%;
+        z-index: 1
+    }
+
+    .sidebar ul {
+        width: 100%;
+        margin-top: 50px
+    }
+
+    .sidebar ul li {
+        height: 50px;
+        list-style: none;
+        font-size: 1.2em;
+        text-align: right;
+        margin-right: 10px
+    }
+
+    .sidebar ul li a {
+        display: grid;
+        color: #5d606a;
+        text-overflow: ellipsis;
+        width: 100%;
+        text-decoration: none
+    }
+
+    .my_foot {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+        position: absolute;
+        bottom: 0
+    }
+
+    .my_foot a {
+        text-decoration: none;
+        margin-right: 10px;
+        display: inline-block
+    }
+
+    .my_foot a img {
+        width: 30px;
+        height: 30px
+    }
+</style>
+
+<script>
+    $( function () {
+	$( '.h-right-close>svg' )
+		.click( function () {
+			$( '.sidebar' )
+				.animate( {
+					right: "0"
+				}, 500 );
+			$( '.shelter' )
+				.fadeIn( "slow" )
+		} );
+	$( '.shelter' )
+		.click( function ( e ) {
+			$( '.sidebar' )
+				.animate( {
+					right: "-100%"
+				}, 500 );
+			$( '.shelter' )
+				.fadeOut( "slow" )
+		} )
+} )
+
+</script>
+
+<div class="post">
+    <div class="post-header-background post-header-img"
+    style="background: url('https://api.ixiaowai.cn/gqapi/gqapi.php')" 
+>
+    <div class="post-header-background-content">
+        <ul class="post-header-tag">
+            
+            
+            <li><a href="/tags/2024心双数据结构EOJ习题">2024心双数据结构EOJ习题</a></li>
+            
+            
+        </ul>
+        
+        <h1>心双2024数据结构1016-1020题解</h1>
+        <div class="post-header-info">
+            <div class="post-header-info-author">
+                
+                    <svg t="1604839279282" class="icon" viewBox="0 0 1024 1024" version="1.1"
+                        xmlns="http://www.w3.org/2000/svg" p-id="2901" width="20" height="20">
+                        <path
+                            d="M513 956.3c-247.7 0-448-200.3-448-448S265.3 66.2 513 66.2s448 200.3 448 448-200.3 442.1-448 442.1z m0-830.9c-212.2 0-388.8 170.7-388.8 388.8C124.2 726.3 294.9 903 513 903c212.2 0 388.8-170.7 388.8-388.8S725.2 125.4 513 125.4z m0 430.2c-94.2 0-170.7-76.5-170.7-170.7S418.8 207.8 513 207.8s170.7 76.5 170.7 170.7S607.2 555.6 513 555.6z m0-289.1c-64.6 0-112 52.8-112 112s47.4 117.9 112 117.9 112-52.8 112-112-47.4-117.9-112-117.9z m0 689.8c-135.7 0-259-58.7-341.9-158.9l-11.8-17.8 11.8-17.8c76.5-117.9 206.2-188.5 347.8-188.5 135.7 0 265 64.6 341.9 182.6l11.8 17.8-11.8 17.8C778 897.1 648.7 956.3 513 956.3zM230.3 773.2C300.9 849.7 406.9 897 513 897c112 0 218.1-47.4 288.6-129.8-70.5-88.2-170.7-135.6-282.7-135.6s-218.1 53.3-288.6 141.6z"
+                            p-id="2902" fill="#ffffff"></path>
+                    </svg>
+                    
+                <span class="post-header-info-author-text"> <a target="_blank" rel="noopener" href="https://github.com/xiwwix">xiwwwix</a></span>
+                <div class="post-header-info-author-categories">
+                    
+                         <a href="../../categories/教程/" target="_blank" >教程</a>
+                    
+                </div>
+                <p>2024-11-21 14:38:49</p>
+            </div>
+        </div>
+    </div>
+</div>
+    <div class="post-content" id="content">
+  
+  <div id="article" class="post-content-info">
+    
+
+    <h2 id="1016-铁路调度"><a href="#1016-铁路调度" class="headerlink" title="1016. 铁路调度"></a>1016. 铁路调度</h2><p>我的做法是维护两个栈，一个<code>trains</code>自底向上放入n到1，一个<code>st</code>先置为空<br>遍历出站序列，假设遍历到的车号是<code>train</code>，核心就是比较<code>train</code>和<code>st</code>顶部的大小</p>
+<ul>
+<li>如果<code>trains</code>不为空并且<code>st</code>为空或**顶部小于<code>train</code>**，则将<code>trains</code>中的火车逐一移动到<code>st</code>中</li>
+<li>如果<code>st</code>不为空并且<code>train</code>和<code>st</code>顶部相同，则弹出<code>st</code>顶部</li>
+<li>其他情况，说明序列不合法，直接跳出循环</li>
+</ul>
+<p>判断单个序列的时间复杂度为<code>O(N)</code>，最多只需遍历一次<code>trains</code>中的元素</p>
+<pre><code>#include &lt;bits&#x2F;stdc++.h&gt;
+using namespace std;
+
+int main() {
+	int k;
+	cin &gt;&gt; k;
+	while (k--) {
+		bool flag &#x3D; true;
+		int n;
+		cin &gt;&gt; n;
+		string seq;
+		cin &gt;&gt; seq;
+		stack&lt;int&gt; st,trains;
+		
+		for (int i &#x3D; n;i &gt;&#x3D; 1;i--) {
+			trains.push(i);
+		}
+		
+		for (int i &#x3D; 0;i &lt; seq.size();i++) {
+			int train &#x3D; seq[i] - &#39;0&#39;;
+			while (!trains.empty() &amp;&amp; (st.empty() || st.top() &lt; train)) {
+				st.push(trains.top());
+				trains.pop();
+			}
+			
+			if (!st.empty() &amp;&amp; train &#x3D;&#x3D; st.top()) {
+				st.pop();
+			} else {
+				flag &#x3D; false;
+				break;
+			}
+		}
+		cout &lt;&lt; (flag?&quot;yes&quot;:&quot;no&quot;) &lt;&lt; endl;
+	}
+	return 0;
+}</code></pre>
+
+<h2 id="1017-波兰表达式"><a href="#1017-波兰表达式" class="headerlink" title="1017. 波兰表达式"></a>1017. 波兰表达式</h2><p>可以这么递归地理解：<strong>只有当一个符号后面紧跟着两个数字时，这两个数字才是直接和这个符号进行计算的</strong><br>举例<code>- 5 * 6 7</code>中的<code>-</code>号后面跟着一个数字和一个乘号，说明<code>-</code>号不直接执行计算，我们先往后看，发现<code>*</code>号后面紧跟着两个数字，所以计算<code>6 * 7</code>，并且将结果42放回式子，得到<code>- 5 42</code>，此时<code>-</code>号后面直接跟着两个数字，可以进行计算，<code>5 - 42</code>得到结果-37<br>代码实现的思路是，维护数字栈和符号栈，先读入一行，然后<strong>从右往左</strong>进行处理：</p>
+<ul>
+<li>如果当前是数字，直接压入数字栈（使用了一个比较幽默的函数用于判断当前是否为数字，详见代码）</li>
+<li>如果是符号，从数字栈中取出两个数，执行这个符号的运算，然后把结果压入数字栈，需要注意如果正着看，应该是左边的数字 （符号） 右边的数字，但是因为我们现在是在从右往左遍历，所以要调换顺序</li>
+</ul>
+<pre><code>#include &lt;bits&#x2F;stdc++.h&gt;
+using namespace std;
+
+bool isNum(string x) {
+	return (isdigit(x[0]) || (x[0] &#x3D;&#x3D; &#39;-&#39; &amp;&amp; x.length() &gt; 1));
+}
+
+double calculate(double num1,double num2,char t) {
+	double ans;
+	switch (t) {
+		case &#39;+&#39;:
+			ans &#x3D; num1 + num2;
+			break;
+		case &#39;-&#39;:
+			ans &#x3D; num1 - num2;
+			break;
+		case &#39;*&#39;:
+			ans &#x3D; num1 * num2;
+			break;
+		case &#39;&#x2F;&#39;:
+			ans &#x3D; num1 &#x2F; num2;
+			break;
+		default:
+			return -1;
+	}
+	return ans;
+}
+
+int main() {
+	stack&lt;string&gt; tokens;
+	stack&lt;char&gt; ope;
+	stack&lt;double&gt; nums;
+	string a;
+	while (cin &gt;&gt; a) {
+		tokens.push(a);
+	} 
+	while (!tokens.empty()) {
+		string tmp &#x3D; tokens.top();
+		tokens.pop();
+		if (isNum(tmp)) {
+			nums.push(stod(tmp));
+		} else {
+			char t &#x3D; tmp[0];
+			double num1 &#x3D; nums.top();
+			double num2 &#x3D; nums.top();
+			nums.pop(); nums.pop();
+			nums.push(calculate(num1,num2,t));
+		}
+	}
+	printf(&quot;%lf&quot;,nums.top());
+	return 0;
+}</code></pre>
+
+<p>另一种做法使用了递归，来自网上的大佬，思路是利用函数的调用顺序同样是栈的方式，仅供参考</p>
+<pre><code>#include &lt;bits&#x2F;stdc++.h&gt;
+using namespace std;
+
+double solve(){
+    char s[10005];
+    cin &gt;&gt; s;
+    switch(s[0])
+    {
+    case &#39;+&#39;:
+        return solve() + solve();
+        break;
+    case &#39;-&#39;:
+        return solve() - solve();
+        break;
+    case &#39;*&#39;:
+        return solve() * solve();
+        break;
+    case &#39;&#x2F;&#39;:
+        return solve() &#x2F; solve();
+        break;
+    default:
+        return atof(s);
+        break;
+    }
+}
+
+int main(){
+    printf(&quot;%.6lf\n&quot;, solve());
+    return 0;
+}</code></pre>
+
+<h2 id="1018-一元多项式乘法"><a href="#1018-一元多项式乘法" class="headerlink" title="1018. 一元多项式乘法"></a>1018. 一元多项式乘法</h2><p>幽默大模拟，感觉写了一年<br>总结几个思路：<br>1、用<code>while(cin &gt;&gt; s1 &gt;&gt; s2)</code>的方式，每次读入一行两个多项式<br>2、写一个函数，处理单个多项式<code>s1</code>，将它分割成若干个单项；开一个数组，**<code>用coef1[i]</code>表示幂次为<code>i</code>的那一项的系数**，<code>s2</code>同样处理</p>
+<p>具体来说，你可以想象，一个完整单项的形式应该是<code>+/- ax^b</code>，特殊情况主要是：如果是第一项则不会有<code>+</code>号；如果是常数项则没有<code>b</code>，如果系数唯一不会有<code>a</code></p>
+<p>所以我采用的就是在遍历过程中分步<strong>判断有没有+&#x2F;-号——判断有没有a，如果有，逐位计算直到得到系数——判断有没有x——判断有没有^，如果有，逐位计算直到得到指数</strong>的做法，应该涵盖了所有情况</p>
+<p>3、要求两个多项式的乘积，可以再开一个数组<code>coef</code>，<code>coef[k]</code>同样表示幂次为<code>k</code>的那一项的系数</p>
+<p>其实也就是要写一个两重循环遍历<code>coef1</code>和<code>coef2</code>，假设现在遍历到了<code>coef1[i]</code>和<code>coef2[j]</code>，那么就为<code>coef[i+j]</code>的值加上<code>coef1[i]*coef2[j]</code>，也就表示乘积的<code>i+j</code>次幂项的系数加上这个值（为什么是加上而不是赋值呢？因为可能有多种乘积的情况的指数是相同的~比如<code>x^3 * x^2</code>和<code>x * x^4</code>）</p>
+<p>举例，<code>coef1[2]</code> &#x3D; 3，<code>coef2[4]</code> &#x3D; 5，分别表示<code>3x^2</code>和<code>5x^4</code>，它们的乘积也就是<code>(3*5)x^(2+4)</code>，即<code>15x^6</code>，你需要为<code>coef[6]</code>加上15</p>
+<pre><code>#include &lt;bits&#x2F;stdc++.h&gt;
+using namespace std;
+
+int coef1[53] &#x3D; {0};
+int coef2[53] &#x3D; {0};
+int coef[103] &#x3D; {0};
+
+void solve(const string&amp; s,int* c) {
+	int cf,poww,flag;
+	int point &#x3D; 0;
+	while (point &lt; s.size()) {
+		cf &#x3D; 0;
+		poww &#x3D; 0;
+		flag &#x3D; 1;
+		if (s[point] &#x3D;&#x3D; &#39;+&#39;) {
+			flag &#x3D; 1;
+			point++;
+		} else if (s[point] &#x3D;&#x3D; &#39;-&#39;) {
+			flag &#x3D; -1;
+			point++;
+		}
+		if (s[point] &#x3D;&#x3D; &#39;x&#39;) {
+			cf &#x3D; 1;
+		} else {
+			while (isdigit(s[point])) {
+				cf *&#x3D; 10;
+				cf +&#x3D; s[point] - &#39;0&#39;;
+				point++;
+			}
+		}
+
+		if (s[point] &#x3D;&#x3D; &#39;x&#39;) {
+			point++;
+			poww &#x3D; 1;
+		}
+		
+		if (s[point] &#x3D;&#x3D; &#39;^&#39;) {
+			point++;
+			poww &#x3D; 0;
+			while (isdigit(s[point])) {
+				poww *&#x3D; 10;
+				poww +&#x3D; s[point] - &#39;0&#39;;
+				point++;
+			}
+		}
+		
+		c[poww] +&#x3D; cf * flag;
+&#x2F;&#x2F;		cout &lt;&lt; flag &lt;&lt; endl;
+&#x2F;&#x2F;		cout &lt;&lt; &quot;solve&quot; &lt;&lt; poww &lt;&lt;&quot; &quot;&lt;&lt; cf*flag &lt;&lt; endl;
+	}
+}
+
+int main() {
+	string s1,s2;
+	while (cin &gt;&gt; s1 &gt;&gt; s2) {
+		memset(coef1,0,sizeof(coef1));
+		memset(coef2,0,sizeof(coef2));
+		memset(coef,0,sizeof(coef));
+		solve(s1,coef1);
+		solve(s2,coef2);
+		for (int i &#x3D; 0;i &lt; 50;i++) {
+			for (int j &#x3D; 0;j &lt; 50;j++) {
+				coef[i+j] +&#x3D; coef1[i] * coef2[j];
+			}
+		}
+		for (int i &#x3D; 100;i &gt;&#x3D; 0;i--) {
+			if (coef[i] !&#x3D; 0) {
+				cout &lt;&lt; coef[i] &lt;&lt; &quot; &quot;;
+			}
+		}
+		cout &lt;&lt; endl;
+	}
+}</code></pre>
+
+<h2 id="1019-表达式"><a href="#1019-表达式" class="headerlink" title="1019. 表达式"></a>1019. 表达式</h2><p>被恶心到了，实在不想写，csdn上有很多讲解，所以摆（）<br>放上代码以供参考</p>
+<pre><code>#include &lt;bits&#x2F;stdc++.h&gt;
+using namespace std;
+
+stack&lt;int&gt; nums;
+stack&lt;char&gt; opes;
+string expression;
+int point &#x3D; 0;
+
+map&lt;char, int&gt; priority;
+
+int getNum() {
+	int res &#x3D; 0;
+	while (point &lt; expression.size() &amp;&amp; isdigit(expression[point])) {
+		res &#x3D; res * 10;
+		res +&#x3D; expression[point] - &#39;0&#39;;
+		point++;
+	}
+	return res;
+}
+
+int Calculate(int num2, int num1, char op) {
+	switch(op) {
+		case &#39;+&#39;:
+			return num2 + num1;
+		case &#39;-&#39;:
+			return num2 - num1;
+		case &#39;*&#39;:
+			return num2 * num1;
+		case &#39;&#x2F;&#39;:
+			return num2 &#x2F; num1;
+		default:
+			return 0;
+	}
+}
+
+void processTop() {
+	if (nums.size() &lt; 2 || opes.empty()) return;
+	int num1 &#x3D; nums.top();
+	nums.pop();
+	int num2 &#x3D; nums.top();
+	nums.pop();
+	char op &#x3D; opes.top();
+	opes.pop();
+	nums.push(Calculate(num2, num1, op));
+}
+
+int main() {
+	cin &gt;&gt; expression;
+
+	priority[&#39;+&#39;] &#x3D; priority[&#39;-&#39;] &#x3D; 1;
+	priority[&#39;*&#39;] &#x3D; priority[&#39;&#x2F;&#39;] &#x3D; 2;
+	priority[&#39;(&#39;] &#x3D; 0;
+
+	int n &#x3D; expression.size();
+
+	char last &#x3D; &#39;o&#39;;
+
+	while (point &lt; n) {
+		char ch &#x3D; expression[point];
+
+		if (ch &#x3D;&#x3D; &#39; &#39;) {
+			point++;
+			continue;
+		}
+
+		if (ch &#x3D;&#x3D; &#39;-&#39; &amp;&amp; (last &#x3D;&#x3D; &#39;o&#39; || last &#x3D;&#x3D; &#39;(&#39;)) {
+			point++;
+			int num &#x3D; getNum();
+			nums.push(-num);
+			last &#x3D; &#39;n&#39;;
+		} else if (isdigit(ch)) {
+			int num &#x3D; getNum();
+			nums.push(num);
+			last &#x3D; &#39;n&#39;;
+		} else if (ch &#x3D;&#x3D; &#39;(&#39;) {
+			opes.push(ch);
+			point++;
+			last &#x3D; &#39;(&#39;;
+		} else if (ch &#x3D;&#x3D; &#39;)&#39;) {
+			while(!opes.empty() &amp;&amp; opes.top() !&#x3D; &#39;(&#39;) {
+				processTop();
+			}
+			if (!opes.empty()) {
+				opes.pop();
+			}
+			point++;
+			last &#x3D; &#39;n&#39;;
+		} else if (ch &#x3D;&#x3D; &#39;+&#39; || ch &#x3D;&#x3D; &#39;-&#39; || ch &#x3D;&#x3D; &#39;*&#39; || ch &#x3D;&#x3D; &#39;&#x2F;&#39;) {
+			while (!opes.empty() &amp;&amp; priority[opes.top()] &gt;&#x3D; priority[ch]) {
+				processTop();
+			}
+			opes.push(ch);
+			point++;
+			last &#x3D; &#39;o&#39;;
+		} else {
+			point++;
+		}
+	}
+	while (!opes.empty()) {
+		processTop();
+	}
+	if (!nums.empty()) {
+		cout &lt;&lt; nums.top() &lt;&lt; endl;
+	} else {
+		cout &lt;&lt; &quot;0&quot; &lt;&lt; endl;
+	}
+
+	return 0;
+}</code></pre>
+
+<h2 id="1020-迷宫（可以自己用栈实现，也可以用图的遍历算法实现）"><a href="#1020-迷宫（可以自己用栈实现，也可以用图的遍历算法实现）" class="headerlink" title="1020. 迷宫（可以自己用栈实现，也可以用图的遍历算法实现）"></a>1020. 迷宫（可以自己用栈实现，也可以用图的遍历算法实现）</h2><p>很板的dfs&#x2F;bfs题，建议学完图论再回来看</p>
+<pre><code>#include &lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+int mapp[105][105] &#x3D; {0};
+
+bool visited[105][105] &#x3D; {false};
+
+bool flag &#x3D; false;
+int n,x1,x2,yy1,yy2;
+
+int direction[8][2] &#x3D; {
+        {-1, 1}, {0, 1}, {1, 1}, {-1, 0}, {1, 0}, {-1, -1}, {0, -1}, {1, -1}
+    };
+    
+void dfs(int x,int y) {
+    
+    if (flag) return;
+    
+	if(x &#x3D;&#x3D; x2 &amp;&amp; y &#x3D;&#x3D; yy2) {
+		flag &#x3D; true;
+		return;
+	} 
+	for (int i &#x3D; 0;i &lt; 8;i ++) {
+		int* dir &#x3D; direction[i];
+		int xx &#x3D; x + dir[0];
+		int yy &#x3D; y + dir[1];
+		if (0 &lt;&#x3D; xx &amp;&amp; xx &lt; n &amp;&amp; 0 &lt;&#x3D; yy &amp;&amp; yy &lt; n &amp;&amp; (!visited[xx][yy]) &amp;&amp; (mapp[xx][yy] &#x3D;&#x3D; 0)) {
+			visited[xx][yy] &#x3D; true;
+			dfs(xx,yy);
+			if (flag) return;
+		}
+	}
+}
+
+int main() {
+	cin&gt;&gt;n;
+	cin&gt;&gt;x1&gt;&gt;yy1&gt;&gt;x2&gt;&gt;yy2;
+	string line;
+	
+	for (int i &#x3D; 0;i &lt; n;i++) {
+		cin&gt;&gt;line;
+		for (int j &#x3D; 0;j &lt; n;j++) {
+			mapp[i][j] &#x3D; line[j] - &#39;0&#39;;
+		}
+	}
+	
+	dfs(x1,yy1);
+	if (flag) {
+		printf(&quot;yes\n&quot;);
+	}else{
+		printf(&quot;no\n&quot;);
+	}
+	 
+	return 0;
+}</code></pre>
+  </div>
+  <div id=""></div>
+</div>
+
+<script>
+  
+Fancybox.bind('[data-fancybox="fancybox-gallery-img"]', {
+  dragToClose: true,
+  Toolbar: true,
+  closeButton: "top",
+  Image: {
+    zoom: true,
+  },
+  on: {
+    initCarousel: (fancybox) => {
+      const slide = fancybox.Carousel.slides[fancybox.Carousel.page];
+      fancybox.$container.style.setProperty(
+        "--bg-image",
+        `url("${slide.$thumb.src}")`
+      );
+    },
+    "Carousel.change": (fancybox, carousel, to, from) => {
+      const slide = carousel.slides[to];
+      fancybox.$container.style.setProperty(
+        "--bg-image",
+        `url("${slide.$thumb.src}")`
+      );
+    },
+  },
+});
+</script>
+
+<style>
+    #noneimg img {
+        display: none;
+        z-index: 9999;
+        /* width: 600px !important; */
+        min-width: 0%;
+        max-width: 90%;
+        max-height: 80%;
+        border-radius: 0px;
+        position: fixed;
+        box-shadow: 0 0 0px #c3c3c300 !important;
+        left: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        margin: auto !important;
+    }
+
+    @media screen and (max-width:600px) {
+        #noneimg img {
+            max-width: 88%
+        }
+    }
+</style>
+
+    <div class="post-paging">
+    
+
+    
+    <a href="/2024/10/17/bytedance-exercises/">
+        <div class="post-paging-next">
+            <span>下一篇</span>
+            <p>字节跳动青训入营做题记录（部分）</p>
+        </div>
+    </a>
+    
+</div>
+</div>
+		
+<div class="footer">
+	<div class="Copyright">
+		©2024 By xiwwwix. 主题：<a
+			style="text-decoration: none;display: contents; color: #898F9F;"
+			target="_blank" rel="noopener" href="https://github.com/79e/hexo-theme-quiet">Quiet</a>
+	</div>
+	<div class="contact">
+		
+		<a target="_blank" rel="noopener" href="https://github.com/xiwwix">
+			<img src="https://cdn.jsdelivr.net/gh/duogongneng/MyBlogImg/imggithub.png" alt="Quiet主题">
+		</a>
+		
+	</div>
+</div>
+
+<script src="/js/gotop.js"></script>
+
+
+<style type="text/css">
+    @media screen and (min-width: 600px) {
+        .goTop>span {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            opacity: 0.8;
+            background: rgba(18, 24, 58, 0.06);
+            text-align: center;
+            transition: border .5s;
+            border: 1px solid rgba(18, 24, 58, 0.06);
+
+            -moz-transition: border .5s;
+            /* Firefox 4 */
+            -webkit-transition: border .5s;
+            /* Safari 和 Chrome */
+            -o-transition: border .5s;
+            /* Opera */
+        }
+
+        .goTop>span:hover {
+            border: 1px solid #6680B3;
+        }
+
+
+        .goTop {
+            position: fixed;
+            right: 30px;
+            bottom: 80px;
+        }
+
+        .goTop>span>svg {
+            width: 20px;
+            height: 20px;
+            opacity: 0.7;
+        }
+
+    }
+
+    @media screen and (max-width: 600px) {
+        .goTop {
+            display: none;
+        }
+    }
+</style>
+<div class="goTop" id="js-go_top">
+    <span>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+            <g>
+                <path d="M13 12v8h-2v-8H4l8-8 8 8z"></path>
+            </g>
+        </svg>
+    </span>
+</div>
+<script>
+    $( '#js-go_top' )
+	.gotoTop( {
+		offset: 500,
+		speed: 300,
+		animationShow: {
+			'transform': 'translate(0,0)',
+			'transition': 'transform .5s ease-in-out'
+		},
+		animationHide: {
+			'transform': 'translate(100px,0)',
+			'transition': 'transform .5s ease-in-out'
+		}
+	} );
+</script>
+
+
+    <!-- Gitalk -->
+    <script>
+        const data = '{"clientID":"02b3c","clientSecret":"adfc7b4","repo":"gimment","owner":"duneng","admin":"duneng"}'
+        const gitalk = new Gitalk({
+            ...JSON.parse( data),
+            id:location.pathname,
+            distractionFreeMode:false
+        })
+        
+        if(Boolean('false')){
+            gitalk.render('gitalk-container')
+        }
+    </script>
+
+<script>
+	console.log('\n %c Hexo-Quiet 主题 %c https://github.com/79e/hexo-theme-quiet \n', 'color: #fadfa3; background: #030307; padding:5px 0;', 'background: #fadfa3; padding:5px 0;')
+</script>
+	</body>
+</html>
+

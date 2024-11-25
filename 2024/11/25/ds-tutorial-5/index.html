@@ -2,7 +2,7 @@
 <html>
 	<head>
 		
-<title>心双2024数据结构1011-1015题解-xiwwwix's blog</title>
+<title>心双2024数据结构1016-1020题解-xiwwwix's blog</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -289,7 +289,7 @@
             
         </ul>
         
-        <h1>心双2024数据结构1011-1015题解</h1>
+        <h1>心双2024数据结构1016-1020题解</h1>
         <div class="post-header-info">
             <div class="post-header-info-author">
                 
@@ -306,7 +306,7 @@
                          <a href="../../categories/教程/" target="_blank" >教程</a>
                     
                 </div>
-                <p>2024-10-08 01:10:01</p>
+                <p>2024-11-25 18:59:50</p>
             </div>
         </div>
     </div>
@@ -316,216 +316,208 @@
   <div id="article" class="post-content-info">
     
 
-    <p>考完一堆期中之后终于想起自己还有一个blog QAQ…</p>
-<h2 id="1011-经典的猜数游戏"><a href="#1011-经典的猜数游戏" class="headerlink" title="1011. 经典的猜数游戏"></a>1011. 经典的猜数游戏</h2><p>一道比较基础的交互题，你可以理解成：机器想了一个数字，你要靠“输出”的方式告诉机器你猜的数字是什么<br>然后，机器说一个词<code>big/small/equal</code>来告诉你猜得对不对，你需要再靠“输入”的方式从机器那里获得这个反馈<br>总的流程就是：你先猜一个数（输出，<code>printf/cout</code>）——机器收到，告诉你猜得对不对——你靠输入得到这个反馈（<code>scanf/cin</code>）——调整你猜的数字<br>那么要怎么猜呢？<br>如果你熟悉二分算法，那就直接写一个二分上去就可以了，如果不太理解可以看看下面的解释：</p>
-<p>我们假设，现在我想了1-100之间的数字，对于你的每次猜测，我都会告诉你“大了&#x2F;小了&#x2F;猜对了”<br>假如你不知道，你可能会先随便猜一个50，这时候我会告诉你大了，然后你肯定要猜更小的数字</p>
-<p>这时候，你可以选择猜49，48……以此类推，但如果我想的是1呢？你得问整整50遍……</p>
-<p>更高效的方法是，<strong>每次猜当前剩下的可能的区间的中间值（下取整）</strong><br>比方说刚才你猜50，我说大了，显然可能的数字只会在1-49之间，你猜中间值25；<br>如果我又说大了，可能值只会在1-24之间，你猜12；如果说小了，可能值则在26-49之间，你猜37<br>这样的好处是，无论在什么情况（即使你是非酋），你的总猜测次数是理论最小的</p>
-<p>参考代码如下，注意每次得到<code>big/small</code>的反馈后<code>mid</code>区间的调整</p>
-<pre><code>#include &lt;bits&#x2F;stdc++.h&gt;
-using namespace std;
-
-int main() {
-	int l &#x3D; -1e9;
-	int r &#x3D; 1e9;
-	string response;
-	while (true) {
-		int mid &#x3D; (l + r) &gt;&gt; 1;
-		cout &lt;&lt; mid &lt;&lt; endl;
-		cin &gt;&gt; response;
-		if (response &#x3D;&#x3D; &quot;equal&quot;) {
-			return 0;
-		} else if (response &#x3D;&#x3D; &quot;big&quot;) {
-			r &#x3D; mid - 1;
-		} else {
-			l &#x3D; mid + 1;
-		}
-	}
-	return 0;
-}</code></pre>
-
-<h2 id="1012-环形队列"><a href="#1012-环形队列" class="headerlink" title="1012. 环形队列"></a>1012. 环形队列</h2><p>循环队列板题，直接照搬ppt上代码即可<br>注意ppt上的循环队列实现留出了一个空位置，也就是相当于要把队列长度+1</p>
-<pre><code>#include &lt;bits&#x2F;stdc++.h&gt;
-using namespace std;
-
-#define MAX_N 100002
-
-int q[MAX_N];
-int front &#x3D; 0,rear &#x3D; 0;
-
-void enqueue(int x) {
-	if ((rear + 1) % MAX_N &#x3D;&#x3D; front) {
-		return;
-	}
-	q[rear] &#x3D; x;
-	rear &#x3D; (rear + 1) % MAX_N;
-}
-
-void dequeue(void) {
-	if (front &#x3D;&#x3D; rear) {
-		cout &lt;&lt; -1 &lt;&lt; endl;
-		return;
-	}
-	int e &#x3D; q[front];
-	front &#x3D; (front + 1) % MAX_N;
-	cout &lt;&lt; e &lt;&lt; endl;
-}
-
-int main() {
-	int t,x;
-	string ope;
-	cin &gt;&gt; t;
-	while(t--) {
-		cin &gt;&gt; ope;
-		if (ope &#x3D;&#x3D; &quot;enqueue&quot;) {
-			cin &gt;&gt; x;
-			enqueue(x);
-		} else {
-			dequeue();	
-		}
-	}
-	return 0;
-}</code></pre>
-
-<h2 id="1013-医疗调度系统"><a href="#1013-医疗调度系统" class="headerlink" title="1013. 医疗调度系统"></a>1013. 医疗调度系统</h2><p>一道<code>hard</code>题，可能很多人刚刚看到这一题的时候会觉得不难，以为直接把全国家的人口存在一个数组里，然后按照题意模拟就可以</p>
-<p>需要注意的是，题目提到<code>1 &lt;= P &lt;= 1000000000</code>，无论是直接存成数组（MLE）或者循环（TLE）都不行<br>好消息是，进程命令的数量很小<code>1 &lt;= C &lt;= 1000</code>，所以我们可以<strong>维护一个长度为<code>min(P,C)</code>的队列</strong>，这样长度最大也就是1000，可以使用<code>O(n^2)</code>的算法</p>
-<p>具体怎么做呢？<br><code>N</code>接收下一个公民：队列出队首<br><code>E x</code>加速公民：遍历队列，如果队列中有<code>x</code>，就把<code>x</code>从原来的位置上“揪出来”到队首，后面的人填上去；如果没有，则直接在队首插入<code>x</code></p>
-<p>时间复杂度<code>O(N^2)</code></p>
-<pre><code>#include &lt;bits&#x2F;stdc++.h&gt;
-using namespace std;
-
-deque&lt;int&gt; q;
-
-int main() {
-	int p,c;
-	int cas &#x3D; 0;
-	while(cin &gt;&gt; p &gt;&gt; c) {
-		q.clear();
-		if (p &#x3D;&#x3D; 0 &amp;&amp; c &#x3D;&#x3D; 0) {
-			break;
-		}
-		printf(&quot;Case %d:\n&quot;,cas);
-		cas++;
-		int len &#x3D; min(p,c);
-		for (int i &#x3D; 1;i &lt;&#x3D; len;i++) {
-			q.push_back(i);
-		}
-		char ope;
-		int x;
-		while(c--) {
-			cin &gt;&gt; ope;
-			if (ope &#x3D;&#x3D; &#39;N&#39;) {
-				int tmp &#x3D; q.front();
-				cout &lt;&lt; tmp &lt;&lt; endl;
-				q.pop_front();
-				q.push_back(tmp);
-			} else {
-				cin &gt;&gt; x;
-				for (int i &#x3D; 0;i &lt; q.size();i++) {
-					if (q[i] &#x3D;&#x3D; x) {
-						q.erase(q.begin() + i);
-						break;
-					}
-				}
-				q.push_front(x);
-			}
-		}
-	}
-	return 0;
-}</code></pre>
-
-<p>PS：金牌助教在课上提出了一个双指针做法，他的想法是只用维护一个变量tmp作为“正常排队的人”，一个队列作为插队队列，如果插队队列非空，优先出队，否则输出tmp，并且tmp++<br>但是坏消息是这个想法被打acm的同学华丽丽地hack掉了……（乐），以下是打acm的同学构造的一组数据：<br>3 5<br>E 2<br>N<br>N<br>N<br>N<br>正确输出应该是2 1 3 2，但是用学长的这种方法会得到2 1 2 3的错误答案，也就是说这种做法不能很好地处理“插队”的情况，如果一个人被优先服务过了，他本来应该被从正常排队的位置丢到队伍最后，但是学长的方法还是没办法处理这个问题</p>
-<h2 id="1014-循环打印"><a href="#1014-循环打印" class="headerlink" title="1014. 循环打印"></a>1014. 循环打印</h2><p>因为涉及到频繁的结点删除，所以使用单链表，时间复杂度<code>O(nk)</code><br>以下做法使用了结构体表示结点<br>需要注意的是，题目中“以<code>k</code>为步长打印”的意思相当于是从当前的数开始数<code>k</code>次，删掉第<code>k</code>个数，样例中从5开始，数5，6，7三个数字，所以第一个要删除的数是7<br>具体写代码的话，我的方法是维护<code>pre</code>和<code>now</code>两个结点，<code>now</code>初始值为<code>i</code>，<code>pre</code>初始值为<code>i-1</code>（<code>now</code>不等于1）或<code>n</code>（<code>now</code>等于1）<br>每次先移动<code>k-1</code>次，输出当前的数（比如说样例，从5开始先移动两次，<code>i</code>从5到7，这个时候先输出<code>now</code>），再“删除”当前结点（将<code>nodes[pre].nex</code>改成<code>nodes[now].nex</code>，也就是6的后继变成了8），最后再移动一次<code>now</code>（now从7到8）</p>
-<pre><code>#include &lt;bits&#x2F;stdc++.h&gt;
-using namespace std;
-
-struct node {
-	int data;
-	int nex;
-};
-
-int main() {
-	int n,i,k;
-	cin &gt;&gt; n &gt;&gt; i &gt;&gt; k;
-	node nodes[103];
-	for (int j &#x3D; 1;j &lt;&#x3D; n-1;j++) {
-		nodes[j].data &#x3D; j;
-		nodes[j].nex &#x3D; j+1;
-	}
-	nodes[n].nex &#x3D; 1;
-	int pre &#x3D; i &#x3D;&#x3D; 1?n:i-1,now &#x3D; i;
-	while (n--) {
-		for (int step &#x3D; 0;step &lt; k-1;step++) {
-			pre &#x3D; now;
-			now &#x3D; nodes[now].nex;
-		}
-		cout &lt;&lt; now &lt;&lt; &quot; &quot;;
-		nodes[pre].nex &#x3D; nodes[now].nex;
-		now &#x3D; nodes[now].nex;
-	}
-	return 0;
-}</code></pre>
-
-<p>也可以使用数组模拟链表，思路是数组<code>nodes</code>的下标<code>i</code>代表当前数字为<code>i</code>，<code>nodes[i]</code>则代表数字为<code>i</code>的结点下一个数为<code>nodes[i]</code></p>
-<pre><code>#include &lt;bits&#x2F;stdc++.h&gt;
-using namespace std;
-
-int main() {
-	int n,i,k;
-	cin &gt;&gt; n &gt;&gt; i &gt;&gt; k;
-	int nodes[105];
-	for (int j &#x3D; 1;j &lt;&#x3D; n-1;j++) {
-		nodes[j] &#x3D; j+1;
-	}
-	nodes[n] &#x3D; 1;
-	int pre &#x3D; i &#x3D;&#x3D; 1?n:i-1;
-	int now &#x3D; i;
-	while (n--) {
-		for (int step &#x3D; 0;step &lt; k-1;step++) {
-			pre &#x3D; now;
-			now &#x3D; nodes[now];
-		}
-		cout &lt;&lt; now &lt;&lt; &quot; &quot;;
-		nodes[pre] &#x3D; nodes[now];
-		now &#x3D; nodes[now];
-	}
-	return 0;
-}</code></pre>
-
-<h2 id="1015-题库整理"><a href="#1015-题库整理" class="headerlink" title="1015. 题库整理"></a>1015. 题库整理</h2><p>一道比较有意思的题目<br>需要完成的操作：</p>
+    <h2 id="1021-皇后问题"><a href="#1021-皇后问题" class="headerlink" title="1021. 皇后问题"></a>1021. 皇后问题</h2><p>和数据结构没太大关系，主要是一道找规律题<br>需要注意的是，不只是共同处于两条最长的对角线上的皇后会冲突，只要是“处在同一条斜线上”都会冲突，比如10*10的棋盘，一个皇后在（2，3），另一个在（3，4），这两个就是冲突的</p>
+<p>很多人一开始的思路可能是开一个二维数组模拟棋盘，存入所有棋子坐标，再枚举每颗棋子和哪些冲突<br>但是<code>n</code>的范围最大可以到<code>1e5</code>，显然空间和时间复杂度都不对，所以我们需要更高效的做法</p>
+<p>解决方案是可以开一个数组<code>col</code>，<code>col[i]</code>表示第<code>i</code>行上有多少个棋子，同理有<code>row</code>、<code>diag1</code>、<code>diag2</code>，一共四个数组，后面两个表示正、反对角线，需要注意前两个数组长度为<code>n</code>（为了方便从1开始计数，建议开到<code>n+1</code>），后两个是<code>2 * n - 1</code>（同理代码里可以开到<code>2*n</code>或者更大），因为正反对角线的数量都等于<code>2 * n - 1</code>（比如3*3的棋盘有5条正对角线和5条反对角线）</p>
+<p>在读入棋子<code>(x,y)</code>时，我们需要：</p>
 <ul>
-<li>1 给定题目难度并且入库题目</li>
-<li>2 最后入库的题目出库</li>
-<li>3 输出当前题库内最难题目的难度</li>
+<li><code>col[x] += 1</code></li>
+<li><code>row[y] += 1</code></li>
+<li><code>diag1[x + y - 1] += 1</code> （最左上角的一个棋子看作第一条正对角线，以此类推，如果不理解可以代入几个(x,y)试一下）</li>
+<li><code>diag2[x - y + n] += 1</code>  （最右上角的一个棋子看作第一条反对角线）</li>
 </ul>
-<p>看到“最后入库的题目出库”，肯定是先想到使用栈作为数据结构，但是输出最难题目的难度应该怎么做呢？<br>我们可以换一种思路，维护一个栈，但是每次放入的不是题目的难度，而是<strong>当前所有题目最大的难度</strong>，或者说，假设刚才题库里所有题目的最大难度是<code>maxx</code>，每次收到一本新书，你需要比较<code>maxx</code>和新书的难度，然后将较大的那个值压入栈<br>然后，操作2就是正常弹出栈顶，操作3是获取栈顶的值但不弹出</p>
-<p>我觉得可以这么理解：越早入库的题目，肯定越晚出库，而对于先后入库的题目<code>A</code>和<code>B</code>，假如<code>A</code>的难度大于<code>B</code>，那么在弹出<code>A</code>之前，要求输出当前题库内最难题目的难度时其实一直都是<code>A</code>的难度<br>所以说，栈的内容只要是<strong>当前所有题目最大的难度</strong>就可以</p>
+<p>计算完之后，每个数组里的值<code>k</code>其实都代表一条线（横线&#x2F;竖线&#x2F;对角线）上有<code>k</code>个皇后，那么其实也就是有<code>k * (k - 1) / 2</code>对皇后冲突（组合数学问题，n个人两两握手，相同两个人只握一次，一共握n*(n-1)&#x2F;2次）</p>
+<p>所以写个循环累加就可以啦，还需要注意对角线需要遍历到<code>2 * n - 1</code>，以及<code>ans</code>别忘了开<code>long long</code></p>
+<p>时间复杂度<code>O(N)</code></p>
 <pre><code>#include &lt;bits&#x2F;stdc++.h&gt;
-
 using namespace std;
+#define MAXX 100005
+&#x2F;&#x2F; #define int long long
 
-int maxx[200005] &#x3D; {0};
+int c[MAXX] &#x3D; {0};
+int r[MAXX] &#x3D; {0};
+int p1[2 * MAXX] &#x3D; {0};
+int p2[2 * MAXX] &#x3D; {0};
 
 int main() {
 	int n;
-	scanf(&quot;%d&quot;,&amp;n);
-	int ope,x;
-	int point &#x3D; 0;
-	while (n--) {
-		scanf(&quot;%d&quot;,&amp;ope);
-		if (ope &#x3D;&#x3D; 0) {
-			scanf(&quot;%d&quot;,&amp;x);
-			point++;
-			maxx[point] &#x3D; x &gt; maxx[point-1] ? x : maxx[point-1];
-		}else if(ope &#x3D;&#x3D; 1) {
-			if (point &gt; 0){
-				point--;
-			}
-		}else {
-			printf(&quot;%d\n&quot;,maxx[point]);
+	cin &gt;&gt; n;
+	int x,y;
+
+	for (int i &#x3D; 0;i &lt; n;i++) {
+		cin &gt;&gt; x &gt;&gt; y;
+		c[x] +&#x3D; 1;
+		r[y] +&#x3D; 1;
+		p1[x + y - 1] +&#x3D; 1;
+		p2[x - y + n] +&#x3D; 1;
+	}
+	long long ans &#x3D; 0;
+	for (int i &#x3D; 1;i &lt;&#x3D; n;i++) {
+		if (r[i] &gt; 0) ans +&#x3D; 1LL * r[i] * (r[i] - 1) &#x2F; 2; &#x2F;&#x2F;这里要乘1LL，不然可能会爆long long
+		if (c[i] &gt; 0) ans +&#x3D; 1LL * c[i] * (c[i] - 1) &#x2F; 2;
+	}
+	
+	for (int i &#x3D; 1;i &lt;&#x3D; 2 * n - 1;i++) {
+		if (p1[i] &gt; 0) ans +&#x3D; 1LL * p1[i] * (p1[i] - 1)&#x2F;2;
+		if (p2[i] &gt; 0) ans +&#x3D; 1LL * p2[i] * (p2[i] - 1)&#x2F;2;
+	}
+	cout &lt;&lt; ans &lt;&lt; endl;
+	return 0;
+}</code></pre>
+
+<h2 id="1022-字串排序"><a href="#1022-字串排序" class="headerlink" title="1022. 字串排序"></a>1022. 字串排序</h2><p>仔细读题，考虑清楚各种特殊情况即可，后面字符串的题目都建议使用C++完成，可以依靠<code>string</code>类写出很多简洁好看的代码，不用和C语言的那坨指针斗智斗勇</p>
+<pre><code>#include &lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+vector&lt;string&gt; strings;
+
+int getNum(const string&amp; str) {
+	int num &#x3D; 0;
+	bool flag &#x3D; false;
+	for (char ch : str) {
+		if (isdigit(ch)) {
+			flag &#x3D; true;
+			num &#x3D; num * 10 + (ch - &#39;0&#39;);
 		}
 	}
+	return flag ? num : -1;  &#x2F;&#x2F;如果没有数字，返回-1，在之后的比较里相当于是小于一切有数字的字符串了，即使那个字符串里的数字是0 
+}
+
+bool cmp(const string&amp; str1, const string&amp; str2) {
+	int num1 &#x3D; getNum(str1), num2 &#x3D; getNum(str2);
+	if (num1 !&#x3D; -1 || num2 !&#x3D; -1) { &#x2F;&#x2F;如果有至少一个有数字，那就可以用数字比较
+		if (num1 !&#x3D; num2) {
+			return num1 &lt; num2; &#x2F;&#x2F;两个字符串里的数字不相等，返回比较结果 
+		}
+	}
+	return str1 &lt; str2; &#x2F;&#x2F;两个都没数字，或者两个都有数字但相等，只能字符串比较 
+}
+
+int main() {
+	string str0;
+	while (cin &gt;&gt; str0) {
+		strings.push_back(str0);
+	}
+	sort(strings.begin(), strings.end(), cmp);
+	for (const string&amp; s : strings) {
+		cout &lt;&lt; s &lt;&lt; &quot; &quot;;
+	}
 	return 0;
+}
+</code></pre>
+
+<h2 id="1023-删除子串"><a href="#1023-删除子串" class="headerlink" title="1023. 删除子串"></a>1023. 删除子串</h2><p>字符串匹配的暴力算法模板题，建议纸上模拟一下以防边界问题</p>
+<pre><code>#include &lt;bits&#x2F;stdc++.h&gt;
+using namespace std;
+
+void solve() {
+	string s,s0;
+	cin &gt;&gt; s &gt;&gt; s0;
+	int i &#x3D; 0,j &#x3D; 0; &#x2F;&#x2F;一开始能匹配的长度为0 
+	while (i &lt; s.length() &amp;&amp; j &lt; s0.length()) {
+		if (s[i] &#x3D;&#x3D; s0[j]) {
+			i++;
+			j++;
+		} else {
+			i &#x3D; i - j + 1;
+			j &#x3D; 0;
+		}
+		
+		if (j &#x3D;&#x3D; s0.length()) { &#x2F;&#x2F;能匹配的长度达到了s0的长度 
+			for (int k &#x3D; i - j;k &lt; i;k++) { &#x2F;&#x2F;从i-j到i的前一个都打上标记 
+				s[k] &#x3D; &#39;#&#39;;
+			}
+			j &#x3D; 0; &#x2F;&#x2F;因为后面还要继续匹配，所以j要置为0 
+		} 
+	}
+	string ans &#x3D; &quot;&quot;;
+	for (char ch:s) {
+		if (ch !&#x3D; &#39;#&#39;) { &#x2F;&#x2F;有标记的说明要被删除 
+			ans +&#x3D; ch;
+		}
+	}
+	cout &lt;&lt; ans &lt;&lt; endl;
+}
+
+int main() {
+	int t;
+	cin &gt;&gt; t;
+	for (int cas &#x3D; 0;cas &lt; t;cas++) {
+		printf(&quot;case #%d:\n&quot;,cas);
+		solve();
+	}
+	return 0;
+} </code></pre>
+
+<h2 id="1024-字符串的交织"><a href="#1024-字符串的交织" class="headerlink" title="1024. 字符串的交织"></a>1024. 字符串的交织</h2><p>先交替逐字符输出，直到两字符串中较短的那个被输出完，再输出较长字符串剩下的部分<br>建议使用C++</p>
+<pre><code>#include &lt;bits&#x2F;stdc++.h&gt;
+using namespace std;
+
+int main() {
+	string s1,s2;
+	cin &gt;&gt; s1 &gt;&gt; s2;
+	int len1 &#x3D; s1.size(),len2 &#x3D; s2.size();
+	int len &#x3D; len1 &lt;&#x3D; len2 ? len1:len2;
+	int i;
+	for (i &#x3D; 0; i &lt; len;i++) {
+		cout &lt;&lt; s1[i] &lt;&lt; s2[i];
+	}
+	if (len1 &lt; len2) {
+		cout &lt;&lt; s2.substr(i);
+	}else if (len2 &lt; len1) {
+		cout &lt;&lt; s1.substr(i);
+	}
+	return 0;
+}</code></pre>
+
+<h2 id="1025-字符串替换"><a href="#1025-字符串替换" class="headerlink" title="1025. 字符串替换"></a>1025. 字符串替换</h2><p>字符串匹配板题2.0，使用了C语言</p>
+<pre><code>#include &lt;stdio.h&gt;
+#include &lt;string.h&gt;
+#include &lt;malloc.h&gt;
+
+#define N 80
+
+void replace(char s[], char x[], char y[]);
+
+void replace(char s[], char x[], char y[]) { &#x2F;&#x2F;TODO: your function definition
+	int lens &#x3D; strlen(s),lenx &#x3D; strlen(x),leny &#x3D; strlen(y);
+&#x2F;&#x2F;	printf(&quot;%d %d %d\n&quot;,lens,lenx,leny);
+	char* buffer &#x3D; (char*)malloc(sizeof(lens+1));
+	for (int i &#x3D; 0;i &lt;&#x3D; lens - lenx;i++){
+		int cnt &#x3D; 0;
+		while (s[i + cnt] &#x3D;&#x3D; x[cnt] &amp;&amp; cnt &lt; lenx){
+			cnt++;
+		}
+&#x2F;&#x2F;		printf(&quot;%d %d\n&quot;,i,cnt);
+		if (cnt &#x3D;&#x3D; lenx){
+			s[i] &#x3D; &#39;#&#39;;
+		}
+	}
+	int i &#x3D; 0,pnt &#x3D; 0;
+&#x2F;&#x2F;	printf(&quot;%s\n&quot;,s);
+	while (i &lt; lens) {
+		if (s[i] !&#x3D; &#39;#&#39;) {
+			buffer[pnt] &#x3D; s[i];
+			pnt++;
+			i++;
+		}else {
+			for (int j &#x3D; 0; j &lt; leny; j++){
+				buffer[pnt] &#x3D; y[j];
+				pnt++;
+			}
+			i +&#x3D; lenx;
+		}
+	}
+	buffer[pnt] &#x3D; &#39;\0&#39;; 
+	strcpy(s,buffer);
+}
+
+int main() {
+    char s[3 * N + 1], x[N + 1], y[N + 1];
+    scanf(&quot;%s%s%s&quot;, s, x, y);
+    replace(s, x, y);
+    printf(&quot;%s\n&quot;, s);
+    return 0;
 }</code></pre>
   </div>
   <div id=""></div>
@@ -586,19 +578,12 @@ Fancybox.bind('[data-fancybox="fancybox-gallery-img"]', {
 
     <div class="post-paging">
     
-    <a href="/2024/10/17/bytedance-exercises/">
-        <div class="post-paging-last">
-            <span>上一篇</span>
-            <p>字节跳动青训入营做题记录（部分）</p>
-        </div>
-    </a>
-    
 
     
-    <a href="/2024/10/02/ds-tutorial-2/">
+    <a href="/2024/11/21/ds-tutorial-4/">
         <div class="post-paging-next">
             <span>下一篇</span>
-            <p>心双2024数据结构1006-1010题解</p>
+            <p>心双2024数据结构1016-1020题解</p>
         </div>
     </a>
     

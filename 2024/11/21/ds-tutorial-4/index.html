@@ -318,7 +318,7 @@
 
     <h2 id="1016-铁路调度"><a href="#1016-铁路调度" class="headerlink" title="1016. 铁路调度"></a>1016. 铁路调度</h2><p>我的做法是维护两个栈，一个<code>trains</code>自底向上放入n到1，一个<code>st</code>先置为空<br>遍历出站序列，假设遍历到的车号是<code>train</code>，核心就是比较<code>train</code>和<code>st</code>顶部的大小</p>
 <ul>
-<li>如果<code>trains</code>不为空并且<code>st</code>为空或**顶部小于<code>train</code>**，则将<code>trains</code>中的火车逐一移动到<code>st</code>中</li>
+<li>如果<code>trains</code>不为空并且<code>st</code>为空或顶部小于<code>train</code>，则将<code>trains</code>中的火车逐一移动到<code>st</code>中</li>
 <li>如果<code>st</code>不为空并且<code>train</code>和<code>st</code>顶部相同，则弹出<code>st</code>顶部</li>
 <li>其他情况，说明序列不合法，直接跳出循环</li>
 </ul>
@@ -450,7 +450,7 @@ int main(){
     return 0;
 }</code></pre>
 
-<h2 id="1018-一元多项式乘法"><a href="#1018-一元多项式乘法" class="headerlink" title="1018. 一元多项式乘法"></a>1018. 一元多项式乘法</h2><p>幽默大模拟，感觉写了一年<br>总结几个思路：<br>1、用<code>while(cin &gt;&gt; s1 &gt;&gt; s2)</code>的方式，每次读入一行两个多项式<br>2、写一个函数，处理单个多项式<code>s1</code>，将它分割成若干个单项；开一个数组，**<code>用coef1[i]</code>表示幂次为<code>i</code>的那一项的系数**，<code>s2</code>同样处理</p>
+<h2 id="1018-一元多项式乘法"><a href="#1018-一元多项式乘法" class="headerlink" title="1018. 一元多项式乘法"></a>1018. 一元多项式乘法</h2><p>幽默大模拟，感觉写了一年<br>总结几个思路：<br>1、用<code>while(cin &gt;&gt; s1 &gt;&gt; s2)</code>的方式，每次读入一行两个多项式<br>2、写一个函数，处理单个多项式<code>s1</code>，将它分割成若干个单项；开一个数组，<code>用coef1[i]</code>表示幂次为<code>i</code>的那一项的系数，<code>s2</code>同样处理</p>
 <p>具体来说，你可以想象，一个完整单项的形式应该是<code>+/- ax^b</code>，特殊情况主要是：如果是第一项则不会有<code>+</code>号；如果是常数项则没有<code>b</code>，如果系数唯一不会有<code>a</code></p>
 <p>所以我采用的就是在遍历过程中分步<strong>判断有没有+&#x2F;-号——判断有没有a，如果有，逐位计算直到得到系数——判断有没有x——判断有没有^，如果有，逐位计算直到得到指数</strong>的做法，应该涵盖了所有情况</p>
 <p>3、要求两个多项式的乘积，可以再开一个数组<code>coef</code>，<code>coef[k]</code>同样表示幂次为<code>k</code>的那一项的系数</p>
@@ -755,6 +755,13 @@ Fancybox.bind('[data-fancybox="fancybox-gallery-img"]', {
 </style>
 
     <div class="post-paging">
+    
+    <a href="/2024/11/25/ds-tutorial-5/">
+        <div class="post-paging-last">
+            <span>上一篇</span>
+            <p>心双2024数据结构1016-1020题解</p>
+        </div>
+    </a>
     
 
     

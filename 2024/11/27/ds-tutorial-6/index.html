@@ -1,0 +1,897 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		
+<title>心双2024数据结构1026-1030题解-xiwwwix's blog</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="shortcut icon" type="image/x-icon" href="/image/mylogo.ico">
+
+<link rel="stylesheet" href="/css/index.css">
+
+
+
+<meta name="keywords" content="2024心双数据结构EOJ习题,">
+<meta name="description" content="ds-tutorial">
+
+
+<script src="/js/jquery.min.js"></script>
+
+
+<script src="/js/index.js"></script>
+
+
+<script src="/js/fancybox.umd.js"></script>
+
+
+<script src="/js/fancybox-images.js"></script>
+
+
+<script src="/js/gitalk.min.js"></script>
+
+
+<script src="/js/hljs.min.js"></script>
+ 
+<script>hljs.highlightAll();</script>
+
+	<meta name="generator" content="Hexo 7.3.0"></head>
+
+	<body>
+		
+	<div class="header">
+		<div class="header-top" id="header-top">
+			<div class="h-left">
+				<a href="/">
+					<img src="/image/logo.png" alt="Quiet">
+				</a>
+			</div>
+			<div class="h-right">
+				<ul>
+					
+						
+								<li>
+									<a href="/">
+										HOME
+									</a>
+									<span class="dot"></span>
+								</li>
+								
+									
+						
+								<li>
+									<a href="/archives">
+										ARCHIVE
+									</a>
+									<span class="dot"></span>
+								</li>
+								
+									
+						
+								<li>
+									<a href="/categories">
+										CATEGORIES
+									</a>
+									<span class="dot"></span>
+								</li>
+								
+									
+						
+								<li>
+									<a href="/tags">
+										TAGS
+									</a>
+									<span class="dot"></span>
+								</li>
+								
+									
+						
+								<li>
+									<a href="/links">
+										LINKS
+									</a>
+									<span class="dot"></span>
+								</li>
+								
+									
+						
+								<li>
+									<a href="/about">
+										ABOUT
+									</a>
+									<span class="dot"></span>
+								</li>
+								
+									
+				</ul>
+			</div>
+			<div class="h-right-close">
+				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+					<path fill="none" d="M0 0h24v24H0z" />
+					<path d="M3 4h18v2H3V4zm0 7h18v2H3v-2zm0 7h18v2H3v-2z" fill="rgba(68,68,68,1)" />
+				</svg>
+			</div>
+		</div>
+	</div>
+	<div class="sidebar">
+    <div class="topo">
+        <h2>xiwwwix</h2>
+    </div>
+    <ul>
+        
+        <li>
+            <a href="/">HOME</a>
+        </li>
+        
+        <li>
+            <a href="/archives">ARCHIVE</a>
+        </li>
+        
+        <li>
+            <a href="/categories">CATEGORIES</a>
+        </li>
+        
+        <li>
+            <a href="/tags">TAGS</a>
+        </li>
+        
+        <li>
+            <a href="/links">LINKS</a>
+        </li>
+        
+        <li>
+            <a href="/about">ABOUT</a>
+        </li>
+        
+    </ul>
+    <div class="my_foot">
+        
+        <a target="_blank" rel="noopener" href="https://github.com/xiwwix">
+            <img src="https://cdn.jsdelivr.net/gh/duogongneng/MyBlogImg/imggithub.png" alt="Quiet主题">
+        </a>
+        
+    </div>
+</div>
+<div class='shelter'>
+</div>
+<style>
+    .shelter{
+        background-color: #333;
+        opacity:0.5;
+        cursor: pointer;
+        display: none; 
+        position: fixed;
+        left: 0;
+        top: 0; 
+        right: 0;
+        bottom: 0;
+        z-index: 1998;
+    }
+    .sidebar {
+        width: 66%;
+        height: 100%;
+        position: fixed;
+        top: 0;
+        right: -100%;
+        bottom: 0;
+        background: #fff;
+        z-index: 1999;
+        text-align: center;
+        box-shadow: -6px 0 20px rgba(98, 94, 94, .815);
+    }
+
+    .topo {
+        width: 100%;
+        height: 200px;
+        background: url(https://api.ixiaowai.cn/gqapi/gqapi.php) no-repeat;
+        background-size: 100% 100%;
+        position: relative;
+        display: flex;
+        align-items: flex-end
+    }
+
+    .topo h2 {
+        color: #fff;
+        z-index: 1;
+        position: relative;
+        margin: 0 0 10px 10px;
+        font-size: 1.2em;
+        box-sizing: border-box
+    }
+
+    .topo:before {
+        content: '';
+        background-image: url(/image/pattern.png);
+        background-repeat: repeat;
+        height: 100%;
+        left: 0;
+        position: absolute;
+        top: 0;
+        width: 100%;
+        z-index: 1
+    }
+
+    .sidebar ul {
+        width: 100%;
+        margin-top: 50px
+    }
+
+    .sidebar ul li {
+        height: 50px;
+        list-style: none;
+        font-size: 1.2em;
+        text-align: right;
+        margin-right: 10px
+    }
+
+    .sidebar ul li a {
+        display: grid;
+        color: #5d606a;
+        text-overflow: ellipsis;
+        width: 100%;
+        text-decoration: none
+    }
+
+    .my_foot {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+        position: absolute;
+        bottom: 0
+    }
+
+    .my_foot a {
+        text-decoration: none;
+        margin-right: 10px;
+        display: inline-block
+    }
+
+    .my_foot a img {
+        width: 30px;
+        height: 30px
+    }
+</style>
+
+<script>
+    $( function () {
+	$( '.h-right-close>svg' )
+		.click( function () {
+			$( '.sidebar' )
+				.animate( {
+					right: "0"
+				}, 500 );
+			$( '.shelter' )
+				.fadeIn( "slow" )
+		} );
+	$( '.shelter' )
+		.click( function ( e ) {
+			$( '.sidebar' )
+				.animate( {
+					right: "-100%"
+				}, 500 );
+			$( '.shelter' )
+				.fadeOut( "slow" )
+		} )
+} )
+
+</script>
+
+<div class="post">
+    <div class="post-header-background post-header-img"
+    style="background: url('https://api.ixiaowai.cn/gqapi/gqapi.php')" 
+>
+    <div class="post-header-background-content">
+        <ul class="post-header-tag">
+            
+            
+            <li><a href="/tags/2024心双数据结构EOJ习题">2024心双数据结构EOJ习题</a></li>
+            
+            
+        </ul>
+        
+        <h1>心双2024数据结构1026-1030题解</h1>
+        <div class="post-header-info">
+            <div class="post-header-info-author">
+                
+                    <svg t="1604839279282" class="icon" viewBox="0 0 1024 1024" version="1.1"
+                        xmlns="http://www.w3.org/2000/svg" p-id="2901" width="20" height="20">
+                        <path
+                            d="M513 956.3c-247.7 0-448-200.3-448-448S265.3 66.2 513 66.2s448 200.3 448 448-200.3 442.1-448 442.1z m0-830.9c-212.2 0-388.8 170.7-388.8 388.8C124.2 726.3 294.9 903 513 903c212.2 0 388.8-170.7 388.8-388.8S725.2 125.4 513 125.4z m0 430.2c-94.2 0-170.7-76.5-170.7-170.7S418.8 207.8 513 207.8s170.7 76.5 170.7 170.7S607.2 555.6 513 555.6z m0-289.1c-64.6 0-112 52.8-112 112s47.4 117.9 112 117.9 112-52.8 112-112-47.4-117.9-112-117.9z m0 689.8c-135.7 0-259-58.7-341.9-158.9l-11.8-17.8 11.8-17.8c76.5-117.9 206.2-188.5 347.8-188.5 135.7 0 265 64.6 341.9 182.6l11.8 17.8-11.8 17.8C778 897.1 648.7 956.3 513 956.3zM230.3 773.2C300.9 849.7 406.9 897 513 897c112 0 218.1-47.4 288.6-129.8-70.5-88.2-170.7-135.6-282.7-135.6s-218.1 53.3-288.6 141.6z"
+                            p-id="2902" fill="#ffffff"></path>
+                    </svg>
+                    
+                <span class="post-header-info-author-text"> <a target="_blank" rel="noopener" href="https://github.com/xiwwix">xiwwwix</a></span>
+                <div class="post-header-info-author-categories">
+                    
+                         <a href="../../categories/教程/" target="_blank" >教程</a>
+                    
+                </div>
+                <p>2024-11-27 22:03:27</p>
+            </div>
+        </div>
+    </div>
+</div>
+    <div class="post-content" id="content">
+  
+  <div id="article" class="post-content-info">
+    
+
+    <h2 id="1026-字符串消除"><a href="#1026-字符串消除" class="headerlink" title="1026. 字符串消除"></a>1026. 字符串消除</h2><p>对代码能力有一定的要求，建议使用C++<br>主要思路：适当拆解功能，一个<code>solve</code>函数用于遍历每一个可以插入的地方和插入的字符<code>ABC</code>，生成新字符串<code>ss</code>，一个<code>count</code>函数计算一个字符串消除到不能再消除时一共减去了多少个字符</p>
+<p><code>count</code>函数里，我的思路大致是这样：<br>1、先将<code>flag</code>设为<code>true</code>，用于表示是否继续消除<br>2、每次<code>while(flag)</code>循环开始，先把<code>flag</code>设为<code>false</code>，如果在循环过程中进行了消除，则把<code>flag</code>改为<code>true</code><br>3、这样就能达成的效果是：只要一次循环里进行了消除，<strong>就必然会再进行至少一次循环</strong>。如果一次循环里没有消除，那么下一次循环里也不会发生消除，<code>flag</code>变为<code>false</code>，退出循环<br>4、怎么进行消除呢？我的方法是先新建一个空字符串<code>news</code>，在消除过程中采用双指针的做法，一开始<code>l=0</code>,<code>r=1</code>，只要<code>s[l] == s[r]</code>，一直右指针右移<code>r++</code>，并且标记<code>tempflag</code>为<code>true</code>，跳出<code>while (s[l] == s[r])</code>后，如果<code>tempflag</code>为<code>true</code>，说明刚刚那一段是重复的，将原字符串<code>s</code>中<code>[l,r)</code>的部分修改为<code>#</code>，说明已经被消除<br>5、最后遍历原字符串<code>s</code>，将不是<code>#</code>的部分加在空字符串<code>news</code>上，最后将<code>news</code>赋值给<code>s</code></p>
+<p>参考代码如下，复杂度<code>O(N^3)</code>（遍历s进行插入是<code>O(N)</code>，消除的平均复杂度是<code>O(N^2)</code>），金牌学长还提出可以使用区间dp的做法，但复杂度并没有更优，只是说常数会小一点（有空就写写看（咕咕））</p>
+<pre><code>#include &lt;bits&#x2F;stdc++.h&gt;
+using namespace std;
+
+int count(string&amp; s) {
+&#x2F;&#x2F;	cout &lt;&lt; &quot;pp &quot; &lt;&lt; s &lt;&lt; endl;
+	bool flag &#x3D; true;
+	int ans &#x3D; 0;
+	while (flag) {
+		int n &#x3D; s.size();
+		flag &#x3D; false;
+		string news &#x3D; &quot;&quot;;
+		int l &#x3D; 0,r &#x3D; l + 1;
+		while (l &lt; s.size()) {
+			bool tempflag &#x3D; false;
+			while (s[l] &#x3D;&#x3D; s[r]) {
+				tempflag &#x3D; true;
+				r++;
+			}
+			if (tempflag) {
+				flag &#x3D; true;
+				for (int j &#x3D; l;j &lt; r;j++){
+					s[j] &#x3D; &#39;#&#39;;
+					ans++;
+				}
+			}
+			l &#x3D; r;
+			r &#x3D; l + 1;
+		}
+		for (char ch:s) {
+			if (ch !&#x3D; &#39;#&#39;) {
+				news +&#x3D; ch;
+			}
+		}
+		s &#x3D; news;
+	}
+	return ans;
+}
+
+void solve() {
+	string s;
+	cin &gt;&gt; s;
+	string toadd &#x3D; &quot;ABC&quot;;
+	int ans &#x3D; 0; 
+	for (char ch:toadd) {
+		for (int i &#x3D; 0;i &lt;&#x3D; s.size();i++) {
+			string ss &#x3D; s;
+			ss.insert(i,string(1,ch));
+			ans &#x3D; max(ans,count(ss));
+		}
+	}
+	cout &lt;&lt; ans &lt;&lt; endl;
+}
+
+int main() {
+	int t;
+	cin &gt;&gt; t;
+	for (int cas &#x3D; 0;cas &lt; t;cas++) {
+		printf(&quot;case #%d:\n&quot;,cas);
+		solve();
+	}
+	return 0;
+}</code></pre>
+
+<h2 id="1027-反转字符串"><a href="#1027-反转字符串" class="headerlink" title="1027. 反转字符串"></a>1027. 反转字符串</h2><p>发现打ACM的同学使用<code>reverse</code>秒了（）<br>手写一个循环也可以，有兴趣的话还可以挑战<code>O(1)</code>空间<br>总的时间复杂度都是<code>O(N)</code></p>
+<pre><code>#include &lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+int main() {
+	string str;
+	while (getline(cin,str)) {
+		string ans &#x3D; &quot;&quot;;
+		for (int i &#x3D; str.size() - 1;i &gt;&#x3D; 0; i--) {
+			ans +&#x3D; str[i];
+		}
+		cout &lt;&lt; ans &lt;&lt; endl;
+	}
+	return 0;
+}</code></pre>
+
+<h2 id="1028-字符串模式匹配简单匹配"><a href="#1028-字符串模式匹配简单匹配" class="headerlink" title="1028. 字符串模式匹配简单匹配"></a>1028. 字符串模式匹配简单匹配</h2><p>可以使用课上讲的暴力匹配算法、STL大法、KMP、字符串哈希等<br>暴力匹配和STL都是<code>O(N^2)</code>，KMP和字符串哈希<code>O(N)</code></p>
+<h4 id="暴力匹配："><a href="#暴力匹配：" class="headerlink" title="暴力匹配："></a>暴力匹配：</h4><pre><code>#include &lt;bits&#x2F;stdc++.h&gt;
+using namespace std;
+
+void bf(string&amp; s, string&amp; t) {
+	int lens &#x3D; s.length(), lent &#x3D; t.length();
+	int i &#x3D; 0, j &#x3D; 0;
+	while (i &lt; lens) {
+		if (s[i] &#x3D;&#x3D; t[j]) {
+			i++;
+			j++;
+			if (j &#x3D;&#x3D; lent) {
+				cout &lt;&lt; i - j &lt;&lt; endl;
+				return;
+			}
+		} else {
+			if (j &gt; 0) {
+				i &#x3D; i - j + 1;
+				j &#x3D; 0;
+			} else {
+				i++;
+			}
+		}
+	}
+	cout &lt;&lt; -1 &lt;&lt; endl;
+}
+
+int main() {
+	string s, t;
+	cin &gt;&gt; s &gt;&gt; t;
+	bf(s, t);
+	return 0;
+}</code></pre>
+
+<h4 id="字符串哈希"><a href="#字符串哈希" class="headerlink" title="字符串哈希"></a>字符串哈希</h4><pre><code>#include &lt;bits&#x2F;stdc++.h&gt;
+using namespace std;
+
+const int MOD &#x3D; 998244353, seed &#x3D; 233;
+const int N &#x3D; 10005;
+
+string s;
+int h[N] &#x3D; {0}, qp[N] &#x3D; {0};
+
+void init_hash(const string&amp; s) {
+    qp[0] &#x3D; 1;
+    h[0] &#x3D; s[0] % MOD;
+    for (int i &#x3D; 1; i &lt; s.size(); ++i) {
+        h[i] &#x3D; (1ll * h[i - 1] * seed % MOD + s[i]) % MOD;
+        qp[i] &#x3D; 1ll * qp[i - 1] * seed % MOD;
+    }
+}
+
+int get_hash(int l, int r) {
+    if (l &#x3D;&#x3D; 0) return h[r];
+    return (h[r] + MOD - 1ll * h[l - 1] * qp[r - l + 1] % MOD) % MOD;
+}
+
+int compute_hash(const string&amp; s0) {
+    int hs &#x3D; s0[0] % MOD;
+    for (int i &#x3D; 1; i &lt; s0.size(); ++i) {
+        hs &#x3D; (1ll * hs * seed % MOD + s0[i]) % MOD;
+    }
+    return hs;
+}
+
+int main() {
+&#x2F;&#x2F;	ios::sync_with_stdio(false);
+&#x2F;&#x2F;    cin.tie(nullptr);
+&#x2F;&#x2F;    cout.tie(nullptr);
+	
+    string s, s0;
+    cin &gt;&gt; s &gt;&gt; s0;
+    
+    init_hash(s);
+    
+    int hs &#x3D; compute_hash(s0);
+    int len &#x3D; s0.size();
+    
+    for (int i &#x3D; 0; i &lt;&#x3D; s.size() - len; i++) {
+        int temp_hash &#x3D; get_hash(i, i + len - 1);
+        if (temp_hash &#x3D;&#x3D; hs) {
+            printf(&quot;%d\n&quot;,i);
+            return 0;
+    	}
+    }
+    
+    printf(&quot;%d\n&quot;,-1);
+    
+    return 0;
+}</code></pre>
+
+<h4 id="KMP"><a href="#KMP" class="headerlink" title="KMP"></a>KMP</h4><pre><code>#include &lt;bits&#x2F;stdc++.h&gt;
+using namespace std;
+
+int Next[10005] &#x3D; {0};
+
+void getnext(string&amp; T) {
+    int n &#x3D; T.length();
+    int j &#x3D; 0;
+    for (int i &#x3D; 1; i &lt; n; ++i) {
+        while (j &gt; 0 &amp;&amp; T[i] !&#x3D; T[j]) {
+            j &#x3D; Next[j - 1];
+        }
+        if (T[i] &#x3D;&#x3D; T[j]) {
+            ++j;
+        }
+        Next[i] &#x3D; j;
+    }
+}
+
+int match(string&amp; s, string&amp; t) {
+    int j &#x3D; 0;
+    int sn &#x3D; s.length();
+    int tn &#x3D; t.length();
+    for (int i &#x3D; 0; i &lt; sn; ++i) {
+        while (j &gt; 0 &amp;&amp; t[j] !&#x3D; s[i]) {
+            j &#x3D; Next[j - 1];
+        }
+        if (t[j] &#x3D;&#x3D; s[i]) {
+            ++j;
+        }
+        if (j &#x3D;&#x3D; tn) {
+            return i - tn + 1;
+        }
+    }
+    return -1;
+}
+
+int main() {
+    string s, t;
+    cin &gt;&gt; s &gt;&gt; t;
+    getnext(t);
+    cout &lt;&lt; match(s, t) &lt;&lt; endl; 
+    return 0;
+}</code></pre>
+
+<h4 id="字符串哈希-1"><a href="#字符串哈希-1" class="headerlink" title="字符串哈希"></a>字符串哈希</h4><pre><code>#include &lt;bits&#x2F;stdc++.h&gt;
+using namespace std;
+
+const int MOD &#x3D; 998244353, seed &#x3D; 233;
+const int N &#x3D; 10005;
+
+string s;
+int h[N] &#x3D; {0}, qp[N] &#x3D; {0};
+
+void init_hash(const string&amp; s) {
+    qp[0] &#x3D; 1;
+    h[0] &#x3D; s[0] % MOD;
+    for (int i &#x3D; 1; i &lt; s.size(); ++i) {
+        h[i] &#x3D; (1ll * h[i - 1] * seed % MOD + s[i]) % MOD;
+        qp[i] &#x3D; 1ll * qp[i - 1] * seed % MOD;
+    }
+}
+
+int get_hash(int l, int r) {
+    if (l &#x3D;&#x3D; 0) return h[r];
+    return (h[r] + MOD - 1ll * h[l - 1] * qp[r - l + 1] % MOD) % MOD;
+}
+
+int compute_hash(const string&amp; s0) {
+    int hs &#x3D; s0[0] % MOD;
+    for (int i &#x3D; 1; i &lt; s0.size(); ++i) {
+        hs &#x3D; (1ll * hs * seed % MOD + s0[i]) % MOD;
+    }
+    return hs;
+}
+
+int main() {
+&#x2F;&#x2F;	ios::sync_with_stdio(false);
+&#x2F;&#x2F;    cin.tie(nullptr);
+&#x2F;&#x2F;    cout.tie(nullptr);
+	
+    string s, s0;
+    cin &gt;&gt; s &gt;&gt; s0;
+    
+    init_hash(s);
+    
+    int hs &#x3D; compute_hash(s0);
+    int len &#x3D; s0.size();
+    
+    for (int i &#x3D; 0; i &lt;&#x3D; s.size() - len; i++) {
+        int temp_hash &#x3D; get_hash(i, i + len - 1);
+        if (temp_hash &#x3D;&#x3D; hs) {
+            printf(&quot;%d\n&quot;,i);
+            return 0;
+    	}
+    }
+    
+    printf(&quot;%d\n&quot;,-1);
+    
+    return 0;
+}</code></pre>
+
+<h2 id="1029-稀疏矩阵三元组转化"><a href="#1029-稀疏矩阵三元组转化" class="headerlink" title="1029. 稀疏矩阵三元组转化"></a>1029. 稀疏矩阵三元组转化</h2><p>结构体排序模板题</p>
+<pre><code>#include &lt;bits&#x2F;stdc++.h&gt;
+using namespace std;
+
+struct Triple {
+	int row;
+	int col;
+	int value;
+};
+
+vector &lt;Triple&gt; Triples;
+
+bool cmp(const Triple &amp;t1,const Triple &amp;t2) {
+	if (t1.row !&#x3D; t2.row) {
+        return t1.row &lt; t2.row;
+    }else {
+        return t1.col &lt; t2.col;
+    }
+}
+
+int main() {
+	int n,m,c;
+	cin &gt;&gt; n &gt;&gt; m &gt;&gt; c;
+	int tr,tc,tv;
+	for (int i &#x3D; 0; i &lt; c; i++) {
+		cin &gt;&gt; tr &gt;&gt; tc &gt;&gt; tv;
+		Triple triple;
+		triple.row &#x3D; tc;
+		triple.col &#x3D; tr;
+		triple.value &#x3D; tv;
+		Triples.push_back(triple);
+	}
+	sort(Triples.begin(),Triples.end(),cmp);
+	for (int i &#x3D; 0; i &lt; c; i++) {
+		cout &lt;&lt; Triples[i].row &lt;&lt; &quot; &quot; &lt;&lt; Triples[i].col &lt;&lt; &quot; &quot; &lt;&lt; Triples[i].value &lt;&lt; &quot;\n&quot;;
+	}
+	return 0;
+}</code></pre>
+
+<h2 id="1030-三元组稀疏矩阵相加"><a href="#1030-三元组稀疏矩阵相加" class="headerlink" title="1030. 三元组稀疏矩阵相加"></a>1030. 三元组稀疏矩阵相加</h2><p>注意相加的逻辑：维护双指针，指向两个三元组的“头部”，哪边小就把哪边放进答案并且指针加一，如果一样就把值相加，把新的三元组放进答案<br>时间复杂度<code>O(N1+N2)</code></p>
+<pre><code>#include &lt;bits&#x2F;stdc++.h&gt;
+using namespace std;
+
+struct Triple {
+	int col;
+	int row;
+	int value;
+};
+
+int main() {
+	int n,m,num;
+	int x,y,v;
+	cin &gt;&gt; n &gt;&gt; m &gt;&gt; num;
+	vector&lt;Triple&gt; triples1;	
+	while (num--) {
+		cin &gt;&gt; x &gt;&gt; y &gt;&gt; v;
+		Triple triple;
+		triple.col &#x3D; x;
+		triple.row &#x3D; y;
+		triple.value &#x3D; v;
+		triples1.push_back(triple);
+	}
+	cin &gt;&gt; n &gt;&gt; m &gt;&gt; num;
+	vector&lt;Triple&gt; triples2;
+	
+	while (num--) {
+		cin &gt;&gt; x &gt;&gt; y &gt;&gt; v;
+		Triple triple;
+		triple.col &#x3D; x;
+		triple.row &#x3D; y;
+		triple.value &#x3D; v;
+		triples2.push_back(triple);
+	}
+	int i &#x3D; 0,j &#x3D; 0;
+	int len1 &#x3D; triples1.size();
+	int len2 &#x3D; triples2.size();
+	
+&#x2F;&#x2F;	cout &lt;&lt; len1 &lt;&lt; &quot; &quot; &lt;&lt; len2 &lt;&lt; endl;
+	
+	vector&lt;Triple&gt; ans;
+	
+	while (i &lt; len1 &amp;&amp; j &lt; len2) {
+		Triple triple1 &#x3D; triples1[i];
+		Triple triple2 &#x3D; triples2[j];
+		if (triple1.col &lt; triple2.col || (triple1.col &#x3D;&#x3D; triple2.col &amp;&amp; triple1.row &lt; triple2.row)) {
+			ans.push_back(triple1);
+			i++;
+		} else if (triple1.col &gt; triple2.col || (triple1.col &#x3D;&#x3D; triple2.col &amp;&amp; triple1.row &gt; triple2.row)) {
+			ans.push_back(triple2);
+			j++;
+		} else {
+			Triple new_triple;
+			new_triple.col &#x3D; triple1.col;
+			new_triple.row &#x3D; triple1.row;
+			new_triple.value &#x3D; triple1.value + triple2.value;
+			ans.push_back(new_triple);
+			i++;
+			j++;
+		}
+	}
+	
+	while (i &lt; len1) {
+		ans.push_back(triples1[i]);
+		i++;
+	}
+	
+	while (j &lt; len2) {
+		ans.push_back(triples2[j]);
+		j++;
+	}
+	
+&#x2F;&#x2F;	cout &lt;&lt; ans.size() &lt;&lt; endl;
+	
+	for (auto t:ans) {
+		printf(&quot;%d %d %d\n&quot;,t.col,t.row,t.value);
+	}
+	
+	return 0;
+}</code></pre>
+  </div>
+  <div id=""></div>
+</div>
+
+<script>
+  
+Fancybox.bind('[data-fancybox="fancybox-gallery-img"]', {
+  dragToClose: true,
+  Toolbar: true,
+  closeButton: "top",
+  Image: {
+    zoom: true,
+  },
+  on: {
+    initCarousel: (fancybox) => {
+      const slide = fancybox.Carousel.slides[fancybox.Carousel.page];
+      fancybox.$container.style.setProperty(
+        "--bg-image",
+        `url("${slide.$thumb.src}")`
+      );
+    },
+    "Carousel.change": (fancybox, carousel, to, from) => {
+      const slide = carousel.slides[to];
+      fancybox.$container.style.setProperty(
+        "--bg-image",
+        `url("${slide.$thumb.src}")`
+      );
+    },
+  },
+});
+</script>
+
+<style>
+    #noneimg img {
+        display: none;
+        z-index: 9999;
+        /* width: 600px !important; */
+        min-width: 0%;
+        max-width: 90%;
+        max-height: 80%;
+        border-radius: 0px;
+        position: fixed;
+        box-shadow: 0 0 0px #c3c3c300 !important;
+        left: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        margin: auto !important;
+    }
+
+    @media screen and (max-width:600px) {
+        #noneimg img {
+            max-width: 88%
+        }
+    }
+</style>
+
+    <div class="post-paging">
+    
+
+    
+    <a href="/2024/11/25/ds-tutorial-5/">
+        <div class="post-paging-next">
+            <span>下一篇</span>
+            <p>心双2024数据结构1021-1025题解</p>
+        </div>
+    </a>
+    
+</div>
+</div>
+		
+<div class="footer">
+	<div class="Copyright">
+		©2024 By xiwwwix. 主题：<a
+			style="text-decoration: none;display: contents; color: #898F9F;"
+			target="_blank" rel="noopener" href="https://github.com/79e/hexo-theme-quiet">Quiet</a>
+	</div>
+	<div class="contact">
+		
+		<a target="_blank" rel="noopener" href="https://github.com/xiwwix">
+			<img src="https://cdn.jsdelivr.net/gh/duogongneng/MyBlogImg/imggithub.png" alt="Quiet主题">
+		</a>
+		
+	</div>
+</div>
+
+<script src="/js/gotop.js"></script>
+
+
+<style type="text/css">
+    @media screen and (min-width: 600px) {
+        .goTop>span {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            opacity: 0.8;
+            background: rgba(18, 24, 58, 0.06);
+            text-align: center;
+            transition: border .5s;
+            border: 1px solid rgba(18, 24, 58, 0.06);
+
+            -moz-transition: border .5s;
+            /* Firefox 4 */
+            -webkit-transition: border .5s;
+            /* Safari 和 Chrome */
+            -o-transition: border .5s;
+            /* Opera */
+        }
+
+        .goTop>span:hover {
+            border: 1px solid #6680B3;
+        }
+
+
+        .goTop {
+            position: fixed;
+            right: 30px;
+            bottom: 80px;
+        }
+
+        .goTop>span>svg {
+            width: 20px;
+            height: 20px;
+            opacity: 0.7;
+        }
+
+    }
+
+    @media screen and (max-width: 600px) {
+        .goTop {
+            display: none;
+        }
+    }
+</style>
+<div class="goTop" id="js-go_top">
+    <span>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+            <g>
+                <path d="M13 12v8h-2v-8H4l8-8 8 8z"></path>
+            </g>
+        </svg>
+    </span>
+</div>
+<script>
+    $( '#js-go_top' )
+	.gotoTop( {
+		offset: 500,
+		speed: 300,
+		animationShow: {
+			'transform': 'translate(0,0)',
+			'transition': 'transform .5s ease-in-out'
+		},
+		animationHide: {
+			'transform': 'translate(100px,0)',
+			'transition': 'transform .5s ease-in-out'
+		}
+	} );
+</script>
+
+
+    <!-- Gitalk -->
+    <script>
+        const data = '{"clientID":"02b3c","clientSecret":"adfc7b4","repo":"gimment","owner":"duneng","admin":"duneng"}'
+        const gitalk = new Gitalk({
+            ...JSON.parse( data),
+            id:location.pathname,
+            distractionFreeMode:false
+        })
+        
+        if(Boolean('false')){
+            gitalk.render('gitalk-container')
+        }
+    </script>
+
+<script>
+	console.log('\n %c Hexo-Quiet 主题 %c https://github.com/79e/hexo-theme-quiet \n', 'color: #fadfa3; background: #030307; padding:5px 0;', 'background: #fadfa3; padding:5px 0;')
+</script>
+	</body>
+</html>
+

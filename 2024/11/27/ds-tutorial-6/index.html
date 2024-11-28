@@ -433,63 +433,6 @@ int main() {
 	return 0;
 }</code></pre>
 
-<h4 id="字符串哈希"><a href="#字符串哈希" class="headerlink" title="字符串哈希"></a>字符串哈希</h4><pre><code>#include &lt;bits&#x2F;stdc++.h&gt;
-using namespace std;
-
-const int MOD &#x3D; 998244353, seed &#x3D; 233;
-const int N &#x3D; 10005;
-
-string s;
-int h[N] &#x3D; {0}, qp[N] &#x3D; {0};
-
-void init_hash(const string&amp; s) {
-    qp[0] &#x3D; 1;
-    h[0] &#x3D; s[0] % MOD;
-    for (int i &#x3D; 1; i &lt; s.size(); ++i) {
-        h[i] &#x3D; (1ll * h[i - 1] * seed % MOD + s[i]) % MOD;
-        qp[i] &#x3D; 1ll * qp[i - 1] * seed % MOD;
-    }
-}
-
-int get_hash(int l, int r) {
-    if (l &#x3D;&#x3D; 0) return h[r];
-    return (h[r] + MOD - 1ll * h[l - 1] * qp[r - l + 1] % MOD) % MOD;
-}
-
-int compute_hash(const string&amp; s0) {
-    int hs &#x3D; s0[0] % MOD;
-    for (int i &#x3D; 1; i &lt; s0.size(); ++i) {
-        hs &#x3D; (1ll * hs * seed % MOD + s0[i]) % MOD;
-    }
-    return hs;
-}
-
-int main() {
-&#x2F;&#x2F;	ios::sync_with_stdio(false);
-&#x2F;&#x2F;    cin.tie(nullptr);
-&#x2F;&#x2F;    cout.tie(nullptr);
-	
-    string s, s0;
-    cin &gt;&gt; s &gt;&gt; s0;
-    
-    init_hash(s);
-    
-    int hs &#x3D; compute_hash(s0);
-    int len &#x3D; s0.size();
-    
-    for (int i &#x3D; 0; i &lt;&#x3D; s.size() - len; i++) {
-        int temp_hash &#x3D; get_hash(i, i + len - 1);
-        if (temp_hash &#x3D;&#x3D; hs) {
-            printf(&quot;%d\n&quot;,i);
-            return 0;
-    	}
-    }
-    
-    printf(&quot;%d\n&quot;,-1);
-    
-    return 0;
-}</code></pre>
-
 <h4 id="KMP"><a href="#KMP" class="headerlink" title="KMP"></a>KMP</h4><pre><code>#include &lt;bits&#x2F;stdc++.h&gt;
 using namespace std;
 
@@ -535,7 +478,7 @@ int main() {
     return 0;
 }</code></pre>
 
-<h4 id="字符串哈希-1"><a href="#字符串哈希-1" class="headerlink" title="字符串哈希"></a>字符串哈希</h4><pre><code>#include &lt;bits&#x2F;stdc++.h&gt;
+<h4 id="字符串哈希"><a href="#字符串哈希" class="headerlink" title="字符串哈希"></a>字符串哈希</h4><pre><code>#include &lt;bits&#x2F;stdc++.h&gt;
 using namespace std;
 
 const int MOD &#x3D; 998244353, seed &#x3D; 233;

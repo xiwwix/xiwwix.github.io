@@ -316,10 +316,179 @@
   <div id="article" class="post-content-info">
     
 
-    <p>幽默的一场机考，最终360&#x2F;400，rk2，没能AK，TAT……</p>
+    <p>幽默的一场机考，最终360&#x2F;400，TAT……</p>
 <p><a target="_blank" rel="noopener" href="https://pic.imgdb.cn/item/674a7ed4d0e0a243d4db598c.png"><img src="https://pic.imgdb.cn/item/674a7ed4d0e0a243d4db598c.png" alt="金牌学长の疑惑"></a><br><a target="_blank" rel="noopener" href="https://pic.imgdb.cn/item/674a7ee9d0e0a243d4db5991.png"><img src="https://pic.imgdb.cn/item/674a7ee9d0e0a243d4db5991.png" alt="金牌学长の嘲讽"></a><br>（来自金牌学长の嘲讽）</p>
-<p>个人体感红+橙+橙+黄（cf1400-1500），前三题都是一次就AC，除了第一题稍微犯病拖了点时间，T2T3都拿到了一血，大约30分钟就都过了<br>考试前半小时感觉比较紧张，尤其是看到T3的题面一开始发现有个地方没法确定而且不知道怎么问老师的时候，但好在按照自己的理解写完代码交上去一发就A了，于是笑看打ACM的同学被单防一直WA70（乐）<br>给T4留了1个小时的时间，花20分钟推了个式子，写完测样例发现能过，高兴地交了一发，喜提WA20，怀疑是二分写挂了但死活找不出错，后来还干了各种nt操作，比如1e5还是1e6的数据表不直接写生成代码，非要先生成数据后复制进程序，喜提代码长度限制</p>
+<p>个人体感红+橙+橙+黄（cf1300-1400），前三题都是一次就AC，除了第一题稍微犯病拖了点时间，T2T3都拿到了一血，大约30分钟就都过了</p>
+<p>考试前半小时感觉比较紧张，尤其是看到T3的题面一开始发现有个地方没法确定而且不知道怎么问老师的时候，但好在按照自己的理解写完代码交上去一发就A了，于是笑看打ACM的同学被单防一直WA70（乐）</p>
+<p>给T4留了1个小时的时间，花20分钟推了个式子，写完测样例发现能过，高兴地交了一发，喜提WA20，怀疑是二分写挂了但死活找不出错，后来还干了各种nt操作，比如1e5还是1e6的数据表不直接写生成代码，非要先生成数据后复制进程序，喜提代码长度限制等等。。。</p>
+<p>以下是回忆版的题目和题解，因为咕咕得太久，直到期末才开始写，有些细节不太记得了TAT</p>
+<p>其中一些题目特意保留了一些原有的巧（chou）妙（xiang）叙述方式，建议先按照正常的机考时长（1.5h）自己尝试模拟一次，有助于培养考试时的手感。</p>
+<h2 id="A-卷王Alice"><a href="#A-卷王Alice" class="headerlink" title="A. 卷王Alice"></a>A. 卷王Alice</h2><p><code>Alice</code>热爱学习，几乎每天都要去图书馆读书。由于她天天这么做，所以图书馆里的书已经被她看掉许多了！</p>
+<p>现在，她想整理书架，把书架上编号在<code>l</code>到<code>r</code>之间的书去掉（包括<code>l</code>和<code>r</code>）——因为这些书她都已经读过了。你需要告诉她，她需要搬走哪些书，以及剩下的书的编号。</p>
+<p><strong>输入格式</strong>:<br>第一行一个整数<code>n</code>，表示书架上有<code>n</code>本书，<code>1 &lt;= n &lt;= 1e7</code>；</p>
+<p>第二行两个整数<code>l</code>和<code>r</code>，表示需要去掉的书的编号范围。</p>
+<p>第三行<code>n</code>个整数，a<sub>1</sub>,a<sub>2</sub>…a<sub>n</sub>，表示书架上书籍的编号，其中<code>1 &lt;= ai &lt;= n</code>；</p>
+<p><strong>输出格式</strong>:<br>第一行一个整数，表示搬走的书的数量；</p>
+<p>第二行为用空格分隔的整数，表示书架上剩下的书的编号。</p>
+<p><strong>样例</strong></p>
+<p>输入</p>
+<pre><code>8
+3 6
+1 2 3 4 5 6 7 8
+</code></pre>
+<p>输出</p>
+<pre><code>4
+1 2 7 8
+</code></pre>
+<h2 id="B-图书管理"><a href="#B-图书管理" class="headerlink" title="B. 图书管理"></a>B. 图书管理</h2><p>由于像<code>Alice</code>一样的卷王实在太多了，图书管理员<code>Bob</code>快要忙不过来了！</p>
+<p>无奈之下，他只好邀请你帮他写一个简单的图书管理系统，具体要求如下：</p>
+<ol>
+<li><p>命令<code>R</code>表示有人前来借阅书籍，<code>Bob</code>需要获取书架上最新的图书书名并借给他；如果书架上没有书，则输出警告<code>EMPTY!</code></p>
+</li>
+<li><p>输入一个由英文字母构成的字符串（中间不含空格、特殊符号），表示图书馆新购入一本书籍，<code>Bob</code>需要将这本书放在书架上</p>
+</li>
+</ol>
+<p><strong>输入格式</strong>：<br>第一行一个整数<code>n</code>，表示一共有<code>n</code>条指令；</p>
+<p>接下来<code>n</code>行，每行可能是单个字母<code>R</code>，表示借出操作；或者是一个完全由英文字母构成的字符串<code>s</code>，表示购入的书籍名称</p>
+<p><strong>输出格式</strong>：<br>对于每个输入<code>R</code>，如果书架上有书，输出最新的图书名，否则输出一行<code>EMPTY!</code>。</p>
+<p><strong>样例</strong>：</p>
+<p>输入1：</p>
+<pre><code>5
+R
+HARRYPOTTER
+R
+R
+DATASTRUCTURE
+</code></pre>
+<p>输出1：</p>
+<pre><code>EMPTY!
+HARRYPOTTER
+EMPTY!
+</code></pre>
+<p>输入2：</p>
+<pre><code>7
+TheWayToAK
+AbnormalPsychology
+LiangZiSiWei
+R
+R
+R
+R
+</code></pre>
+<p>输出2：</p>
+<pre><code>LiangZiSiWei
+AbnormalPsychology
+TheWayToAK
+EMPTY!
+</code></pre>
+<h2 id="C-常识拍卖"><a href="#C-常识拍卖" class="headerlink" title="C.常识拍卖"></a>C.常识拍卖</h2><p>在ACM生涯中获得过多枚金牌的<code>carvingfate</code>和不愿透露姓名的学姐在退役后选择了开一家拍卖场。由于非常热爱算法竞赛，所以作为拍卖场主人的他们为这里设计了一些独特的规定，如果你想要参与他们举办的拍卖，一定要仔细阅读规则！</p>
+<p>新一轮的拍卖要开始了！这一次的拍卖品是一块价值连城的宝石，拍下它的人将获得至尊の算法之力，不仅能轻松AK各种比赛，还能风淡云清地告诉其他人：这只不过是常识罢了！（可恶，又被装到了！）</p>
+<p>参与拍卖的人群自觉地在会场外排起了长队，他们每个人都有一个独特的编号，同时手里举着一个牌子，表示自己的出价。每次新来排队的人会先看一眼队首手里举着的牌子，如果自己的出价低于队首，则会直接离开，不加入队伍。</p>
+<p>作为拍卖场的主人，<code>carvingfate</code>拥有一些特权，比如每次他按下<code>P</code>，排在队首的人将提前进入会场，如果没有人在排队，则当作无事发生~</p>
+<p>共有<code>m</code>个时间点，在某个时间点上，可能是<code>carvingfate</code>让队首的人进入会场，也有可能是新的竞拍者来到会场。在<code>m</code>个时间点都结束后，在排队的人会依次进入会场开始竞拍。</p>
+<p>拍卖的规则是：价高者得，如果有多个人出价相同，则遵循先到先得原则。</p>
+<p><code>carvingfate</code>想考考你，是谁最终拍下了这枚宝石呢？请你算出买家的编号，以及宝石成交时的价格。</p>
+<h3 id="输入格式："><a href="#输入格式：" class="headerlink" title="输入格式："></a>输入格式：</h3><p>第一行一个字母<code>m</code>，表示共有<code>m</code>个时间点，其中<code>1 &lt;= m &lt;= 1000000</code>。</p>
+<p>接下来<code>m</code>行，如果是大写字母<code>P</code>，代表<code>carvingfate</code>请队首进入了会场；如果是两个由空格分割的数字<code>x y</code>，表示编号为<code>x</code>的拍卖者来到了会场，他的出价为<code>y</code>，<code>1 &lt;= x,y &lt;= 100000000</code></p>
+<h3 id="输出格式："><a href="#输出格式：" class="headerlink" title="输出格式："></a>输出格式：</h3><p>对于每个指令<code>P</code>，输出一行一个数字，表示当下进入会场的拍卖者编号</p>
+<p>最后输出一行两个数字<code>x y</code>，分别表示最终买家的编号，以及成交时的价格。</p>
+<h3 id="样例："><a href="#样例：" class="headerlink" title="样例："></a>样例：</h3><p>输入1：</p>
+<pre><code>5
+1 3
+2 4
+3 5
+P
+4 3
+</code></pre>
+<p>输出1：</p>
+<pre><code>1
+3 5
+</code></pre>
+<p>输入2：</p>
+<pre><code>8
+1 4
+3 2
+P
+4 3
+2 5
+P
+P
+P
+</code></pre>
+<p>输出2：</p>
+<pre><code>1
+4
+2
+2 5
+</code></pre>
+<h2 id="D-谁爱吃麦当劳"><a href="#D-谁爱吃麦当劳" class="headerlink" title="D. 谁爱吃麦当劳"></a>D. 谁爱吃麦当劳</h2><p>结束了一天的敲代码后，天色已晚，大门落锁，助教学长总是会选择从枣阳路门翻墙而出，去麦当劳整点薯条（注：因为理科大楼离枣阳路门最近）</p>
+<p>为了不必天天翻墙，学长研究了大门的密码，得到密码是一个<code>n*n</code>的二维矩阵中第<code>k</code>大的数，而这个矩阵<code>a</code>满足<code>a[i][j] = i * i + j * j + (i - j) * 114514</code></p>
+<p>现在，机智的学长已经完全掌握了密码，他邀请你今晚一起去麦当劳整点薯条，请你速速想出答案赴约，否则就要<code>v</code>他<code>50</code>请他吃下周的肯德基~</p>
+<p><strong>输入格式</strong>：</p>
+<p>一行两个数字<code>n k</code>，表示矩阵的行列数，以及<code>k</code>的大小，<code>1 &lt;= n &lt;= 5e4; 1 &lt;= k &lt;= n*n</code></p>
+<p><strong>输出格式</strong>：</p>
+<p>一个数字，表示该矩阵中第<code>k</code>大的数</p>
+<h1 id="————————————题目结束————————————"><a href="#————————————题目结束————————————" class="headerlink" title="————————————题目结束————————————"></a>————————————题目结束————————————</h1><p>&nbsp;<br>&nbsp;<br>&nbsp;<br>&nbsp;<br>&nbsp;</p>
+<h1 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h1><h2 id="A-卷王Alice-1"><a href="#A-卷王Alice-1" class="headerlink" title="A. 卷王Alice"></a>A. 卷王Alice</h2><p>数组模拟的签到题，熟练的同学可以在10分钟（进阶要求应该是5分钟）之内完成</p>
+<p>需要稍微注意一下两点文字游戏：</p>
+<ol>
+<li>去掉的是“编号大小”在l和r之间的书，而不是“位置”（考试刚开始脑子不清醒，因为这个卡了几分钟）</li>
+<li>注意输出的分别是“搬走了几本书”，以及“剩下的是哪几本书”（考试时确实只给了一个样例，而且正好8-4&#x3D;4，坐在我旁边的同学因为这个破防了一个小时）</li>
+</ol>
+<p>写代码应该没什么难度，参考如下：</p>
+<pre><code>#include &lt;bits&#x2F;stdc++.h&gt;
+using namespace std;
 
+int main() {
+	int n;
+	cin &gt;&gt; n;
+	int book;
+	int cnt;
+	vector&lt;int&gt; ans;
+	int l,r;
+	cin &gt;&gt; l &gt;&gt; r;
+	for (int i &#x3D; 1;i &lt;&#x3D; n;i++) {
+		cin &gt;&gt; book;
+		if (book &gt;&#x3D; l &amp;&amp; book &lt;&#x3D; r) {
+			cnt++; &#x2F;&#x2F;如果符合编号在l到r之间，说明这本书要被搬走，计数器+1
+		} else {
+			ans.push_back(book); &#x2F;&#x2F;否则这本书要被保留
+		}
+	}
+	for (int b:ans) {
+		cout &lt;&lt; b &lt;&lt; &quot; &quot;; &#x2F;&#x2F;输出要被保留的书的编号
+	} 
+	return 0;
+}</code></pre>
+
+<h2 id="B-图书管理-1"><a href="#B-图书管理-1" class="headerlink" title="B. 图书管理"></a>B. 图书管理</h2><p>看到“最新”，应该可以想到使用栈。要求可以被转化为简单的出栈和入栈操作，不过编码上可能存在一定困难，因为C语言的字符串比较难搞，以及作为新手，手写栈容易各种出错</p>
+<p>简单的解决方案是使用C++的STL速通，毕竟是在机考，还是怎么快怎么来</p>
+<pre><code>#include &lt;bits&#x2F;stdc++.h&gt;
+using namespace std;
+
+int main() {
+	int n;
+	cin &gt;&gt; n;
+	stack&lt;string&gt; books;
+	string ope,book;
+	while (n--) {
+		cin &gt;&gt; ope;
+		if (ope &#x3D;&#x3D; &quot;R&quot;) {
+			if (!books.empty()) {
+				cout &lt;&lt; books.top() &lt;&lt; endl;
+				books.pop();
+			} else {
+				cout &lt;&lt; &quot;EMPTY!&quot; &lt;&lt; endl;
+			}
+		} else {
+			books.push(ope);
+		}
+	}
+	return 0;
+}</code></pre>
+
+<p>一位高水平的同学使用了类似<code>ope[0] == &#39;R&#39;</code>的语句判断当前是借阅指令还是书名，需要注意的是书名同样可能是<code>R</code>开头的（乐），在此警示后人</p>
+<h2 id="C-常识拍卖-1"><a href="#C-常识拍卖-1" class="headerlink" title="C.常识拍卖"></a>C.常识拍卖</h2>
   </div>
   <div id=""></div>
 </div>
@@ -378,6 +547,13 @@ Fancybox.bind('[data-fancybox="fancybox-gallery-img"]', {
 </style>
 
     <div class="post-paging">
+    
+    <a href="/2025/01/22/2025-winter-cf/">
+        <div class="post-paging-last">
+            <span>上一篇</span>
+            <p>2025寒假cf写题记录</p>
+        </div>
+    </a>
     
 
     

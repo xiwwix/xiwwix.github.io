@@ -318,8 +318,11 @@
 
     <p>寒假有很多活要干的样子，但是想做题了（？<br><code>flag</code>是寒假结束前上青，下个学期（或者有生之年QAQ）上个蓝</p>
 <p>写篇文章记录一下写题，主要用来提醒自己有哪些重要的<code>trick</code>，以及学习一些进阶的算法避免下学期挂了豆哥的课（没错。。作大死（）</p>
-<h2 id="2025-01-22"><a href="#2025-01-22" class="headerlink" title="2025.01.22"></a>2025.01.22</h2><h3 id="F-Firefly’s-Queries"><a href="#F-Firefly’s-Queries" class="headerlink" title="F. Firefly’s Queries"></a><a target="_blank" rel="noopener" href="https://codeforces.com/problemset/problem/2009/F">F. Firefly’s Queries</a></h3><p>前缀和plus，假设最后直接形成的大前缀和数组是<code>f</code>，<code>l</code>到<code>r</code>的区间和等于<code>f[r] - f[l]</code>，求<code>f[x]</code>可以分成<code>r/n</code>个完整数组（和为<code>s</code>），以及一段不完整数组<br>不完整数组的第一位是<code>((r/n)%n) + 1</code>，长度是<code>r%n</code><br>想到的一个方便的求法是倍增原数组，然后求这个二倍长数组的前缀和<code>prefix</code>，这样的话这个不完整数组的区间和就是<code>prefix[(x//n) % n + 1 + x%n - 1] - prefix[(x//n) % n]</code></p>
+<h2 id="01-22"><a href="#01-22" class="headerlink" title="01.22"></a>01.22</h2><h3 id="F-Firefly’s-Queries"><a href="#F-Firefly’s-Queries" class="headerlink" title="F. Firefly’s Queries"></a><a target="_blank" rel="noopener" href="https://codeforces.com/problemset/problem/2009/F">F. Firefly’s Queries</a></h3><p>前缀和plus，假设最后直接形成的大前缀和数组是<code>f</code>，<code>l</code>到<code>r</code>的区间和等于<code>f[r] - f[l]</code>，求<code>f[x]</code>可以分成<code>r/n</code>个完整数组（和为<code>s</code>），以及一段不完整数组<br>不完整数组的第一位是<code>((r/n)%n) + 1</code>，长度是<code>r%n</code><br>想到的一个方便的求法是倍增原数组，然后求这个二倍长数组的前缀和<code>prefix</code>，这样的话这个不完整数组的区间和就是<code>prefix[(x//n) % n + 1 + x%n - 1] - prefix[(x//n) % n]</code></p>
 <h3 id="D-Kousuke’s-Assignment"><a href="#D-Kousuke’s-Assignment" class="headerlink" title="D. Kousuke’s Assignment"></a><a target="_blank" rel="noopener" href="https://codeforces.com/problemset/problem/2033/D">D. Kousuke’s Assignment</a></h3><p>感觉是很熟悉很常见的套路，但是没反应过来QAQ</p>
+<h2 id="01-29"><a href="#01-29" class="headerlink" title="01.29"></a>01.29</h2><p>玩了一周（霍格沃兹之遗真好玩！（不是）），正式回来学习</p>
+<p>打算跟着白书，按照图论、数论、dp、数据结构的顺序过一遍，把书上的洛谷习题用C++敲一遍（C++水平真的太菜了（悲））</p>
+<p>今天先做了<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1113">P1113</a>和<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4017">P4017</a>练手，发现容易弄反出入度QAQ，以及忘了<code>long long</code>查了半天</p>
 
   </div>
   <div id=""></div>

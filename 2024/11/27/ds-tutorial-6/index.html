@@ -316,7 +316,9 @@
   <div id="article" class="post-content-info">
     
 
-    <h2 id="1026-字符串消除"><a href="#1026-字符串消除" class="headerlink" title="1026. 字符串消除"></a>1026. 字符串消除</h2><p>对代码能力有一定的要求，建议使用C++<br>主要思路：适当拆解功能，一个<code>solve</code>函数用于遍历每一个可以插入的地方和插入的字符<code>ABC</code>，生成新字符串<code>ss</code>，一个<code>count</code>函数计算一个字符串消除到不能再消除时一共减去了多少个字符</p>
+    <pre><code></code></pre>
+
+<h2 id="1026-字符串消除"><a href="#1026-字符串消除" class="headerlink" title="1026. 字符串消除"></a>1026. 字符串消除</h2><p>对代码能力有一定的要求，建议使用C++<br>主要思路：适当拆解功能，一个<code>solve</code>函数用于遍历每一个可以插入的地方和插入的字符<code>ABC</code>，生成新字符串<code>ss</code>，一个<code>count</code>函数计算一个字符串消除到不能再消除时一共减去了多少个字符</p>
 <p><code>count</code>函数里，我的思路大致是这样：<br>1、先将<code>flag</code>设为<code>true</code>，用于表示是否继续消除<br>2、每次<code>while(flag)</code>循环开始，先把<code>flag</code>设为<code>false</code>，如果在循环过程中进行了消除，则把<code>flag</code>改为<code>true</code><br>3、这样就能达成的效果是：只要一次循环里进行了消除，<strong>就必然会再进行至少一次循环</strong>。如果一次循环里没有消除，那么下一次循环里也不会发生消除，<code>flag</code>变为<code>false</code>，退出循环<br>4、怎么进行消除呢？我的方法是先新建一个空字符串<code>news</code>，在消除过程中采用双指针的做法，一开始<code>l=0</code>,<code>r=1</code>，只要<code>s[l] == s[r]</code>，一直右指针右移<code>r++</code>，并且标记<code>tempflag</code>为<code>true</code>，跳出<code>while (s[l] == s[r])</code>后，如果<code>tempflag</code>为<code>true</code>，说明刚刚那一段是重复的，将原字符串<code>s</code>中<code>[l,r)</code>的部分修改为<code>#</code>，说明已经被消除<br>5、最后遍历原字符串<code>s</code>，将不是<code>#</code>的部分加在空字符串<code>news</code>上，最后将<code>news</code>赋值给<code>s</code></p>
 <p>参考代码如下，复杂度<code>O(N^3)</code>（遍历s进行插入是<code>O(N)</code>，消除的平均复杂度是<code>O(N^2)</code>），金牌学长还提出可以使用区间dp的做法，但复杂度并没有更优，只是说常数会小一点（有空就写写看（咕咕））</p>
 <pre><code>#include &lt;bits&#x2F;stdc++.h&gt;

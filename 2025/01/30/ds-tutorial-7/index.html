@@ -1,0 +1,1013 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		
+<title>心双2024数据结构1031-1043题解-xiwwwix's blog</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="shortcut icon" type="image/x-icon" href="/image/mylogo.ico">
+
+<link rel="stylesheet" href="/css/index.css">
+
+
+
+<meta name="keywords" content="2024心双数据结构EOJ习题,">
+<meta name="description" content="ds-tutorial">
+
+
+<script src="/js/jquery.min.js"></script>
+
+
+<script src="/js/index.js"></script>
+
+
+<script src="/js/fancybox.umd.js"></script>
+
+
+<script src="/js/fancybox-images.js"></script>
+
+
+<script src="/js/gitalk.min.js"></script>
+
+
+<script src="/js/hljs.min.js"></script>
+ 
+<script>hljs.highlightAll();</script>
+
+	<meta name="generator" content="Hexo 7.3.0"></head>
+
+	<body>
+		
+	<div class="header">
+		<div class="header-top" id="header-top">
+			<div class="h-left">
+				<a href="/">
+					<img src="/image/logo.png" alt="Quiet">
+				</a>
+			</div>
+			<div class="h-right">
+				<ul>
+					
+						
+								<li>
+									<a href="/">
+										HOME
+									</a>
+									<span class="dot"></span>
+								</li>
+								
+									
+						
+								<li>
+									<a href="/archives">
+										ARCHIVE
+									</a>
+									<span class="dot"></span>
+								</li>
+								
+									
+						
+								<li>
+									<a href="/categories">
+										CATEGORIES
+									</a>
+									<span class="dot"></span>
+								</li>
+								
+									
+						
+								<li>
+									<a href="/tags">
+										TAGS
+									</a>
+									<span class="dot"></span>
+								</li>
+								
+									
+						
+								<li>
+									<a href="/links">
+										LINKS
+									</a>
+									<span class="dot"></span>
+								</li>
+								
+									
+						
+								<li>
+									<a href="/about">
+										ABOUT
+									</a>
+									<span class="dot"></span>
+								</li>
+								
+									
+				</ul>
+			</div>
+			<div class="h-right-close">
+				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+					<path fill="none" d="M0 0h24v24H0z" />
+					<path d="M3 4h18v2H3V4zm0 7h18v2H3v-2zm0 7h18v2H3v-2z" fill="rgba(68,68,68,1)" />
+				</svg>
+			</div>
+		</div>
+	</div>
+	<div class="sidebar">
+    <div class="topo">
+        <h2>xiwwwix</h2>
+    </div>
+    <ul>
+        
+        <li>
+            <a href="/">HOME</a>
+        </li>
+        
+        <li>
+            <a href="/archives">ARCHIVE</a>
+        </li>
+        
+        <li>
+            <a href="/categories">CATEGORIES</a>
+        </li>
+        
+        <li>
+            <a href="/tags">TAGS</a>
+        </li>
+        
+        <li>
+            <a href="/links">LINKS</a>
+        </li>
+        
+        <li>
+            <a href="/about">ABOUT</a>
+        </li>
+        
+    </ul>
+    <div class="my_foot">
+        
+        <a target="_blank" rel="noopener" href="https://github.com/xiwwix">
+            <img src="https://cdn.jsdelivr.net/gh/duogongneng/MyBlogImg/imggithub.png" alt="Quiet主题">
+        </a>
+        
+    </div>
+</div>
+<div class='shelter'>
+</div>
+<style>
+    .shelter{
+        background-color: #333;
+        opacity:0.5;
+        cursor: pointer;
+        display: none; 
+        position: fixed;
+        left: 0;
+        top: 0; 
+        right: 0;
+        bottom: 0;
+        z-index: 1998;
+    }
+    .sidebar {
+        width: 66%;
+        height: 100%;
+        position: fixed;
+        top: 0;
+        right: -100%;
+        bottom: 0;
+        background: #fff;
+        z-index: 1999;
+        text-align: center;
+        box-shadow: -6px 0 20px rgba(98, 94, 94, .815);
+    }
+
+    .topo {
+        width: 100%;
+        height: 200px;
+        background: url(https://api.ixiaowai.cn/gqapi/gqapi.php) no-repeat;
+        background-size: 100% 100%;
+        position: relative;
+        display: flex;
+        align-items: flex-end
+    }
+
+    .topo h2 {
+        color: #fff;
+        z-index: 1;
+        position: relative;
+        margin: 0 0 10px 10px;
+        font-size: 1.2em;
+        box-sizing: border-box
+    }
+
+    .topo:before {
+        content: '';
+        background-image: url(/image/pattern.png);
+        background-repeat: repeat;
+        height: 100%;
+        left: 0;
+        position: absolute;
+        top: 0;
+        width: 100%;
+        z-index: 1
+    }
+
+    .sidebar ul {
+        width: 100%;
+        margin-top: 50px
+    }
+
+    .sidebar ul li {
+        height: 50px;
+        list-style: none;
+        font-size: 1.2em;
+        text-align: right;
+        margin-right: 10px
+    }
+
+    .sidebar ul li a {
+        display: grid;
+        color: #5d606a;
+        text-overflow: ellipsis;
+        width: 100%;
+        text-decoration: none
+    }
+
+    .my_foot {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+        position: absolute;
+        bottom: 0
+    }
+
+    .my_foot a {
+        text-decoration: none;
+        margin-right: 10px;
+        display: inline-block
+    }
+
+    .my_foot a img {
+        width: 30px;
+        height: 30px
+    }
+</style>
+
+<script>
+    $( function () {
+	$( '.h-right-close>svg' )
+		.click( function () {
+			$( '.sidebar' )
+				.animate( {
+					right: "0"
+				}, 500 );
+			$( '.shelter' )
+				.fadeIn( "slow" )
+		} );
+	$( '.shelter' )
+		.click( function ( e ) {
+			$( '.sidebar' )
+				.animate( {
+					right: "-100%"
+				}, 500 );
+			$( '.shelter' )
+				.fadeOut( "slow" )
+		} )
+} )
+
+</script>
+
+<div class="post">
+    <div class="post-header-background post-header-img"
+    style="background: url('https://api.ixiaowai.cn/gqapi/gqapi.php')" 
+>
+    <div class="post-header-background-content">
+        <ul class="post-header-tag">
+            
+            
+            <li><a href="/tags/2024心双数据结构EOJ习题">2024心双数据结构EOJ习题</a></li>
+            
+            
+        </ul>
+        
+        <h1>心双2024数据结构1031-1043题解</h1>
+        <div class="post-header-info">
+            <div class="post-header-info-author">
+                
+                    <svg t="1604839279282" class="icon" viewBox="0 0 1024 1024" version="1.1"
+                        xmlns="http://www.w3.org/2000/svg" p-id="2901" width="20" height="20">
+                        <path
+                            d="M513 956.3c-247.7 0-448-200.3-448-448S265.3 66.2 513 66.2s448 200.3 448 448-200.3 442.1-448 442.1z m0-830.9c-212.2 0-388.8 170.7-388.8 388.8C124.2 726.3 294.9 903 513 903c212.2 0 388.8-170.7 388.8-388.8S725.2 125.4 513 125.4z m0 430.2c-94.2 0-170.7-76.5-170.7-170.7S418.8 207.8 513 207.8s170.7 76.5 170.7 170.7S607.2 555.6 513 555.6z m0-289.1c-64.6 0-112 52.8-112 112s47.4 117.9 112 117.9 112-52.8 112-112-47.4-117.9-112-117.9z m0 689.8c-135.7 0-259-58.7-341.9-158.9l-11.8-17.8 11.8-17.8c76.5-117.9 206.2-188.5 347.8-188.5 135.7 0 265 64.6 341.9 182.6l11.8 17.8-11.8 17.8C778 897.1 648.7 956.3 513 956.3zM230.3 773.2C300.9 849.7 406.9 897 513 897c112 0 218.1-47.4 288.6-129.8-70.5-88.2-170.7-135.6-282.7-135.6s-218.1 53.3-288.6 141.6z"
+                            p-id="2902" fill="#ffffff"></path>
+                    </svg>
+                    
+                <span class="post-header-info-author-text"> <a target="_blank" rel="noopener" href="https://github.com/xiwwix">xiwwwix</a></span>
+                <div class="post-header-info-author-categories">
+                    
+                         <a href="../../categories/教程/" target="_blank" >教程</a>
+                    
+                </div>
+                <p>2025-01-30 00:20:54</p>
+            </div>
+        </div>
+    </div>
+</div>
+    <div class="post-content" id="content">
+  
+  <div id="article" class="post-content-info">
+    
+
+    <p>1031-1043都是排序题，所以放在一起了</p>
+<h2 id="1031-冒泡排序"><a href="#1031-冒泡排序" class="headerlink" title="1031. 冒泡排序"></a>1031. 冒泡排序</h2><p>改良的冒泡排序，除了题目里的<code>a,b,c</code>外，还需要额外维护两个变量<code>l,r</code>作为每次冒泡排序的左右边界</p>
+<pre><code>#include &lt;bits&#x2F;stdc++.h&gt;
+using namespace std;
+
+int main() {
+	int n;
+	int nums[5001];
+	cin &gt;&gt; n;
+	
+	for (int i &#x3D; 0; i &lt; n;i++){
+		cin &gt;&gt; nums[i];
+	}
+	
+	int l &#x3D; 0,r &#x3D; n - 1;
+	int a &#x3D; 0,b &#x3D; 0,c &#x3D; 0;
+	int p &#x3D; l;
+	
+	while (l &lt; r) {
+		p &#x3D; l;
+		c++;
+		for (int i &#x3D; l;i &lt; r;i++){
+			a++;
+			int j &#x3D; i + 1;
+			if (nums[i] &gt; nums[j]) {
+				b++;
+				int tmp &#x3D; nums[i];
+				nums[i] &#x3D; nums[j];
+				nums[j] &#x3D; tmp;
+				p &#x3D; i;
+			}
+		}
+		r &#x3D; p;
+	}
+	printf(&quot;%d %d %d\n&quot;,a,b,c);
+	return 0;
+}</code></pre>
+
+<h2 id="1032-插入排序"><a href="#1032-插入排序" class="headerlink" title="1032. 插入排序"></a>1032. 插入排序</h2><p>按照网上或者PPT&#x2F;书里的思路就可以，唯一的坑点是行末不能有空格，不然似乎会WA</p>
+<pre><code>#include &lt;bits&#x2F;stdc++.h&gt;
+using namespace std;
+
+int nums[1005] &#x3D; {0};
+int n;
+
+void printNums(void) {
+	for (int i &#x3D; 0;i &lt; n-1;i++) {
+		printf(&quot;%d &quot;,nums[i]);
+	}
+	printf(&quot;%d\n&quot;,nums[n-1]);
+}
+
+int main() {
+	cin &gt;&gt; n;
+	for (int i &#x3D; 0;i &lt; n;i++) {
+		scanf(&quot;%d&quot;,&amp;nums[i]);
+	}
+	for (int i &#x3D; 1; i &lt; n; i++) {
+		int tmp &#x3D; nums[i];
+		int j &#x3D; i - 1;
+		while (j &gt;&#x3D; 0 &amp;&amp; nums[j] &gt; tmp) {
+			nums[j+1] &#x3D; nums[j];
+			j--;
+		}
+		nums[j+1] &#x3D; tmp;
+		printNums();
+	}
+	return 0;
+}</code></pre>
+
+<h2 id="1033-选择排序"><a href="#1033-选择排序" class="headerlink" title="1033. 选择排序"></a>1033. 选择排序</h2><pre><code>#include &lt;bits&#x2F;stdc++.h&gt;
+using namespace std;
+
+int main() {
+	int n;
+	int nums[1003] &#x3D; {0};
+	
+	cin &gt;&gt; n;
+	
+	for (int i &#x3D; 0;i &lt; n;i++) {
+		cin &gt;&gt; nums[i];
+	}
+	for (int i &#x3D; 0; i &lt; n - 1; i++) {
+        int idx &#x3D; i;
+        for (int j &#x3D; i + 1; j &lt; n; j++)
+            if (nums[j] &lt; nums[idx])
+                idx &#x3D; j;
+        int tmp &#x3D; nums[i];
+        nums[i] &#x3D; nums[idx];
+        nums[idx] &#x3D; tmp;
+        for (int k &#x3D; 0;k &lt; n;k++) {
+        	cout &lt;&lt; nums[k];
+        	if (k !&#x3D; n-1) {
+        	    cout &lt;&lt; &quot; &quot;;
+        	}
+		}
+		cout &lt;&lt; endl;
+    }
+
+	return 0;
+}</code></pre>
+
+<h2 id="1034-选择排序（构造）"><a href="#1034-选择排序（构造）" class="headerlink" title="1034. 选择排序（构造）"></a>1034. 选择排序（构造）</h2><p>这题其实我也没太搞明白QAQ，按照个人理解，应该是数据全部逆序就可以了，但是实际上并不是，AC的代码是前一半一样，后一半逆序</p>
+<pre><code>#include &lt;iostream&gt;
+#include &lt;vector&gt;
+
+using namespace std;
+
+int main() {
+    int n &#x3D; 101350;  &#x2F;&#x2F; 数据规模
+    cout &lt;&lt; n &lt;&lt; endl;
+
+    vector&lt;int&gt; a(n);
+
+    &#x2F;&#x2F; 前 5000 个元素是连续的最大值
+    int maxValue &#x3D; n&#x2F;2;
+    for (int i &#x3D; 0; i &lt; n&#x2F;2; ++i) {
+        a[i] &#x3D; maxValue;
+    }
+
+    &#x2F;&#x2F; 后 5000 个元素是递减的数列
+    for (int i &#x3D; n&#x2F;2; i &lt; n; ++i) {
+        a[i] &#x3D; maxValue - (i - n&#x2F;2) - 1;
+    }
+
+    for (int i &#x3D; 0; i &lt; n; ++i) {
+        cout &lt;&lt; a[i] &lt;&lt; &quot; &quot;;
+    }
+
+    return 0;
+}</code></pre>
+
+<h2 id="1035-快速排序"><a href="#1035-快速排序" class="headerlink" title="1035. 快速排序"></a>1035. 快速排序</h2><p>递归地处理左右区间，对每个区间执行这样的操作：将第一个数作为基准值，比它小的放左边，比它大的放右边，但是实际代码不是严格的“放左放右”，具体实现过程可以参考PPT。</p>
+<pre><code>#include &lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+void quicksort(vector&lt;int&gt;&amp; arr, int left, int right) {
+	if (left &gt;&#x3D; right) return;
+
+	int pivot &#x3D; arr[left];
+	int i &#x3D; left, j &#x3D; right;
+
+	while (i &lt; j) {
+		while (i &lt; j &amp;&amp; arr[j] &gt;&#x3D; pivot) j--;
+		arr[i] &#x3D; arr[j];
+		while (i &lt; j &amp;&amp; arr[i] &lt;&#x3D; pivot) i++;
+		arr[j] &#x3D; arr[i];
+	}
+	arr[i] &#x3D; pivot;
+
+	for (int i &#x3D; 0; i &lt; arr.size(); i++) {
+		cout &lt;&lt; arr[i];
+		if (i &lt; arr.size() - 1) {
+			cout &lt;&lt; &quot; &quot;;
+		}
+	}
+	cout &lt;&lt; endl;
+
+	quicksort(arr, left, i - 1);
+	quicksort(arr, i + 1, right);
+}
+
+int main() {
+	int n;
+	cin &gt;&gt; n;
+	vector&lt;int&gt; arr(n);
+
+	for (int i &#x3D; 0; i &lt; n; i++) {
+		cin &gt;&gt; arr[i];
+	}
+
+	quicksort(arr, 0, n - 1);
+
+	return 0;
+}</code></pre>
+
+<h2 id="1036-快速排序的优化"><a href="#1036-快速排序的优化" class="headerlink" title="1036. 快速排序的优化"></a>1036. 快速排序的优化</h2><p>纯粹是按照要求进行了模拟</p>
+<pre><code>#include &lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+void Selectsort(vector&lt;int&gt;&amp; nums, int left, int right) {
+    for (int i &#x3D; left; i &lt; right; i++) {
+        int idx &#x3D; i;
+        for (int j &#x3D; i + 1; j &lt;&#x3D; right; j++) {
+            if (nums[j] &lt; nums[idx]) {
+                idx &#x3D; j;
+            }
+        }
+        int tmp &#x3D; nums[i];
+        nums[i] &#x3D; nums[idx];
+        nums[idx] &#x3D; tmp;
+    }
+}
+
+int find(vector&lt;int&gt;&amp; arr,int left,int right) {
+	int mid &#x3D; (left + right) &gt;&gt; 1;
+	if (arr[left] &gt; arr[mid]) swap(arr[left], arr[mid]);
+	if (arr[left] &gt; arr[right]) swap(arr[left], arr[right]);
+	if (arr[mid] &gt; arr[right]) swap(arr[mid], arr[right]);
+	return mid;
+}
+
+void quicksort(vector&lt;int&gt;&amp; arr, int left, int right) {
+	if (left &gt;&#x3D; right) return;
+	
+	if (right - left + 1 &lt;&#x3D; 100) {
+		Selectsort(arr,left,right);
+		return;
+	}
+
+	int pi &#x3D; find(arr,left,right);
+	swap(arr[left],arr[pi]);
+	
+	int pivot &#x3D; arr[left];
+	int i &#x3D; left, j &#x3D; right;
+
+	while (i &lt; j) {
+		while (i &lt; j &amp;&amp; arr[j] &gt;&#x3D; pivot) j--;
+		arr[i] &#x3D; arr[j];
+		while (i &lt; j &amp;&amp; arr[i] &lt;&#x3D; pivot) i++;
+		arr[j] &#x3D; arr[i];
+	}
+	arr[i] &#x3D; pivot;
+
+	quicksort(arr, left, i - 1);
+	quicksort(arr, i + 1, right);
+}
+
+int main() {
+	int n;
+	cin &gt;&gt; n;
+	vector&lt;int&gt; arr(n);
+
+	for (int i &#x3D; 0; i &lt; n; i++) {
+		cin &gt;&gt; arr[i];
+	}
+	
+	if (n &lt;&#x3D; 100) {
+		Selectsort(arr, 0, n-1);
+	}else {
+		quicksort(arr, 0, n - 1);
+	}
+	
+	for (int i &#x3D; 0; i &lt; arr.size(); i++) {
+		cout &lt;&lt; arr[i];
+		if (i &lt; arr.size() - 1) {
+			cout &lt;&lt; &quot; &quot;;
+		}
+	}
+	cout &lt;&lt; endl;
+
+	return 0;
+}</code></pre>
+
+<h2 id="1037-鞍点"><a href="#1037-鞍点" class="headerlink" title="1037. 鞍点"></a>1037. 鞍点</h2><p>最好写，不用动脑子的做法：直接一个二维矩阵存图，对于每个元素跑一次<code>check</code>函数（遍历该元素所在行、列，确认这个元素是否为最小的），如果是，把这个元素的坐标放进答案（我用了c++的<code>pair</code>和<code>vector</code>），最后把答案排序输出即可</p>
+<pre><code>#include &lt;bits&#x2F;stdc++.h&gt;
+using namespace std;
+
+int arr[6][6];
+
+bool check(int x,int y) {
+	for (int i &#x3D; 0;i &lt; 5;i++) {
+		if (arr[i][y] &lt; arr[x][y]) return false;
+	}
+	
+	for (int j &#x3D; 0;j &lt; 5;j++) {
+		if (arr[x][j] &gt; arr[x][y]) return false;
+	}
+	return true;
+}
+
+int main() {
+	int t;
+	cin &gt;&gt; t;
+	for(int cas &#x3D; 0;cas &lt; t;cas++) {
+		printf(&quot;case #%d:\n&quot;,cas);
+		bool flag &#x3D; false;
+		vector&lt;pair&lt;int,int&gt;&gt; res;
+		for (int i &#x3D; 0;i &lt; 5;i++) {
+			for (int j &#x3D; 0;j &lt; 5;j++) {
+				cin &gt;&gt; arr[i][j];
+			}
+		}
+		for (int i &#x3D; 0;i &lt; 5;i++) {
+			for (int j &#x3D; 0;j &lt; 5;j++) {
+				if (check(i,j)) {
+					flag &#x3D; true;
+					res.push_back(make_pair(i,j));
+				}
+			}
+		}
+		sort(res.begin(),res.end());
+		if (!flag) {
+			cout &lt;&lt; -1 &lt;&lt; &quot; &quot; &lt;&lt; -1 &lt;&lt; endl;
+		} else {
+			for (auto&amp; p:res) {
+				cout &lt;&lt; p.first &lt;&lt; &quot; &quot; &lt;&lt; p.second &lt;&lt; endl;
+			}
+		}
+	}
+	return 0;
+} </code></pre>
+
+<h2 id="1038-统计工龄"><a href="#1038-统计工龄" class="headerlink" title="1038. 统计工龄"></a>1038. 统计工龄</h2><p>由于工龄的范围很小（<code>0~50</code>），所以用一个数组<code>cnt</code>，<code>cnt[i]</code>表示工龄为<code>i</code>的老师数量即可</p>
+<pre><code>#include &lt;bits&#x2F;stdc++.h&gt;
+using namespace std;
+
+int cnt[51] &#x3D; {0};
+
+int main() {
+	int n,year;
+	cin &gt;&gt; n;
+	
+	for (int i &#x3D; 0;i &lt; n;i++) {
+		cin &gt;&gt; year;
+		cnt[year]++;
+	}
+	
+	for (int i &#x3D; 0;i &lt;&#x3D; 50;i++) {
+		if (cnt[i] !&#x3D; 0) {
+			printf(&quot;%d:%d\n&quot;,i,cnt[i]);
+		}
+	}
+	
+	return 0;
+}</code></pre>
+
+<h2 id="1039-排名汇总"><a href="#1039-排名汇总" class="headerlink" title="1039. 排名汇总"></a>1039. 排名汇总</h2><p>感觉回到了C语言临近期末天天写结构体排序的日子。。<br>这种题一般就是这个步骤：</p>
+<ol>
+<li>声明一个结构体（比如学生），把各种属性（学号，年龄，成绩之类）都放进去</li>
+<li>声明一个结构体数组</li>
+<li>写一个自定义比较函数</li>
+<li>最后排序结构体数组</li>
+</ol>
+<p>这道题比较烦的是又要某学生在自己考场里的排名，又要<br>总学生里的排名，我当时的处理方法是给学生结构体设了一个变量<code>rk</code>表示他在自己考场内的排名，通过每次读取完一个考场的学生信息后排序得到；</p>
+<p>总排名则是将所有学生都放在一个数组里，再进行一次排序得到</p>
+<pre><code>#include &lt;bits&#x2F;stdc++.h&gt;
+using namespace std;
+
+int n,t;
+int num &#x3D; 0;
+
+struct student {
+	string id;
+	int score;
+	int pos;
+	int rk; &#x2F;&#x2F;这个学生在自己考场里的排名
+};
+
+vector&lt;student&gt; all_students;
+
+bool cmp(const student&amp; stu1,const student&amp; stu2) {
+	if (stu1.score !&#x3D; stu2.score) return stu1.score &gt; stu2.score;
+	return stu1.id &lt; stu2.id;
+}
+
+void solve() { &#x2F;&#x2F;每读取一个考场，就对这个考场内部进行排名，得到学生的rk
+	int k;
+	cin &gt;&gt; k;
+	num +&#x3D; k;
+&#x2F;&#x2F;	cout &lt;&lt; &quot;pp&quot; &lt;&lt; t&lt;&lt;endl;
+	vector&lt;student&gt; students;
+	for (int i &#x3D; 0;i &lt; k;i++) {
+		student stu;
+		cin &gt;&gt; stu.id &gt;&gt; stu.score;
+		stu.pos &#x3D; t;
+		students.push_back(stu);
+	}
+	sort(students.begin(),students.end(),cmp);
+	int rank &#x3D; 1;
+	int cnt &#x3D; 0;
+	int prescore &#x3D; 0;
+	for (int i &#x3D; 0;i &lt; k;i++) {
+		cnt++;
+&#x2F;&#x2F;		cout &lt;&lt; &quot;here&quot; &lt;&lt; endl;
+		if (students[i].score !&#x3D; prescore) {
+			rank &#x3D; cnt;
+		} 
+		students[i].rk &#x3D; rank;
+		prescore &#x3D; students[i].score;
+		all_students.push_back(students[i]);
+	}
+}
+
+int main() {
+	cin &gt;&gt; n;
+&#x2F;&#x2F;	vector&lt;student&gt; all_students;
+	for (t &#x3D; 1;t &lt;&#x3D; n;t++) {
+		solve(); &#x2F;&#x2F;每读取一个考场，就对这个考场内部进行排名，得到学生的rk
+	}
+	sort(all_students.begin(),all_students.end(),cmp);
+	int prescore &#x3D; 0;
+	int rank &#x3D; 0;
+	cout &lt;&lt; num &lt;&lt; endl;
+	int cnt &#x3D; 0;
+	for (int i &#x3D; 0;i &lt; num;i++) {
+		cnt++;
+		if (all_students[i].score !&#x3D; prescore) {
+			rank &#x3D; cnt;
+		} 
+		prescore &#x3D; all_students[i].score;
+		cout &lt;&lt; all_students[i].id &lt;&lt; &quot; &quot; &lt;&lt; rank &lt;&lt; &quot; &quot; &lt;&lt;  all_students[i].pos &lt;&lt; &quot; &quot; &lt;&lt; all_students[i].rk &lt;&lt; endl;
+	}
+	return 0;
+}</code></pre>
+
+<h2 id="1042-二维数组排序"><a href="#1042-二维数组排序" class="headerlink" title="1042. 二维数组排序"></a>1042. 二维数组排序</h2><p>经典C语言排序重出江湖，如果忘了怎么写可以翻翻C语言教材</p>
+<pre><code>#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;string.h&gt;
+#define M 100
+#define N 100
+&#x2F;&#x2F;********** Specification of SortLines **********
+int col;
+
+int cmp(const void* a, const void* b) {
+	int* row1 &#x3D; (int*)a;
+	int* row2 &#x3D; (int*)b;
+
+	int sum1 &#x3D; 0, sum2 &#x3D; 0;
+	for (int i &#x3D; 0; i &lt; col; i++) {
+		sum1 +&#x3D; row1[i];
+		sum2 +&#x3D; row2[i];
+	}
+
+	if (sum1 !&#x3D; sum2) {
+		return sum1 - sum2;
+	}
+
+	for (int i &#x3D; 0; i &lt; col; i++) {
+		if (row1[i] !&#x3D; row2[i]) {
+			return row1[i] - row2[i];
+		}
+	}
+	return 0;
+}
+
+void SortLines(int (*p)[M], int n, int m) {
+	col &#x3D; m;
+	qsort(p, n, sizeof(p[0]), cmp);
+}
+
+&#x2F;***************************************************************&#x2F;
+int main() {
+	int a[N][M];
+	int n,m,i,j;
+	int t,cas;
+	scanf(&quot;%d&quot;,&amp;cas);
+	for(t&#x3D;0; t&lt;cas; t++) {
+		memset(a,0,sizeof(a));
+		scanf(&quot;%d%d&quot;,&amp;n,&amp;m);
+		for (i&#x3D;0; i&lt;n; i++)
+			for (j&#x3D;0; j&lt;m; j++)
+				scanf(&quot;%d&quot;,&amp;a[i][j]);
+		&#x2F;***** function SortLines is called here *****&#x2F;
+		SortLines(a,n,m);
+		&#x2F;****************************************&#x2F;
+		printf(&quot;case #%d:\n&quot;,t);
+		for (i&#x3D;0; i&lt;n; i++)
+			for (j&#x3D;0; j&lt;m; j++)
+				printf(&quot;%d%c&quot;,a[i][j],j&lt;m-1?&#39; &#39;:&#39;\n&#39;);
+	}
+	return 0;
+}</code></pre>
+
+<h2 id="1043-寻找EMB富豪"><a href="#1043-寻找EMB富豪" class="headerlink" title="1043. 寻找EMB富豪"></a>1043. 寻找EMB富豪</h2><p>省流：相信库函数的实力（不是）</p>
+<p>直接调库就能过，我当时就没继续研究，另外附上打ACM的同学的代码作为参考：</p>
+<pre><code>#include &lt;bits&#x2F;stdc++.h&gt;
+using namespace std;
+
+&#x2F;&#x2F; int Rand(int i){
+&#x2F;&#x2F; 	return rand() % i;
+&#x2F;&#x2F; }
+
+inline int read() { &#x2F;&#x2F;优化读入速度，但其实不加差不多也能过
+    int x &#x3D; 0,f &#x3D; 1;
+    char ch &#x3D; getchar();
+    while(ch &lt; &#39;0&#39; || ch &gt; &#39;9&#39;)
+    {
+        if(ch &#x3D;&#x3D; &#39;-&#39;)
+            f &#x3D; -1;
+        ch &#x3D; getchar();
+    }
+    while(ch &gt;&#x3D; &#39;0&#39; &amp;&amp; ch &lt;&#x3D; &#39;9&#39;)
+        x &#x3D; x*10 + ch -&#39;0&#39;,ch &#x3D; getchar();
+    return x*f;
+}
+
+bool cmp(const int&amp; a,const int&amp; b) {
+	return a &gt; b;
+}
+
+int main() {
+	int n,m;
+	cin &gt;&gt; n &gt;&gt; m;
+	int nums[n];
+	for (int i &#x3D; 0;i &lt; n;i++) {
+		nums[i] &#x3D; read();
+	}
+&#x2F;&#x2F; 	random_shuffle(nums,nums+n);
+	sort(nums,nums+n,cmp);
+	m &#x3D; min(n,m);
+	for (int i &#x3D; 0;i &lt; m;i++) {
+		printf(&quot;%d &quot;,nums[i]);
+	}
+	return 0;
+}</code></pre>
+
+
+  </div>
+  <div id=""></div>
+</div>
+
+<script>
+  
+Fancybox.bind('[data-fancybox="fancybox-gallery-img"]', {
+  dragToClose: true,
+  Toolbar: true,
+  closeButton: "top",
+  Image: {
+    zoom: true,
+  },
+  on: {
+    initCarousel: (fancybox) => {
+      const slide = fancybox.Carousel.slides[fancybox.Carousel.page];
+      fancybox.$container.style.setProperty(
+        "--bg-image",
+        `url("${slide.$thumb.src}")`
+      );
+    },
+    "Carousel.change": (fancybox, carousel, to, from) => {
+      const slide = carousel.slides[to];
+      fancybox.$container.style.setProperty(
+        "--bg-image",
+        `url("${slide.$thumb.src}")`
+      );
+    },
+  },
+});
+</script>
+
+<style>
+    #noneimg img {
+        display: none;
+        z-index: 9999;
+        /* width: 600px !important; */
+        min-width: 0%;
+        max-width: 90%;
+        max-height: 80%;
+        border-radius: 0px;
+        position: fixed;
+        box-shadow: 0 0 0px #c3c3c300 !important;
+        left: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        margin: auto !important;
+    }
+
+    @media screen and (max-width:600px) {
+        #noneimg img {
+            max-width: 88%
+        }
+    }
+</style>
+
+    <div class="post-paging">
+    
+
+    
+    <a href="/2025/01/22/2025-winter-cf/">
+        <div class="post-paging-next">
+            <span>下一篇</span>
+            <p>2025寒假写题记录</p>
+        </div>
+    </a>
+    
+</div>
+</div>
+		
+<div class="footer">
+	<div class="Copyright">
+		©2025 By xiwwwix. 主题：<a
+			style="text-decoration: none;display: contents; color: #898F9F;"
+			target="_blank" rel="noopener" href="https://github.com/79e/hexo-theme-quiet">Quiet</a>
+	</div>
+	<div class="contact">
+		
+		<a target="_blank" rel="noopener" href="https://github.com/xiwwix">
+			<img src="https://cdn.jsdelivr.net/gh/duogongneng/MyBlogImg/imggithub.png" alt="Quiet主题">
+		</a>
+		
+	</div>
+</div>
+
+<script src="/js/gotop.js"></script>
+
+
+<style type="text/css">
+    @media screen and (min-width: 600px) {
+        .goTop>span {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            opacity: 0.8;
+            background: rgba(18, 24, 58, 0.06);
+            text-align: center;
+            transition: border .5s;
+            border: 1px solid rgba(18, 24, 58, 0.06);
+
+            -moz-transition: border .5s;
+            /* Firefox 4 */
+            -webkit-transition: border .5s;
+            /* Safari 和 Chrome */
+            -o-transition: border .5s;
+            /* Opera */
+        }
+
+        .goTop>span:hover {
+            border: 1px solid #6680B3;
+        }
+
+
+        .goTop {
+            position: fixed;
+            right: 30px;
+            bottom: 80px;
+        }
+
+        .goTop>span>svg {
+            width: 20px;
+            height: 20px;
+            opacity: 0.7;
+        }
+
+    }
+
+    @media screen and (max-width: 600px) {
+        .goTop {
+            display: none;
+        }
+    }
+</style>
+<div class="goTop" id="js-go_top">
+    <span>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+            <g>
+                <path d="M13 12v8h-2v-8H4l8-8 8 8z"></path>
+            </g>
+        </svg>
+    </span>
+</div>
+<script>
+    $( '#js-go_top' )
+	.gotoTop( {
+		offset: 500,
+		speed: 300,
+		animationShow: {
+			'transform': 'translate(0,0)',
+			'transition': 'transform .5s ease-in-out'
+		},
+		animationHide: {
+			'transform': 'translate(100px,0)',
+			'transition': 'transform .5s ease-in-out'
+		}
+	} );
+</script>
+
+
+    <!-- Gitalk -->
+    <script>
+        const data = '{"clientID":"02b3c","clientSecret":"adfc7b4","repo":"gimment","owner":"duneng","admin":"duneng"}'
+        const gitalk = new Gitalk({
+            ...JSON.parse( data),
+            id:location.pathname,
+            distractionFreeMode:false
+        })
+        
+        if(Boolean('false')){
+            gitalk.render('gitalk-container')
+        }
+    </script>
+
+<script>
+	console.log('\n %c Hexo-Quiet 主题 %c https://github.com/79e/hexo-theme-quiet \n', 'color: #fadfa3; background: #030307; padding:5px 0;', 'background: #fadfa3; padding:5px 0;')
+</script>
+	</body>
+</html>
+

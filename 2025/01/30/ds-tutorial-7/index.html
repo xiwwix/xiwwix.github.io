@@ -652,7 +652,7 @@ int main() {
 <li>写一个自定义比较函数</li>
 <li>最后排序结构体数组</li>
 </ol>
-<p>这道题比较烦的是又要某学生在自己考场里的排名，又要<br>总学生里的排名，我当时的处理方法是给学生结构体设了一个变量<code>rk</code>表示他在自己考场内的排名，通过每次读取完一个考场的学生信息后排序得到；</p>
+<p>这道题比较烦的是又要某学生在自己考场里的排名，又要总学生里的排名，我当时的处理方法是给学生结构体设了一个变量<code>rk</code>表示他在自己考场内的排名，通过每次读取完一个考场的学生信息后排序得到；</p>
 <p>总排名则是将所有学生都放在一个数组里，再进行一次排序得到</p>
 <pre><code>#include &lt;bits&#x2F;stdc++.h&gt;
 using namespace std;
@@ -784,7 +784,7 @@ int main() {
 }</code></pre>
 
 <h2 id="1043-寻找EMB富豪"><a href="#1043-寻找EMB富豪" class="headerlink" title="1043. 寻找EMB富豪"></a>1043. 寻找EMB富豪</h2><p>省流：相信库函数的实力（不是）</p>
-<p>直接调库就能过，我当时就没继续研究，另外附上打ACM的同学的代码作为参考：</p>
+<p>直接调库就能过，我当时就没继续研究，另外附上一位网络大佬的做法，使用了堆排序：<a target="_blank" rel="noopener" href="https://blog.csdn.net/rd142857/article/details/121778442">https://blog.csdn.net/rd142857/article/details/121778442</a></p>
 <pre><code>#include &lt;bits&#x2F;stdc++.h&gt;
 using namespace std;
 
@@ -826,7 +826,93 @@ int main() {
 	return 0;
 }</code></pre>
 
+<pre><code>#include&lt;bits&#x2F;stdc++.h&gt;
+using namespace std;
 
+int a[200001] &#x3D; { 0 };
+
+void siftdown(int a[], int i, int n)
+&#x2F;&#x2F; 调整以a[i]为根的二叉树使之成为小根堆
+&#x2F;&#x2F; 每次替换走堆顶的最小元素，保证新加入的元素为更大的元素
+&#x2F;&#x2F; 若建立大根堆，不可以替换走堆顶（最大），替换走最小元素更麻烦
+{
+	int j;
+	int tmp &#x3D; a[i];
+	while ((j&#x3D;2*i+1)&lt;n)
+	{
+		if (j &lt; n - 1 &amp;&amp; a[j + 1] &lt; a[j])
+			j++;
+		if (tmp &gt; a[j])  &#x2F;&#x2F; 需要调整
+		{
+			a[i] &#x3D; a[j];
+			i &#x3D; j;
+		}
+		else break;
+	}
+	a[i] &#x3D; tmp;
+}
+
+void buildHeap(int a[], int n)
+{
+	for (int i &#x3D; (n - 2) &#x2F; 2; i &gt;&#x3D; 0; i--)
+		siftdown(a, i, n);
+}
+
+void heapSort(int a[], int n)
+&#x2F;&#x2F; a已经是小根堆，排序结束后变成大根堆
+{
+	if (n &#x3D;&#x3D; 0)
+		return;
+	&#x2F;&#x2F; buildHeap(a, n);
+	for (int i &#x3D; n - 1; i &gt;&#x3D; 1; i--)
+	{
+		int tmp &#x3D; a[0];
+		a[0] &#x3D; a[i];
+		a[i] &#x3D; tmp;
+		siftdown(a, 0, i);
+	}
+}
+
+int main()
+{
+	int n, m;
+	scanf(&quot;%d %d&quot;, &amp;n, &amp;m);
+	for (int i &#x3D; 0; i &lt; n; i++)
+	{
+		int val;
+		scanf(&quot;%d&quot;, &amp;val);
+		if (i &lt; m)
+			a[i] &#x3D; val;
+		else
+		{
+			if(i&#x3D;&#x3D;m)
+				buildHeap(a, m);
+			&#x2F;&#x2F; 如果val大于堆顶，则需要加入
+			if (a[0] &lt; val)
+			{
+				a[0] &#x3D; val;
+				siftdown(a, 0, m);
+			}
+		}
+	}
+
+	if (n &lt;&#x3D; m)  &#x2F;&#x2F; 此时数组并未经过排序
+	{
+		buildHeap(a, n);
+		heapSort(a, n);
+		for (int i &#x3D; 0; i &lt; n; i++)
+			printf(&quot;%d%c&quot;, a[i], i &#x3D;&#x3D; n - 1 ? &#39;\n&#39; : &#39; &#39;);
+	}
+	else
+	{
+		heapSort(a, m);
+		for (int i &#x3D; 0; i &lt; m; i++)
+			printf(&quot;%d%c&quot;, a[i], i &#x3D;&#x3D; m - 1 ? &#39;\n&#39; : &#39; &#39;);
+	}
+
+
+	return 0;
+}</code></pre>
   </div>
   <div id=""></div>
 </div>
@@ -885,6 +971,13 @@ Fancybox.bind('[data-fancybox="fancybox-gallery-img"]', {
 </style>
 
     <div class="post-paging">
+    
+    <a href="/2025/01/30/ds-tutorial-8/">
+        <div class="post-paging-last">
+            <span>上一篇</span>
+            <p>心双2024数据结构1044-1049题解</p>
+        </div>
+    </a>
     
 
     

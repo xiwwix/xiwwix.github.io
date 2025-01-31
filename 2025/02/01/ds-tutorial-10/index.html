@@ -1,0 +1,1025 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		
+<title>心双2024数据结构1050-1051&amp;1055-1058题解-xiwwwix's blog</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="shortcut icon" type="image/x-icon" href="/image/mylogo.ico">
+
+<link rel="stylesheet" href="/css/index.css">
+
+
+
+<meta name="keywords" content="2024心双数据结构EOJ习题,">
+<meta name="description" content="ds-tutorial">
+
+
+<script src="/js/jquery.min.js"></script>
+
+
+<script src="/js/index.js"></script>
+
+
+<script src="/js/fancybox.umd.js"></script>
+
+
+<script src="/js/fancybox-images.js"></script>
+
+
+<script src="/js/gitalk.min.js"></script>
+
+
+<script src="/js/hljs.min.js"></script>
+ 
+<script>hljs.highlightAll();</script>
+
+	<meta name="generator" content="Hexo 7.3.0"></head>
+
+	<body>
+		
+	<div class="header">
+		<div class="header-top" id="header-top">
+			<div class="h-left">
+				<a href="/">
+					<img src="/image/logo.png" alt="Quiet">
+				</a>
+			</div>
+			<div class="h-right">
+				<ul>
+					
+						
+								<li>
+									<a href="/">
+										HOME
+									</a>
+									<span class="dot"></span>
+								</li>
+								
+									
+						
+								<li>
+									<a href="/archives">
+										ARCHIVE
+									</a>
+									<span class="dot"></span>
+								</li>
+								
+									
+						
+								<li>
+									<a href="/categories">
+										CATEGORIES
+									</a>
+									<span class="dot"></span>
+								</li>
+								
+									
+						
+								<li>
+									<a href="/tags">
+										TAGS
+									</a>
+									<span class="dot"></span>
+								</li>
+								
+									
+						
+								<li>
+									<a href="/links">
+										LINKS
+									</a>
+									<span class="dot"></span>
+								</li>
+								
+									
+						
+								<li>
+									<a href="/about">
+										ABOUT
+									</a>
+									<span class="dot"></span>
+								</li>
+								
+									
+				</ul>
+			</div>
+			<div class="h-right-close">
+				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+					<path fill="none" d="M0 0h24v24H0z" />
+					<path d="M3 4h18v2H3V4zm0 7h18v2H3v-2zm0 7h18v2H3v-2z" fill="rgba(68,68,68,1)" />
+				</svg>
+			</div>
+		</div>
+	</div>
+	<div class="sidebar">
+    <div class="topo">
+        <h2>xiwwwix</h2>
+    </div>
+    <ul>
+        
+        <li>
+            <a href="/">HOME</a>
+        </li>
+        
+        <li>
+            <a href="/archives">ARCHIVE</a>
+        </li>
+        
+        <li>
+            <a href="/categories">CATEGORIES</a>
+        </li>
+        
+        <li>
+            <a href="/tags">TAGS</a>
+        </li>
+        
+        <li>
+            <a href="/links">LINKS</a>
+        </li>
+        
+        <li>
+            <a href="/about">ABOUT</a>
+        </li>
+        
+    </ul>
+    <div class="my_foot">
+        
+        <a target="_blank" rel="noopener" href="https://github.com/xiwwix">
+            <img src="https://cdn.jsdelivr.net/gh/duogongneng/MyBlogImg/imggithub.png" alt="Quiet主题">
+        </a>
+        
+    </div>
+</div>
+<div class='shelter'>
+</div>
+<style>
+    .shelter{
+        background-color: #333;
+        opacity:0.5;
+        cursor: pointer;
+        display: none; 
+        position: fixed;
+        left: 0;
+        top: 0; 
+        right: 0;
+        bottom: 0;
+        z-index: 1998;
+    }
+    .sidebar {
+        width: 66%;
+        height: 100%;
+        position: fixed;
+        top: 0;
+        right: -100%;
+        bottom: 0;
+        background: #fff;
+        z-index: 1999;
+        text-align: center;
+        box-shadow: -6px 0 20px rgba(98, 94, 94, .815);
+    }
+
+    .topo {
+        width: 100%;
+        height: 200px;
+        background: url(https://api.ixiaowai.cn/gqapi/gqapi.php) no-repeat;
+        background-size: 100% 100%;
+        position: relative;
+        display: flex;
+        align-items: flex-end
+    }
+
+    .topo h2 {
+        color: #fff;
+        z-index: 1;
+        position: relative;
+        margin: 0 0 10px 10px;
+        font-size: 1.2em;
+        box-sizing: border-box
+    }
+
+    .topo:before {
+        content: '';
+        background-image: url(/image/pattern.png);
+        background-repeat: repeat;
+        height: 100%;
+        left: 0;
+        position: absolute;
+        top: 0;
+        width: 100%;
+        z-index: 1
+    }
+
+    .sidebar ul {
+        width: 100%;
+        margin-top: 50px
+    }
+
+    .sidebar ul li {
+        height: 50px;
+        list-style: none;
+        font-size: 1.2em;
+        text-align: right;
+        margin-right: 10px
+    }
+
+    .sidebar ul li a {
+        display: grid;
+        color: #5d606a;
+        text-overflow: ellipsis;
+        width: 100%;
+        text-decoration: none
+    }
+
+    .my_foot {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+        position: absolute;
+        bottom: 0
+    }
+
+    .my_foot a {
+        text-decoration: none;
+        margin-right: 10px;
+        display: inline-block
+    }
+
+    .my_foot a img {
+        width: 30px;
+        height: 30px
+    }
+</style>
+
+<script>
+    $( function () {
+	$( '.h-right-close>svg' )
+		.click( function () {
+			$( '.sidebar' )
+				.animate( {
+					right: "0"
+				}, 500 );
+			$( '.shelter' )
+				.fadeIn( "slow" )
+		} );
+	$( '.shelter' )
+		.click( function ( e ) {
+			$( '.sidebar' )
+				.animate( {
+					right: "-100%"
+				}, 500 );
+			$( '.shelter' )
+				.fadeOut( "slow" )
+		} )
+} )
+
+</script>
+
+<div class="post">
+    <div class="post-header-background post-header-img"
+    style="background: url('https://api.ixiaowai.cn/gqapi/gqapi.php')" 
+>
+    <div class="post-header-background-content">
+        <ul class="post-header-tag">
+            
+            
+            <li><a href="/tags/2024心双数据结构EOJ习题">2024心双数据结构EOJ习题</a></li>
+            
+            
+        </ul>
+        
+        <h1>心双2024数据结构1050-1051&1055-1058题解</h1>
+        <div class="post-header-info">
+            <div class="post-header-info-author">
+                
+                    <svg t="1604839279282" class="icon" viewBox="0 0 1024 1024" version="1.1"
+                        xmlns="http://www.w3.org/2000/svg" p-id="2901" width="20" height="20">
+                        <path
+                            d="M513 956.3c-247.7 0-448-200.3-448-448S265.3 66.2 513 66.2s448 200.3 448 448-200.3 442.1-448 442.1z m0-830.9c-212.2 0-388.8 170.7-388.8 388.8C124.2 726.3 294.9 903 513 903c212.2 0 388.8-170.7 388.8-388.8S725.2 125.4 513 125.4z m0 430.2c-94.2 0-170.7-76.5-170.7-170.7S418.8 207.8 513 207.8s170.7 76.5 170.7 170.7S607.2 555.6 513 555.6z m0-289.1c-64.6 0-112 52.8-112 112s47.4 117.9 112 117.9 112-52.8 112-112-47.4-117.9-112-117.9z m0 689.8c-135.7 0-259-58.7-341.9-158.9l-11.8-17.8 11.8-17.8c76.5-117.9 206.2-188.5 347.8-188.5 135.7 0 265 64.6 341.9 182.6l11.8 17.8-11.8 17.8C778 897.1 648.7 956.3 513 956.3zM230.3 773.2C300.9 849.7 406.9 897 513 897c112 0 218.1-47.4 288.6-129.8-70.5-88.2-170.7-135.6-282.7-135.6s-218.1 53.3-288.6 141.6z"
+                            p-id="2902" fill="#ffffff"></path>
+                    </svg>
+                    
+                <span class="post-header-info-author-text"> <a target="_blank" rel="noopener" href="https://github.com/xiwwix">xiwwwix</a></span>
+                <div class="post-header-info-author-categories">
+                    
+                         <a href="../../categories/教程/" target="_blank" >教程</a>
+                    
+                </div>
+                <p>2025-02-01 00:08:12</p>
+            </div>
+        </div>
+    </div>
+</div>
+    <div class="post-content" id="content">
+  
+  <div id="article" class="post-content-info">
+    
+
+    <p>并查集&amp;最小生成树的题目。课内不考并查集，教的最小生成树算法（<code>Prim</code> &amp; <code>Kruskal</code>）应该都是简化版的，可以通过以下两篇博客简单了解并查集是什么，以及在<code>Kruskal</code>算法中的应用：<br><a target="_blank" rel="noopener" href="https://blog.csdn.net/the_zed/article/details/105126583">【算法与数据结构】—— 并查集</a><br><a target="_blank" rel="noopener" href="https://blog.csdn.net/Floatiy/article/details/79424763">kruskal算法透彻理解（含并查集及最小生成树的解释）</a></p>
+<p>非常建议把并查集+最小生成树的模板背下来，代码量很小而且时间复杂度很低，即使对原理一知半解也可以用于速通机考（？）</p>
+<h2 id="1050-朋友圈"><a href="#1050-朋友圈" class="headerlink" title="1050. 朋友圈"></a>1050. 朋友圈</h2><p>每一行输入都是：先给出第<code>i</code>个俱乐部人数<code>m</code>，然后是第<code>1~m</code>个学生的编号</p>
+<p>我们可以把第1个学生当成“组长”，只需要给并查集加上“组长”和每个其他组员的连边即可，这样就能形成每个以组长为核心的连通块（<code>root</code>相同的人），效果和把俱乐部内所有人两两配对加边是一样的</p>
+<pre><code>#include &lt;bits&#x2F;stdc++.h&gt;
+using namespace std;
+
+int root[30005] &#x3D; {0};
+int cnt[30005] &#x3D; {0};
+
+int Findroot(int x) {
+	if (x &#x3D;&#x3D; root[x]) {
+		return x;
+	}
+	root[x] &#x3D; Findroot(root[x]);
+	return root[x];
+}
+
+int Query(int x,int y) {
+	return Findroot(x) &#x3D;&#x3D; Findroot(y);
+}
+
+void Merge(int x,int y) {
+	int rootx &#x3D; Findroot(x);
+	int rooty &#x3D; Findroot(y);
+	root[rootx] &#x3D; rooty;
+}
+
+int main () {
+	int n,m,f,p,k;
+	cin &gt;&gt; n &gt;&gt; m;
+	for (int i &#x3D; 1;i &lt;&#x3D; n;i++) {
+		root[i] &#x3D; i;
+	}
+	while(m--) {
+		cin &gt;&gt; k;
+		cin &gt;&gt; f;
+		for (int i &#x3D; 1;i &lt; k;i++) {
+			cin &gt;&gt; p;
+			Merge(f,p);
+		}
+	}
+	
+	for (int i &#x3D; 1;i &lt;&#x3D; n;i++) {
+		int r &#x3D; Findroot(i);
+		cnt[r]++;
+	}
+	
+	int ans &#x3D; 0;
+	for (int i &#x3D; 1;i &lt;&#x3D; n;i++) {
+		ans &#x3D; max(ans,cnt[i]);
+	}
+	
+	cout &lt;&lt; ans &lt;&lt; endl;
+	
+	return 0;
+}</code></pre>
+
+<h2 id="1051-Virtual-Friends"><a href="#1051-Virtual-Friends" class="headerlink" title="1051. Virtual Friends"></a>1051. Virtual Friends</h2><p>输入格式:<br>第一行输入一个整数，表示测试用例的数量。<br>每个测试用例的第一行包含一个整数F，表示形成的友谊数量（F≤100,000）。</p>
+<p>接下来的F行，每行包含两个名字，表示刚刚成为朋友的两个人，名字之间用空格分隔。名字是一个由 1 到 20 个字母（大小写均可）组成的字符串。</p>
+<p>输出格式:<br>每当形成一段友谊时，输出一行，包含一个整数，表示刚刚成为朋友的两个人的社交网络的总人数。</p>
+<p>思路：使用并查集数据结构维护每个人的社交网络。<br>对于每对新得到的朋友关系，查找他们所在的集合，如果不在同一个集合，则合并这两个集合，并更新输出集合的大小（可以用<code>cnt[i]</code>表示根为<code>i</code>的连通块的大小）。</p>
+<p>更新的核心代码：</p>
+<pre><code>if (!Query(id1,id2)) {
+    int cnt1 &#x3D; cnt[rootx];
+    int cnt2 &#x3D; cnt[rooty];
+    cnt[rootx] +&#x3D; cnt2;
+    cnt[rooty] +&#x3D; cnt1;
+    Merge(id1,id2);
+}</code></pre>
+
+<p>完整代码：</p>
+<pre><code>#include &lt;bits&#x2F;stdc++.h&gt;
+using namespace std;
+
+int root[200005];
+int cnt[200005] &#x3D; {0};
+
+int Findroot(int x) {
+	if (x &#x3D;&#x3D; root[x]) {
+		return x;
+	}
+	root[x] &#x3D; Findroot(root[x]);
+	return root[x];
+}
+
+void Merge(int x,int y) {
+	int rootx &#x3D; Findroot(x);
+	int rooty &#x3D; Findroot(y);
+	root[rootx] &#x3D; rooty;
+}
+
+bool Query(int x,int y) {
+	return Findroot(x) &#x3D;&#x3D; Findroot(y);
+}
+
+void solve() {
+	int n;
+	map&lt;string,int&gt; id;
+	cin &gt;&gt; n;
+	string p1,p2;
+	int c &#x3D; 1;
+	
+	for (int i &#x3D; 1;i &lt;&#x3D; 2*n;i++) {
+		root[i] &#x3D; i;
+		cnt[i] &#x3D; 1;
+	}
+	
+	while (n--) {
+		cin &gt;&gt; p1 &gt;&gt; p2;
+		int id1,id2;
+		if (!id[p1]) {
+			id[p1] &#x3D; c;
+			c++;
+		} 
+		
+		if (!id[p2]) {
+			id[p2] &#x3D; c;
+			c++;
+		}
+		
+		id1 &#x3D; id[p1];
+		id2 &#x3D; id[p2];
+		
+		int rootx &#x3D; Findroot(id1);
+		int rooty &#x3D; Findroot(id2);
+		
+		if (!Query(id1,id2)) {
+			int cnt1 &#x3D; cnt[rootx];
+			int cnt2 &#x3D; cnt[rooty];
+			cnt[rootx] +&#x3D; cnt2;
+			cnt[rooty] +&#x3D; cnt1;
+			Merge(id1,id2);
+		}
+		cout &lt;&lt; cnt[Findroot(id1)] &lt;&lt; endl;
+	}
+}
+
+int main() {
+	int t;
+	cin &gt;&gt; t;
+	while (t--) {
+		solve();
+	}
+	return 0;
+}</code></pre>
+
+<p>接下来的1055-1058是最小生成树</p>
+<h2 id="1055-公路村村通"><a href="#1055-公路村村通" class="headerlink" title="1055. 公路村村通"></a>1055. 公路村村通</h2><p>基本上是模板题，只需要注意两个细节：</p>
+<ol>
+<li>某两个城镇之间修建道路的方案可能不止一个，这个问题不大，反正Kruskal的思想是把所有边排序，权值越小的边越靠前被加进答案</li>
+<li>输入数据可能不是连通图，只需要用并查集判断（i &#x3D;&#x3D; root[i]）的个数就可以，等效思想是“只统计根的数量”<pre><code>#include &lt;bits&#x2F;stdc++.h&gt;
+using namespace std;
+
+int root[3005];
+
+bool cmp(const vector&lt;int&gt;&amp; a, const vector&lt;int&gt;&amp; b) {
+	return a[2] &lt; b[2];
+}
+
+int Findroot(int x) {
+	if (x !&#x3D; root[x]) {
+		root[x] &#x3D; Findroot(root[x]);
+	}
+	return root[x];
+}
+
+void Merge(int x,int y) {
+	int rootx &#x3D; Findroot(x);
+	int rooty &#x3D; Findroot(y);
+	root[rootx] &#x3D; rooty;
+}
+
+bool Query(int x,int y) {
+	return Findroot(x) &#x3D;&#x3D; Findroot(y);
+}
+
+vector&lt;vector&lt;int&gt;&gt; edges;
+map&lt;int,int&gt; cc;
+
+int main() {
+	int n,m;
+	int ans &#x3D; 0;
+	cin &gt;&gt; n &gt;&gt; m;
+	int u,v,cost;
+	
+	for (int i &#x3D; 1;i &lt;&#x3D; n; i++) {
+		root[i] &#x3D; i;
+	}
+	
+	for(int i &#x3D; 0;i &lt; m;i++) {
+		cin &gt;&gt; u &gt;&gt; v &gt;&gt; cost;
+		vector&lt;int&gt; temp;
+		edges.push_back({u,v,cost});
+	}
+	sort(edges.begin(),edges.end(),cmp);
+	for(int i &#x3D; 0;i &lt; edges.size();i++) {
+		u &#x3D; edges[i][0];
+		v &#x3D; edges[i][1];
+		cost &#x3D; edges[i][2];
+		if (!Query(u,v)) {
+			ans +&#x3D; cost;
+			Merge(u,v);
+		}
+	}
+
+	int cnt &#x3D; 0;
+	for (int i &#x3D; 1; i &lt;&#x3D; n; i++) {
+		if (Findroot(i) &#x3D;&#x3D; i) {
+			cnt++;
+		}
+	}
+	
+	if (cnt !&#x3D; 1) {
+		cout &lt;&lt; &quot;-1&quot; &lt;&lt; endl;
+	}else {
+		cout &lt;&lt; ans &lt;&lt; endl;
+	}
+	
+	return 0;
+}</code></pre></li>
+</ol>
+<h2 id="1056-Hub-Connection-plan"><a href="#1056-Hub-Connection-plan" class="headerlink" title="1056. Hub Connection plan"></a>1056. Hub Connection plan</h2><p>和上一题几乎一模一样</p>
+<pre><code>
+#include &lt;bits&#x2F;stdc++.h&gt;
+using namespace std;
+
+int root[3005];
+
+bool cmp(const vector&lt;int&gt;&amp; a, const vector&lt;int&gt;&amp; b) {
+	return a[2] &lt; b[2];
+}
+
+int Findroot(int x) {
+	if (x !&#x3D; root[x]) {
+		root[x] &#x3D; Findroot(root[x]);
+	}
+	return root[x];
+}
+
+void Merge(int x,int y) {
+	int rootx &#x3D; Findroot(x);
+	int rooty &#x3D; Findroot(y);
+	root[rootx] &#x3D; rooty;
+}
+
+bool Query(int x,int y) {
+	return Findroot(x) &#x3D;&#x3D; Findroot(y);
+}
+
+vector&lt;vector&lt;int&gt;&gt; edges;
+map&lt;int,int&gt; cc;
+
+int main() {
+	int n,m;
+	int ans &#x3D; 0;
+	cin &gt;&gt; n &gt;&gt; m;
+	int u,v,cost;
+	
+	for (int i &#x3D; 1;i &lt;&#x3D; n; i++) {
+		root[i] &#x3D; i;
+	}
+	
+	for(int i &#x3D; 0;i &lt; m;i++) {
+		cin &gt;&gt; u &gt;&gt; v &gt;&gt; cost;
+		vector&lt;int&gt; temp;
+		temp.push_back(u);
+		temp.push_back(v);
+		temp.push_back(cost);
+		edges.push_back(temp);
+	}
+	sort(edges.begin(),edges.end(),cmp);
+	for(int i &#x3D; 0;i &lt; edges.size();i++) {
+		u &#x3D; edges[i][0];
+		v &#x3D; edges[i][1];
+		cost &#x3D; edges[i][2];
+		if (!Query(u,v)) {
+			ans +&#x3D; cost;
+			Merge(u,v);
+		}
+	}
+
+	int cnt &#x3D; 0;
+	for (int i &#x3D; 1; i &lt;&#x3D; n; i++) {
+		if (Findroot(i) &#x3D;&#x3D; i) {
+			cnt++;
+		}
+	}
+	
+	if (cnt !&#x3D; 1) {
+		cout &lt;&lt; &quot;-1&quot; &lt;&lt; endl;
+	}else {
+		cout &lt;&lt; ans &lt;&lt; endl;
+	}
+	
+	return 0;
+}</code></pre>
+
+<h2 id="1057-Building-Roads"><a href="#1057-Building-Roads" class="headerlink" title="1057. Building Roads"></a>1057. Building Roads</h2><p>题意：<br>Farmer John 有 N 个农场，每个农场的位置用平面坐标系中的点表示。已经有 M 条道路连接了一些农场。现在需要修建一些额外的道路，使得所有农场都连通（即从任意一个农场可以通过道路到达其他任意农场）。目标是计算需要修建的道路的最小总长度。</p>
+<p>只需要计算所有农场之间的距离，生成所有可能的边，边权值等于距离，然后再添加已经存在的道路，这些道路权重设为 0，然后正常套最小生成树模板就可以了。</p>
+<pre><code>#include &lt;bits&#x2F;stdc++.h&gt;
+using namespace std;
+
+vector&lt;tuple&lt;int, int, double&gt;&gt; edges; &#x2F;&#x2F; 存储所有边，格式为 (u, v, weight)
+int pos[1001][2] &#x3D; {0x7f}; &#x2F;&#x2F; 存储每个农场的坐标
+int root[1005]; &#x2F;&#x2F; 并查集的根节点数组
+
+&#x2F;&#x2F; 比较函数，用于按边的权重排序
+bool cmp(const tuple&lt;int, int, double&gt;&amp; a, const tuple&lt;int, int, double&gt;&amp; b) {
+    return get&lt;2&gt;(a) &lt; get&lt;2&gt;(b);
+}
+
+&#x2F;&#x2F; 查找节点的根节点，带路径压缩
+int Findroot(int x) {
+    if (x !&#x3D; root[x]) {
+        root[x] &#x3D; Findroot(root[x]);
+    }
+    return root[x];
+}
+
+&#x2F;&#x2F; 合并两个集合
+void Merge(int x, int y) {
+    int rootx &#x3D; Findroot(x);
+    int rooty &#x3D; Findroot(y);
+    root[rootx] &#x3D; rooty;
+}
+
+&#x2F;&#x2F; 查询两个节点是否在同一个集合中
+bool Query(int x, int y) {
+    return Findroot(x) &#x3D;&#x3D; Findroot(y);
+}
+
+&#x2F;&#x2F; 计算两个农场之间的欧几里得距离
+double distance(int xx1, int xx2, int yy1, int yy2) {
+    return sqrtl(pow(xx1 - xx2, 2) + pow(yy1 - yy2, 2));
+}
+
+int main() {
+    int n, m, x, y, u, v;
+
+    cin &gt;&gt; n &gt;&gt; m; &#x2F;&#x2F; 输入农场数量和已存在道路数量
+
+    &#x2F;&#x2F; 输入每个农场的坐标
+    for (int i &#x3D; 1; i &lt;&#x3D; n; i++) {
+        cin &gt;&gt; x &gt;&gt; y;
+        pos[i][0] &#x3D; x;
+        pos[i][1] &#x3D; y;
+    }
+
+    &#x2F;&#x2F; 初始化并查集，每个节点的根节点为自己
+    for (int i &#x3D; 1; i &lt;&#x3D; n; i++) {
+        root[i] &#x3D; i;
+    }
+
+    &#x2F;&#x2F; 输入已存在的道路，并将其权重设为 0
+    for (int i &#x3D; 0; i &lt; m; i++) {
+        scanf(&quot;%d %d&quot;, &amp;u, &amp;v);
+        edges.push_back(make_tuple(u, v, 0));
+    }
+
+    &#x2F;&#x2F; 计算所有农场之间的距离，生成所有可能的边
+    for (int i &#x3D; 1; i &lt;&#x3D; n; i++) {
+        for (int j &#x3D; 1; j &lt;&#x3D; n; j++) {
+            if (i &#x3D;&#x3D; j) continue; &#x2F;&#x2F; 避免自环
+            double dis &#x3D; distance(pos[i][0], pos[j][0], pos[i][1], pos[j][1]);
+            edges.push_back(make_tuple(i, j, dis));
+        }
+    }
+
+    double ans &#x3D; 0; &#x2F;&#x2F; 存储最小生成树的总长度
+    sort(edges.begin(), edges.end(), cmp); &#x2F;&#x2F; 按边的权重排序
+
+    &#x2F;&#x2F; Kruskal 算法：遍历所有边，构建最小生成树
+    for (int i &#x3D; 0; i &lt; edges.size(); i++) {
+        u &#x3D; get&lt;0&gt;(edges[i]);
+        v &#x3D; get&lt;1&gt;(edges[i]);
+        double cost &#x3D; get&lt;2&gt;(edges[i]);
+
+        &#x2F;&#x2F; 如果两个节点不在同一个集合中，则合并它们，并将边的权重加入总长度
+        if (!Query(u, v)) {
+            ans +&#x3D; cost;
+            Merge(u, v);
+        }
+    }
+
+    &#x2F;&#x2F; 输出结果，保留两位小数
+    printf(&quot;%.2f&quot;, ans);
+
+    return 0;
+}</code></pre>
+
+<h2 id="1058-组网计划"><a href="#1058-组网计划" class="headerlink" title="1058. 组网计划"></a>1058. 组网计划</h2><p>要求次小生成树，挺难搞，不明白为什么这题标的是<code>medium</code>（详见(次小生成树)[<a target="_blank" rel="noopener" href="https://oi-wiki.org/graph/mst/#%E6%AC%A1%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91]%EF%BC%89">https://oi-wiki.org/graph/mst/#%E6%AC%A1%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91]）</a></p>
+<pre><code>&#x2F;&#x2F;耗时1.5h，泪目TAT
+&#x2F;&#x2F;这题标medium，尊嘟假嘟？
+
+#include &lt;bits&#x2F;stdc++.h&gt;
+using namespace std;
+
+int root[105]; &#x2F;&#x2F; 并查集的根节点数组
+
+&#x2F;&#x2F; 计算曼哈顿距离
+int distance(int x1, int y1, int x2, int y2) {
+    return abs(x1 - x2) + abs(y1 - y2);
+}
+
+&#x2F;&#x2F; 查找节点的根节点，带路径压缩
+int Findroot(int x) {
+    if (x !&#x3D; root[x]) {
+        root[x] &#x3D; Findroot(root[x]);
+    }
+    return root[x];
+}
+
+&#x2F;&#x2F; 合并两个集合
+void Merge(int x, int y) {
+    int rootx &#x3D; Findroot(x);
+    int rooty &#x3D; Findroot(y);
+    if (rootx !&#x3D; rooty) {
+        root[rooty] &#x3D; rootx; &#x2F;&#x2F; 将 y 的根节点指向 x 的根节点
+    }
+}
+
+int main() {
+    int n;
+    while (cin &gt;&gt; n) { &#x2F;&#x2F; 多组输入
+        int pos[105][2]; &#x2F;&#x2F; 存储每个点的坐标
+        vector&lt;vector&lt;int&gt;&gt; edges; &#x2F;&#x2F; 存储所有边，格式为 {权重, 点1, 点2}
+
+        &#x2F;&#x2F; 输入每个点的坐标
+        for (int i &#x3D; 1; i &lt;&#x3D; n; i++) {
+            cin &gt;&gt; pos[i][0] &gt;&gt; pos[i][1];
+        }
+
+        &#x2F;&#x2F; 计算所有点对之间的距离，并生成边
+        for (int i &#x3D; 1; i &lt;&#x3D; n; i++) {
+            for (int j &#x3D; i + 1; j &lt;&#x3D; n; j++) {
+                int dis &#x3D; distance(pos[i][0], pos[i][1], pos[j][0], pos[j][1]);
+                edges.push_back({dis, i, j});
+            }
+        }
+
+        &#x2F;&#x2F; 按边的权重从小到大排序
+        sort(edges.begin(), edges.end());
+
+        &#x2F;&#x2F; 初始化并查集，每个节点的根节点为自己
+        for (int i &#x3D; 1; i &lt;&#x3D; n; i++) {
+            root[i] &#x3D; i;
+        }
+
+        int ans &#x3D; 0; &#x2F;&#x2F; 存储最小生成树的总长度
+        bool flag &#x3D; false; &#x2F;&#x2F; 标记是否存在多种 MST 方案
+
+        &#x2F;&#x2F; Kruskal 算法：遍历所有边
+        for (int i &#x3D; 0; i &lt; edges.size();) {
+            int j &#x3D; i;
+            vector&lt;vector&lt;int&gt;&gt; sedges; &#x2F;&#x2F; 存储当前相同权重的边
+
+            &#x2F;&#x2F; 找到所有权重相同的边
+            while (j &lt; edges.size() &amp;&amp; edges[j][0] &#x3D;&#x3D; edges[i][0]) {
+                sedges.push_back(edges[j]);
+                ++j;
+            }
+
+            vector&lt;vector&lt;int&gt;&gt; cedges; &#x2F;&#x2F; 存储可以合并的边
+            for (auto&amp; edge : sedges) {
+                int w &#x3D; edge[0];
+                int u &#x3D; edge[1];
+                int v &#x3D; edge[2];
+                int ru &#x3D; Findroot(u);
+                int rv &#x3D; Findroot(v);
+
+                &#x2F;&#x2F; 如果两个节点不在同一个集合中，则记录这条边
+                if (ru !&#x3D; rv) {
+                    cedges.push_back({w, u, v});
+                }
+            }
+
+            &#x2F;&#x2F; 检查是否存在多种 MST 方案
+            set&lt;pair&lt;int, int&gt;&gt; cc; &#x2F;&#x2F; 存储可以合并的集合对
+            for (auto&amp; edge : cedges) {
+                int u &#x3D; edge[1];
+                int v &#x3D; edge[2];
+                int ru &#x3D; Findroot(u);
+                int rv &#x3D; Findroot(v);
+                if (ru &gt; rv) swap(ru, rv); &#x2F;&#x2F; 确保集合对有序
+                pair&lt;int, int&gt; temp &#x3D; make_pair(ru, rv);
+                if (cc.count(temp)) {
+                    flag &#x3D; true; &#x2F;&#x2F; 如果集合对已存在，则存在多种 MST 方案
+                } else {
+                    cc.insert(temp);
+                }
+            }
+
+            &#x2F;&#x2F; 合并可以合并的边，并累加权重
+            for (auto&amp; edge : cedges) {
+                int w &#x3D; edge[0];
+                int u &#x3D; edge[1];
+                int v &#x3D; edge[2];
+                int ru &#x3D; Findroot(u);
+                int rv &#x3D; Findroot(v);
+                if (ru !&#x3D; rv) {
+                    Merge(u, v);
+                    ans +&#x3D; w;
+                }
+            }
+
+            i &#x3D; j; &#x2F;&#x2F; 跳过已处理的相同权重的边
+        }
+
+        &#x2F;&#x2F; 输出结果
+        cout &lt;&lt; ans &lt;&lt; endl; &#x2F;&#x2F; 输出最小生成树的总长度
+        cout &lt;&lt; (flag ? &quot;Yes&quot; : &quot;No&quot;) &lt;&lt; endl; &#x2F;&#x2F; 输出是否存在多种 MST 方案
+    }
+
+    return 0;
+}</code></pre>
+  </div>
+  <div id=""></div>
+</div>
+
+<script>
+  
+Fancybox.bind('[data-fancybox="fancybox-gallery-img"]', {
+  dragToClose: true,
+  Toolbar: true,
+  closeButton: "top",
+  Image: {
+    zoom: true,
+  },
+  on: {
+    initCarousel: (fancybox) => {
+      const slide = fancybox.Carousel.slides[fancybox.Carousel.page];
+      fancybox.$container.style.setProperty(
+        "--bg-image",
+        `url("${slide.$thumb.src}")`
+      );
+    },
+    "Carousel.change": (fancybox, carousel, to, from) => {
+      const slide = carousel.slides[to];
+      fancybox.$container.style.setProperty(
+        "--bg-image",
+        `url("${slide.$thumb.src}")`
+      );
+    },
+  },
+});
+</script>
+
+<style>
+    #noneimg img {
+        display: none;
+        z-index: 9999;
+        /* width: 600px !important; */
+        min-width: 0%;
+        max-width: 90%;
+        max-height: 80%;
+        border-radius: 0px;
+        position: fixed;
+        box-shadow: 0 0 0px #c3c3c300 !important;
+        left: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        margin: auto !important;
+    }
+
+    @media screen and (max-width:600px) {
+        #noneimg img {
+            max-width: 88%
+        }
+    }
+</style>
+
+    <div class="post-paging">
+    
+    <a href="/2025/02/01/ds-tutorial-11/">
+        <div class="post-paging-last">
+            <span>上一篇</span>
+            <p>心双2024数据结构1059-1063题解</p>
+        </div>
+    </a>
+    
+
+    
+    <a href="/2025/01/31/ds-tutorial-9/">
+        <div class="post-paging-next">
+            <span>下一篇</span>
+            <p>心双2024数据结构1052-1054题解</p>
+        </div>
+    </a>
+    
+</div>
+</div>
+		
+<div class="footer">
+	<div class="Copyright">
+		©2025 By xiwwwix. 主题：<a
+			style="text-decoration: none;display: contents; color: #898F9F;"
+			target="_blank" rel="noopener" href="https://github.com/79e/hexo-theme-quiet">Quiet</a>
+	</div>
+	<div class="contact">
+		
+		<a target="_blank" rel="noopener" href="https://github.com/xiwwix">
+			<img src="https://cdn.jsdelivr.net/gh/duogongneng/MyBlogImg/imggithub.png" alt="Quiet主题">
+		</a>
+		
+	</div>
+</div>
+
+<script src="/js/gotop.js"></script>
+
+
+<style type="text/css">
+    @media screen and (min-width: 600px) {
+        .goTop>span {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            opacity: 0.8;
+            background: rgba(18, 24, 58, 0.06);
+            text-align: center;
+            transition: border .5s;
+            border: 1px solid rgba(18, 24, 58, 0.06);
+
+            -moz-transition: border .5s;
+            /* Firefox 4 */
+            -webkit-transition: border .5s;
+            /* Safari 和 Chrome */
+            -o-transition: border .5s;
+            /* Opera */
+        }
+
+        .goTop>span:hover {
+            border: 1px solid #6680B3;
+        }
+
+
+        .goTop {
+            position: fixed;
+            right: 30px;
+            bottom: 80px;
+        }
+
+        .goTop>span>svg {
+            width: 20px;
+            height: 20px;
+            opacity: 0.7;
+        }
+
+    }
+
+    @media screen and (max-width: 600px) {
+        .goTop {
+            display: none;
+        }
+    }
+</style>
+<div class="goTop" id="js-go_top">
+    <span>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+            <g>
+                <path d="M13 12v8h-2v-8H4l8-8 8 8z"></path>
+            </g>
+        </svg>
+    </span>
+</div>
+<script>
+    $( '#js-go_top' )
+	.gotoTop( {
+		offset: 500,
+		speed: 300,
+		animationShow: {
+			'transform': 'translate(0,0)',
+			'transition': 'transform .5s ease-in-out'
+		},
+		animationHide: {
+			'transform': 'translate(100px,0)',
+			'transition': 'transform .5s ease-in-out'
+		}
+	} );
+</script>
+
+
+    <!-- Gitalk -->
+    <script>
+        const data = '{"clientID":"02b3c","clientSecret":"adfc7b4","repo":"gimment","owner":"duneng","admin":"duneng"}'
+        const gitalk = new Gitalk({
+            ...JSON.parse( data),
+            id:location.pathname,
+            distractionFreeMode:false
+        })
+        
+        if(Boolean('false')){
+            gitalk.render('gitalk-container')
+        }
+    </script>
+
+<script>
+	console.log('\n %c Hexo-Quiet 主题 %c https://github.com/79e/hexo-theme-quiet \n', 'color: #fadfa3; background: #030307; padding:5px 0;', 'background: #fadfa3; padding:5px 0;')
+</script>
+	</body>
+</html>
+

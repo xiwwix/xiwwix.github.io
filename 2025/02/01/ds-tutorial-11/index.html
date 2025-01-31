@@ -1,0 +1,886 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		
+<title>心双2024数据结构1059-1063题解-xiwwwix's blog</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="shortcut icon" type="image/x-icon" href="/image/mylogo.ico">
+
+<link rel="stylesheet" href="/css/index.css">
+
+
+
+<meta name="keywords" content="2024心双数据结构EOJ习题,">
+<meta name="description" content="ds-tutorial">
+
+
+<script src="/js/jquery.min.js"></script>
+
+
+<script src="/js/index.js"></script>
+
+
+<script src="/js/fancybox.umd.js"></script>
+
+
+<script src="/js/fancybox-images.js"></script>
+
+
+<script src="/js/gitalk.min.js"></script>
+
+
+<script src="/js/hljs.min.js"></script>
+ 
+<script>hljs.highlightAll();</script>
+
+	<meta name="generator" content="Hexo 7.3.0"></head>
+
+	<body>
+		
+	<div class="header">
+		<div class="header-top" id="header-top">
+			<div class="h-left">
+				<a href="/">
+					<img src="/image/logo.png" alt="Quiet">
+				</a>
+			</div>
+			<div class="h-right">
+				<ul>
+					
+						
+								<li>
+									<a href="/">
+										HOME
+									</a>
+									<span class="dot"></span>
+								</li>
+								
+									
+						
+								<li>
+									<a href="/archives">
+										ARCHIVE
+									</a>
+									<span class="dot"></span>
+								</li>
+								
+									
+						
+								<li>
+									<a href="/categories">
+										CATEGORIES
+									</a>
+									<span class="dot"></span>
+								</li>
+								
+									
+						
+								<li>
+									<a href="/tags">
+										TAGS
+									</a>
+									<span class="dot"></span>
+								</li>
+								
+									
+						
+								<li>
+									<a href="/links">
+										LINKS
+									</a>
+									<span class="dot"></span>
+								</li>
+								
+									
+						
+								<li>
+									<a href="/about">
+										ABOUT
+									</a>
+									<span class="dot"></span>
+								</li>
+								
+									
+				</ul>
+			</div>
+			<div class="h-right-close">
+				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+					<path fill="none" d="M0 0h24v24H0z" />
+					<path d="M3 4h18v2H3V4zm0 7h18v2H3v-2zm0 7h18v2H3v-2z" fill="rgba(68,68,68,1)" />
+				</svg>
+			</div>
+		</div>
+	</div>
+	<div class="sidebar">
+    <div class="topo">
+        <h2>xiwwwix</h2>
+    </div>
+    <ul>
+        
+        <li>
+            <a href="/">HOME</a>
+        </li>
+        
+        <li>
+            <a href="/archives">ARCHIVE</a>
+        </li>
+        
+        <li>
+            <a href="/categories">CATEGORIES</a>
+        </li>
+        
+        <li>
+            <a href="/tags">TAGS</a>
+        </li>
+        
+        <li>
+            <a href="/links">LINKS</a>
+        </li>
+        
+        <li>
+            <a href="/about">ABOUT</a>
+        </li>
+        
+    </ul>
+    <div class="my_foot">
+        
+        <a target="_blank" rel="noopener" href="https://github.com/xiwwix">
+            <img src="https://cdn.jsdelivr.net/gh/duogongneng/MyBlogImg/imggithub.png" alt="Quiet主题">
+        </a>
+        
+    </div>
+</div>
+<div class='shelter'>
+</div>
+<style>
+    .shelter{
+        background-color: #333;
+        opacity:0.5;
+        cursor: pointer;
+        display: none; 
+        position: fixed;
+        left: 0;
+        top: 0; 
+        right: 0;
+        bottom: 0;
+        z-index: 1998;
+    }
+    .sidebar {
+        width: 66%;
+        height: 100%;
+        position: fixed;
+        top: 0;
+        right: -100%;
+        bottom: 0;
+        background: #fff;
+        z-index: 1999;
+        text-align: center;
+        box-shadow: -6px 0 20px rgba(98, 94, 94, .815);
+    }
+
+    .topo {
+        width: 100%;
+        height: 200px;
+        background: url(https://api.ixiaowai.cn/gqapi/gqapi.php) no-repeat;
+        background-size: 100% 100%;
+        position: relative;
+        display: flex;
+        align-items: flex-end
+    }
+
+    .topo h2 {
+        color: #fff;
+        z-index: 1;
+        position: relative;
+        margin: 0 0 10px 10px;
+        font-size: 1.2em;
+        box-sizing: border-box
+    }
+
+    .topo:before {
+        content: '';
+        background-image: url(/image/pattern.png);
+        background-repeat: repeat;
+        height: 100%;
+        left: 0;
+        position: absolute;
+        top: 0;
+        width: 100%;
+        z-index: 1
+    }
+
+    .sidebar ul {
+        width: 100%;
+        margin-top: 50px
+    }
+
+    .sidebar ul li {
+        height: 50px;
+        list-style: none;
+        font-size: 1.2em;
+        text-align: right;
+        margin-right: 10px
+    }
+
+    .sidebar ul li a {
+        display: grid;
+        color: #5d606a;
+        text-overflow: ellipsis;
+        width: 100%;
+        text-decoration: none
+    }
+
+    .my_foot {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+        position: absolute;
+        bottom: 0
+    }
+
+    .my_foot a {
+        text-decoration: none;
+        margin-right: 10px;
+        display: inline-block
+    }
+
+    .my_foot a img {
+        width: 30px;
+        height: 30px
+    }
+</style>
+
+<script>
+    $( function () {
+	$( '.h-right-close>svg' )
+		.click( function () {
+			$( '.sidebar' )
+				.animate( {
+					right: "0"
+				}, 500 );
+			$( '.shelter' )
+				.fadeIn( "slow" )
+		} );
+	$( '.shelter' )
+		.click( function ( e ) {
+			$( '.sidebar' )
+				.animate( {
+					right: "-100%"
+				}, 500 );
+			$( '.shelter' )
+				.fadeOut( "slow" )
+		} )
+} )
+
+</script>
+
+<div class="post">
+    <div class="post-header-background post-header-img"
+    style="background: url('https://api.ixiaowai.cn/gqapi/gqapi.php')" 
+>
+    <div class="post-header-background-content">
+        <ul class="post-header-tag">
+            
+            
+            <li><a href="/tags/2024心双数据结构EOJ习题">2024心双数据结构EOJ习题</a></li>
+            
+            
+        </ul>
+        
+        <h1>心双2024数据结构1059-1063题解</h1>
+        <div class="post-header-info">
+            <div class="post-header-info-author">
+                
+                    <svg t="1604839279282" class="icon" viewBox="0 0 1024 1024" version="1.1"
+                        xmlns="http://www.w3.org/2000/svg" p-id="2901" width="20" height="20">
+                        <path
+                            d="M513 956.3c-247.7 0-448-200.3-448-448S265.3 66.2 513 66.2s448 200.3 448 448-200.3 442.1-448 442.1z m0-830.9c-212.2 0-388.8 170.7-388.8 388.8C124.2 726.3 294.9 903 513 903c212.2 0 388.8-170.7 388.8-388.8S725.2 125.4 513 125.4z m0 430.2c-94.2 0-170.7-76.5-170.7-170.7S418.8 207.8 513 207.8s170.7 76.5 170.7 170.7S607.2 555.6 513 555.6z m0-289.1c-64.6 0-112 52.8-112 112s47.4 117.9 112 117.9 112-52.8 112-112-47.4-117.9-112-117.9z m0 689.8c-135.7 0-259-58.7-341.9-158.9l-11.8-17.8 11.8-17.8c76.5-117.9 206.2-188.5 347.8-188.5 135.7 0 265 64.6 341.9 182.6l11.8 17.8-11.8 17.8C778 897.1 648.7 956.3 513 956.3zM230.3 773.2C300.9 849.7 406.9 897 513 897c112 0 218.1-47.4 288.6-129.8-70.5-88.2-170.7-135.6-282.7-135.6s-218.1 53.3-288.6 141.6z"
+                            p-id="2902" fill="#ffffff"></path>
+                    </svg>
+                    
+                <span class="post-header-info-author-text"> <a target="_blank" rel="noopener" href="https://github.com/xiwwix">xiwwwix</a></span>
+                <div class="post-header-info-author-categories">
+                    
+                         <a href="../../categories/教程/" target="_blank" >教程</a>
+                    
+                </div>
+                <p>2025-02-01 00:47:31</p>
+            </div>
+        </div>
+    </div>
+</div>
+    <div class="post-content" id="content">
+  
+  <div id="article" class="post-content-info">
+    
+
+    <p>前几道是最短路，最后一道是拓扑排序<br>最短路没啥好讲的其实（）建议是把<code>dijkstra</code>算法背下来就行（可以参考接下来代码里的<code>dijkstra</code>函数，把这个模板背下来再改改，机考绝对没问题了）</p>
+<p>课上的<code>dijkstra</code>算法是不带优化的，求解单源最短路复杂度是<code>O(n^2)</code>，接下来模板里给的是带单调队列优化的，也就是通过一种特殊的数据结构，使得在<code>n</code>个邻居结点当中查找最近的那条边的过程从<code>O(n)</code>降到了<code>log</code>级别，原理可以参考<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_41575507/article/details/114548187">堆优化版Dijkstra算法</a>，如果只想应对机考，把模板背下来就可以了</p>
+<p>课上还提了<code>floyd</code>算法，用三个循环求解图上所有点与点之间的最短路，复杂度<code>O(n^3)</code>，如果数据范围给的结点数量大于100，基本上就会超时（如果是<code>dijkstra</code>而且只求单源最短路，复杂度<code>O(n^2)</code>，完全可以应对10000的数据量），但<code>floyd</code>算法的好处是非常容易理解且非常好写，假如你<strong>马上就要机考，而且最短路一点没学，看了<code>dijkstra</code>算法感觉背不下来，那么建议快速地学一下<code>floyd</code>算法</strong>，考到最短路别管什么数据范围，闭眼敲这个算法的模板，虽然大概率超时，但估计能得到60&#x2F;100的分，比只输出样例要高不少</p>
+<p>极速学习教程：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/wolfloraloi/p/11826560.html">Floyd算法</a><br>只需要看第一部分，而且记住那三个循环就可以了</p>
+<p>快速记忆方法：</p>
+<ol>
+<li>建个二维数组<code>G[n][n]</code>，<code>G[i][j]</code>表示点<code>i</code>到点<code>j</code>的最短距离</li>
+<li>把二维数组初始化为无穷大，表示一开始每两个点都不可达（可以用<code>#define INF 0x3f3f3f3f</code>实现）</li>
+<li>每次读入一条<code>u</code>和<code>v</code>之间的边，就把<code>G[u][v]</code>设成这条边的长度</li>
+<li>把所有<code>G[i][i]</code>（i从1到n都设成0，表示一个点到自己肯定没有距离）</li>
+<li>敲这三个循环，都是从1到n，顺序是<code>k,i,j</code><pre><code>for (int k &#x3D; 1;k &lt;&#x3D; n;k++) {
+    for (int i &#x3D; 1;i &lt;&#x3D; n;i++) {
+        for (int j &#x3D; 1;j &lt;&#x3D; n;j++) {
+            G[i][j] &#x3D; min(G[i][j],G[i][k] + G[k][j]);
+        }
+    }
+}</code></pre>
+其实很好理解，相当于是先把每个点<code>k</code>设为“中转站”，再跑两个循环，判断对每一对<code>i</code>和<code>j</code>，是原先的路更短，还是先从<code>i</code>走到<code>k</code>，再从<code>k</code>走到<code>j</code>更短</li>
+</ol>
+<h2 id="1059-路由器"><a href="#1059-路由器" class="headerlink" title="1059. 路由器"></a>1059. 路由器</h2><p><code>n</code>在100以内，而且求多源最短路，建议<code>floyd</code>，输入给的是<code>IP</code>，可以用一个<code>map</code>将字符串转化为代表结点的数字，然后套上述的模板</p>
+<pre><code>#include &lt;bits&#x2F;stdc++.h&gt;
+using namespace std;
+
+#define INF 0x3f3f3f3f
+
+int main() {
+	int n,m;
+	cin &gt;&gt; n &gt;&gt; m;
+	int G[n+1][n+1];
+	memset(G,INF,sizeof(G));
+	map&lt;string,int&gt; id;
+	int c &#x3D; 1;
+	
+	int t,time;
+	string ip1,ip2;
+	while(m--) {
+		cin &gt;&gt; ip1 &gt;&gt; ip2 &gt;&gt; time;
+		if (!id[ip1]) {
+			id[ip1] &#x3D; c;
+			c++;
+		}
+		if (!id[ip2]) {
+			id[ip2] &#x3D; c;
+			c++;
+		}
+		int u &#x3D; id[ip1];
+		int v &#x3D; id[ip2];
+		G[u][v] &#x3D; G[v][u] &#x3D; time;
+	}
+	
+	for (int i &#x3D; 1;i &lt;&#x3D; n;i++) {
+		G[i][i] &#x3D; 0;
+	}
+	
+	for (int k &#x3D; 1;k &lt;&#x3D; n;k++) {
+		for (int i &#x3D; 1;i &lt;&#x3D; n;i++) {
+			for (int j &#x3D; 1;j &lt;&#x3D; n;j++) {
+				G[i][j] &#x3D; min(G[i][j],G[i][k] + G[k][j]);
+			}
+		}
+	}
+	
+	cin &gt;&gt; t;
+	while (t--) {
+		cin &gt;&gt; ip1 &gt;&gt; ip2;
+		int id1 &#x3D; id[ip1];
+		int id2 &#x3D; id[ip2];
+		if (G[id1][id2] &#x3D;&#x3D; INF) {
+			cout &lt;&lt; -1 &lt;&lt; endl;
+		} else 
+			cout &lt;&lt; G[id1][id2] &lt;&lt; endl;
+	}
+	
+	return 0;
+}</code></pre>
+
+<h2 id="1060-最短路径"><a href="#1060-最短路径" class="headerlink" title="1060. 最短路径"></a>1060. 最短路径</h2><p><code>dijkstra</code>算法模板题，输出最短路径需要维护一个<code>prev</code>数组，<code>prev[u]</code>表示最短路径里<code>u</code>的前驱结点是谁（每次更新最近邻居的时候顺便更新这个），最后倒序输出<code>prev</code>数组即可</p>
+<pre><code>#include &lt;bits&#x2F;stdc++.h&gt;
+using namespace std;
+
+#define INF 0x3f3f3f3f
+
+void dijkstra(int start,int end,int n,vector&lt;vector&lt;pair&lt;int,int&gt;&gt;&gt;&amp; G) {
+	vector&lt;bool&gt; visited(n+1,false);
+	vector&lt;int&gt; d(n+1,INF);
+	vector&lt;int&gt; prev(n+1,-1);
+	vector&lt;int&gt; count(n+1,0);
+	
+	priority_queue&lt;pair&lt;int,int&gt;,vector&lt;pair&lt;int,int&gt;&gt;,greater&lt;pair&lt;int,int&gt;&gt;&gt; pq;
+	d[start] &#x3D; 0;
+	count[start] &#x3D; 1;
+	
+	pq.push(make_pair(0,start));
+	
+	while (!pq.empty()) {
+		int w &#x3D; pq.top().first;
+		int u &#x3D; pq.top().second;
+		
+		pq.pop();
+		
+		if (visited[u]) {
+			continue;
+		}
+		
+		visited[u] &#x3D; true;
+		
+		for (auto&amp; edge:G[u]) {
+			int ww &#x3D; edge.first;
+			int v &#x3D; edge.second;
+			if (d[v] &gt; d[u] + ww) {
+				d[v] &#x3D; d[u] + ww;
+				pq.push({d[v],v});
+				prev[v] &#x3D; u;
+				count[v] &#x3D; count[u];
+			} else if (d[v] &#x3D;&#x3D; d[u] + ww) {
+				count[v] +&#x3D; count[u];
+			}
+		}
+	}
+	if (d[end] &#x3D;&#x3D; INF) {
+		printf(&quot;%d\n%d\n%d&quot;,-1,0,-1);
+	} else {
+		cout &lt;&lt; d[end] &lt;&lt; endl;
+		cout &lt;&lt; count[end] &lt;&lt; endl;
+		vector&lt;int&gt; ans;
+		for (int tmp &#x3D; end;tmp !&#x3D; -1;tmp &#x3D; prev[tmp]) {
+			ans.push_back(tmp);
+		}
+		
+		reverse(ans.begin(),ans.end());
+		
+		for (int e:ans) {
+			cout &lt;&lt; e &lt;&lt; &quot; &quot;;
+		}
+	}
+}
+
+int main() {
+	int n,m;
+	cin &gt;&gt; n &gt;&gt; m;
+	int u,v,w;
+	vector&lt;vector&lt;pair&lt;int,int&gt;&gt;&gt; G(n+1);
+	while (m--) {
+		cin &gt;&gt; u &gt;&gt; v &gt;&gt; w;
+		G[u].push_back(make_pair(w,v));
+		G[v].push_back(make_pair(w,u));
+	}
+	dijkstra(1,n,n,G);
+	return 0;
+}</code></pre>
+
+<h2 id="1061-Arbitrage"><a href="#1061-Arbitrage" class="headerlink" title="1061. Arbitrage"></a>1061. Arbitrage</h2><p>题意<br>套利（Arbitrage） 是指利用货币汇率的差异，通过一系列货币兑换，将一种货币转换为更多的同种货币。例如：</p>
+<p>1 美元可以兑换 0.5 英镑。<br>1 英镑可以兑换 10.0 法郎。<br>1 法郎可以兑换 0.21 美元。</p>
+<p>通过这一系列兑换，1 美元可以变成0.5×10.0×0.21&#x3D;1.05 美元，获得 5% 的利润。</p>
+<p>任务是编写一个程序，输入货币汇率表，判断是否存在套利机会。</p>
+<p>依旧<code>floyd</code>算法，把每种货币作为起点，检测是否有套利机会</p>
+<pre><code>#include &lt;bits&#x2F;stdc++.h&gt;
+using namespace std;
+
+&#x2F;&#x2F; 检测是否存在套利机会
+bool solve(int n, vector&lt;vector&lt;double&gt;&gt;&amp; G, int s) {
+    vector&lt;double&gt; d(n + 1, 0); &#x2F;&#x2F; 存储每个货币的最大兑换值
+    d[s] &#x3D; 1.0; &#x2F;&#x2F; 初始货币的兑换值为 1
+
+    bool updated;
+    for (int k &#x3D; 0; k &lt; n; ++k) { &#x2F;&#x2F; 进行 n 次松弛操作
+        updated &#x3D; false;
+        for (int u &#x3D; 1; u &lt;&#x3D; n; ++u) {
+            for (int v &#x3D; 1; v &lt;&#x3D; n; ++v) {
+                &#x2F;&#x2F; 如果存在从 u 到 v 的汇率，且可以更新 v 的兑换值
+                if (G[u][v] !&#x3D; 0 &amp;&amp; d[u] * G[u][v] &gt; d[v]) {
+                    d[v] &#x3D; d[u] * G[u][v]; &#x2F;&#x2F; 更新 v 的兑换值
+                    updated &#x3D; true;
+                }
+            }
+        }
+        if (!updated) break; &#x2F;&#x2F; 如果没有更新，提前退出
+    }
+
+    &#x2F;&#x2F; 检查是否存在正权环路
+    for (int u &#x3D; 1; u &lt;&#x3D; n; ++u) {
+        for (int v &#x3D; 1; v &lt;&#x3D; n; ++v) {
+            if (G[u][v] !&#x3D; 0 &amp;&amp; d[u] * G[u][v] &gt; d[v]) {
+                return true; &#x2F;&#x2F; 存在套利机会
+            }
+        }
+    }
+
+    return false; &#x2F;&#x2F; 不存在套利机会
+}
+
+int main() {
+    int c, n, t &#x3D; 1; &#x2F;&#x2F; c: 货币种类数, n: 汇率表行数, t: 测试用例编号
+    string cu, cv; &#x2F;&#x2F; 货币名称
+    double per; &#x2F;&#x2F; 汇率
+
+    map&lt;string, int&gt; currency; &#x2F;&#x2F; 货币名称到编号的映射
+
+    while (cin &gt;&gt; c) { &#x2F;&#x2F; 读取货币种类数
+        if (c &#x3D;&#x3D; 0) break; &#x2F;&#x2F; 输入结束
+
+        int id &#x3D; 1; &#x2F;&#x2F; 货币编号从 1 开始
+        bool flag &#x3D; false; &#x2F;&#x2F; 标记是否存在套利机会
+        currency.clear(); &#x2F;&#x2F; 清空货币映射
+
+        &#x2F;&#x2F; 读取货币名称并分配编号
+        for (int i &#x3D; 0; i &lt; c; i++) {
+            string cur;
+            cin &gt;&gt; cur;
+            currency[cur] &#x3D; id++;
+        }
+
+        cin &gt;&gt; n; &#x2F;&#x2F; 读取汇率表行数
+
+        &#x2F;&#x2F; 初始化图的邻接矩阵
+        vector&lt;vector&lt;double&gt;&gt; G(c + 1, vector&lt;double&gt;(c + 1, 0));
+
+        &#x2F;&#x2F; 读取汇率表并构建图
+        while (n--) {
+            cin &gt;&gt; cu &gt;&gt; per &gt;&gt; cv;
+            int u &#x3D; currency[cu]; &#x2F;&#x2F; 源货币编号
+            int v &#x3D; currency[cv]; &#x2F;&#x2F; 目标货币编号
+            G[u][v] &#x3D; per; &#x2F;&#x2F; 存储汇率
+        }
+
+        &#x2F;&#x2F; 对每个货币作为起点，检测是否存在套利机会
+        for (int i &#x3D; 1; i &lt;&#x3D; c; i++) {
+            if (solve(c, G, i)) {
+                flag &#x3D; true; &#x2F;&#x2F; 存在套利机会
+                break;
+            }
+        }
+
+        &#x2F;&#x2F; 输出结果
+        cout &lt;&lt; &quot;Case &quot; &lt;&lt; t &lt;&lt; (flag ? &quot;: Yes&quot; : &quot;: No&quot;) &lt;&lt; endl;
+        t++; &#x2F;&#x2F; 测试用例编号递增
+    }
+
+    return 0;
+}</code></pre>
+
+<h2 id="1062-旅游规划"><a href="#1062-旅游规划" class="headerlink" title="1062. 旅游规划"></a>1062. 旅游规划</h2><p>每条边需要维护两个信息：边的长度和花费，可以用结构体或者元组<code>tuple&lt;int,int,int&gt;</code>实现</p>
+<p>这类题挺重要的，我们第二次机考几乎出了个原题，建议把这个<code>dijkstra</code>函数背下来，大多数题只需要修改边的定义即可</p>
+<pre><code>#include &lt;bits&#x2F;stdc++.h&gt;
+using namespace std;
+
+#define INF 0x3f3f3f3f &#x2F;&#x2F; 定义无穷大值
+
+&#x2F;&#x2F; Dijkstra算法实现
+void dijkstra(int start, int end, int n, vector&lt;vector&lt;tuple&lt;int, int, int&gt;&gt;&gt;&amp; G) {
+    vector&lt;bool&gt; visited(n + 1, false); &#x2F;&#x2F; 标记节点是否被访问过
+    int d[n + 1]; &#x2F;&#x2F; 存储从起点到每个节点的最短距离
+    int m[n + 1]; &#x2F;&#x2F; 存储从起点到每个节点的最小花费
+
+    &#x2F;&#x2F; 初始化距离和花费为无穷大
+    memset(d, INF, sizeof(d));
+    memset(m, INF, sizeof(m));
+
+    &#x2F;&#x2F; 起点的距离和花费初始化为0
+    d[start] &#x3D; 0;
+    m[start] &#x3D; 0;
+
+    &#x2F;&#x2F; 优先队列，按距离从小到大排序，存储 (距离, 花费, 节点)
+    priority_queue&lt;tuple&lt;int, int, int&gt;, vector&lt;tuple&lt;int, int, int&gt;&gt;, greater&lt;tuple&lt;int, int, int&gt;&gt;&gt; pq;
+    pq.push(make_tuple(0, 0, start)); &#x2F;&#x2F; 将起点加入队列
+
+    while (!pq.empty()) {
+        int u &#x3D; get&lt;2&gt;(pq.top()); &#x2F;&#x2F; 当前节点
+        int cost &#x3D; get&lt;1&gt;(pq.top()); &#x2F;&#x2F; 当前节点的花费
+        int w &#x3D; get&lt;0&gt;(pq.top()); &#x2F;&#x2F; 当前节点的距离
+
+        pq.pop(); &#x2F;&#x2F; 弹出当前节点
+
+        if (visited[u]) { &#x2F;&#x2F; 如果节点已经访问过，跳过
+            continue;
+        }
+        visited[u] &#x3D; true; &#x2F;&#x2F; 标记当前节点为已访问
+
+        &#x2F;&#x2F; 遍历当前节点的所有邻接节点
+        for (auto&amp; edge : G[u]) {
+            int v &#x3D; get&lt;2&gt;(edge); &#x2F;&#x2F; 邻接节点
+            int cc &#x3D; get&lt;1&gt;(edge); &#x2F;&#x2F; 从 u 到 v 的花费
+            int ww &#x3D; get&lt;0&gt;(edge); &#x2F;&#x2F; 从 u 到 v 的距离
+
+            &#x2F;&#x2F; 如果通过 u 到 v 的距离更短，更新距离和花费
+            if (d[u] + ww &lt; d[v]) {
+                d[v] &#x3D; d[u] + ww;
+                m[v] &#x3D; m[u] + cc;
+                pq.push(make_tuple(d[v], m[v], v)); &#x2F;&#x2F; 将更新后的节点加入队列
+            }
+            &#x2F;&#x2F; 如果距离相等但花费更小，更新花费
+            else if (d[u] + ww &#x3D;&#x3D; d[v] &amp;&amp; m[v] &gt; m[u] + cc) {
+                m[v] &#x3D; m[u] + cc;
+                pq.push(make_tuple(d[v], m[v], v)); &#x2F;&#x2F; 将更新后的节点加入队列
+            }
+        }
+    }
+
+    &#x2F;&#x2F; 输出从起点到终点的最短距离和最小花费
+    cout &lt;&lt; d[end] &lt;&lt; &quot; &quot; &lt;&lt; m[end] &lt;&lt; endl;
+}
+
+int main() {
+    int n, m, s, d; &#x2F;&#x2F; n: 节点数, m: 边数, s: 起点, d: 终点
+    cin &gt;&gt; n &gt;&gt; m &gt;&gt; s &gt;&gt; d;
+
+    int u, v, len, cost; &#x2F;&#x2F; u: 起点, v: 终点, len: 距离, cost: 花费
+    vector&lt;vector&lt;tuple&lt;int, int, int&gt;&gt;&gt; G(n + 1); &#x2F;&#x2F; 图的邻接表，存储 (距离, 花费, 邻接节点)
+
+    &#x2F;&#x2F; 读取边的信息并构建图
+    while (m--) {
+        cin &gt;&gt; u &gt;&gt; v &gt;&gt; len &gt;&gt; cost;
+        G[u].push_back(make_tuple(len, cost, v)); &#x2F;&#x2F; 添加 u 到 v 的边
+        G[v].push_back(make_tuple(len, cost, u)); &#x2F;&#x2F; 添加 v 到 u 的边（无向图）
+    }
+
+    &#x2F;&#x2F; 调用 Dijkstra 算法计算从起点到终点的最短距离和最小花费
+    dijkstra(s, d, n, G);
+
+    return 0;
+}</code></pre>
+
+<h2 id="1063-任务调度问题"><a href="#1063-任务调度问题" class="headerlink" title="1063. 任务调度问题"></a>1063. 任务调度问题</h2><p>拓扑排序模板题，机考可能会考，也是背模板（<code>tupo</code>函数）即可</p>
+<pre><code>#include &lt;bits&#x2F;stdc++.h&gt;
+using namespace std;
+
+int n; &#x2F;&#x2F; 节点数
+vector&lt;vector&lt;int&gt;&gt; G(101); &#x2F;&#x2F; 图的邻接表，存储每个节点的邻接节点
+int ru[103] &#x3D; {0}; &#x2F;&#x2F; 存储每个节点的入度
+
+&#x2F;&#x2F; 拓扑排序函数
+void tupo() {
+    deque&lt;int&gt; q; &#x2F;&#x2F; 双端队列，用于存储入度为0的节点
+    int cnt &#x3D; 0; &#x2F;&#x2F; 记录已经处理的节点数
+
+    &#x2F;&#x2F; 将所有入度为0的节点加入队列
+    for (int i &#x3D; 1; i &lt;&#x3D; n; i++) {
+        if (ru[i] &#x3D;&#x3D; 0) {
+            q.push_back(i);
+        }
+    }
+
+    &#x2F;&#x2F; 拓扑排序过程
+    while (!q.empty()) {
+        int u &#x3D; q.front(); &#x2F;&#x2F; 取出队首节点
+        q.pop_front(); &#x2F;&#x2F; 弹出队首节点
+        cnt++; &#x2F;&#x2F; 已处理的节点数加1
+
+        &#x2F;&#x2F; 遍历当前节点的所有邻接节点
+        for (auto&amp; v : G[u]) {
+            ru[v]--; &#x2F;&#x2F; 将邻接节点的入度减1
+            if (ru[v] &#x3D;&#x3D; 0) { &#x2F;&#x2F; 如果邻接节点的入度变为0，加入队列
+                q.push_back(v);
+            }
+        }
+    }
+
+    &#x2F;&#x2F; 判断是否所有节点都被处理过
+    if (cnt &#x3D;&#x3D; n) {
+        cout &lt;&lt; 1 &lt;&lt; endl; &#x2F;&#x2F; 如果所有节点都被处理过，说明图中无环
+    } else {
+        cout &lt;&lt; 0 &lt;&lt; endl; &#x2F;&#x2F; 否则，说明图中有环
+    }
+}
+
+int main() {
+    int k, id; &#x2F;&#x2F; k: 当前节点的邻接节点数, id: 邻接节点的编号
+    cin &gt;&gt; n; &#x2F;&#x2F; 输入节点数
+
+    &#x2F;&#x2F; 输入每个节点的邻接节点
+    for (int i &#x3D; 0; i &lt; n; i++) {
+        cin &gt;&gt; k; &#x2F;&#x2F; 输入当前节点的邻接节点数
+        for (int j &#x3D; 0; j &lt; k; j++) {
+            cin &gt;&gt; id; &#x2F;&#x2F; 输入邻接节点的编号
+            G[i + 1].push_back(id); &#x2F;&#x2F; 将邻接节点加入当前节点的邻接表
+            ru[id] +&#x3D; 1; &#x2F;&#x2F; 邻接节点的入度加1
+        }
+    }
+
+    &#x2F;&#x2F; 调用拓扑排序函数
+    tupo();
+
+    return 0;
+}</code></pre>
+  </div>
+  <div id=""></div>
+</div>
+
+<script>
+  
+Fancybox.bind('[data-fancybox="fancybox-gallery-img"]', {
+  dragToClose: true,
+  Toolbar: true,
+  closeButton: "top",
+  Image: {
+    zoom: true,
+  },
+  on: {
+    initCarousel: (fancybox) => {
+      const slide = fancybox.Carousel.slides[fancybox.Carousel.page];
+      fancybox.$container.style.setProperty(
+        "--bg-image",
+        `url("${slide.$thumb.src}")`
+      );
+    },
+    "Carousel.change": (fancybox, carousel, to, from) => {
+      const slide = carousel.slides[to];
+      fancybox.$container.style.setProperty(
+        "--bg-image",
+        `url("${slide.$thumb.src}")`
+      );
+    },
+  },
+});
+</script>
+
+<style>
+    #noneimg img {
+        display: none;
+        z-index: 9999;
+        /* width: 600px !important; */
+        min-width: 0%;
+        max-width: 90%;
+        max-height: 80%;
+        border-radius: 0px;
+        position: fixed;
+        box-shadow: 0 0 0px #c3c3c300 !important;
+        left: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        margin: auto !important;
+    }
+
+    @media screen and (max-width:600px) {
+        #noneimg img {
+            max-width: 88%
+        }
+    }
+</style>
+
+    <div class="post-paging">
+    
+
+    
+    <a href="/2025/02/01/ds-tutorial-10/">
+        <div class="post-paging-next">
+            <span>下一篇</span>
+            <p>心双2024数据结构1050-1051&amp;1055-1058题解</p>
+        </div>
+    </a>
+    
+</div>
+</div>
+		
+<div class="footer">
+	<div class="Copyright">
+		©2025 By xiwwwix. 主题：<a
+			style="text-decoration: none;display: contents; color: #898F9F;"
+			target="_blank" rel="noopener" href="https://github.com/79e/hexo-theme-quiet">Quiet</a>
+	</div>
+	<div class="contact">
+		
+		<a target="_blank" rel="noopener" href="https://github.com/xiwwix">
+			<img src="https://cdn.jsdelivr.net/gh/duogongneng/MyBlogImg/imggithub.png" alt="Quiet主题">
+		</a>
+		
+	</div>
+</div>
+
+<script src="/js/gotop.js"></script>
+
+
+<style type="text/css">
+    @media screen and (min-width: 600px) {
+        .goTop>span {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            opacity: 0.8;
+            background: rgba(18, 24, 58, 0.06);
+            text-align: center;
+            transition: border .5s;
+            border: 1px solid rgba(18, 24, 58, 0.06);
+
+            -moz-transition: border .5s;
+            /* Firefox 4 */
+            -webkit-transition: border .5s;
+            /* Safari 和 Chrome */
+            -o-transition: border .5s;
+            /* Opera */
+        }
+
+        .goTop>span:hover {
+            border: 1px solid #6680B3;
+        }
+
+
+        .goTop {
+            position: fixed;
+            right: 30px;
+            bottom: 80px;
+        }
+
+        .goTop>span>svg {
+            width: 20px;
+            height: 20px;
+            opacity: 0.7;
+        }
+
+    }
+
+    @media screen and (max-width: 600px) {
+        .goTop {
+            display: none;
+        }
+    }
+</style>
+<div class="goTop" id="js-go_top">
+    <span>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+            <g>
+                <path d="M13 12v8h-2v-8H4l8-8 8 8z"></path>
+            </g>
+        </svg>
+    </span>
+</div>
+<script>
+    $( '#js-go_top' )
+	.gotoTop( {
+		offset: 500,
+		speed: 300,
+		animationShow: {
+			'transform': 'translate(0,0)',
+			'transition': 'transform .5s ease-in-out'
+		},
+		animationHide: {
+			'transform': 'translate(100px,0)',
+			'transition': 'transform .5s ease-in-out'
+		}
+	} );
+</script>
+
+
+    <!-- Gitalk -->
+    <script>
+        const data = '{"clientID":"02b3c","clientSecret":"adfc7b4","repo":"gimment","owner":"duneng","admin":"duneng"}'
+        const gitalk = new Gitalk({
+            ...JSON.parse( data),
+            id:location.pathname,
+            distractionFreeMode:false
+        })
+        
+        if(Boolean('false')){
+            gitalk.render('gitalk-container')
+        }
+    </script>
+
+<script>
+	console.log('\n %c Hexo-Quiet 主题 %c https://github.com/79e/hexo-theme-quiet \n', 'color: #fadfa3; background: #030307; padding:5px 0;', 'background: #fadfa3; padding:5px 0;')
+</script>
+	</body>
+</html>
+

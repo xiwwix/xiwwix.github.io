@@ -330,7 +330,7 @@
 <li>知道你的递归函数“每一层在干什么”，比如我们这个dfs就是在“遍历某个结点的儿子，对儿子dfs，然后把自己放进答案”</li>
 <li>考虑一下边界情况：递归终止，或者说不会再继续调用这个递归函数的最终情况，比如说dfs里的遍历，如果没有儿子，当然就不用遍历，就不会再有下一步的dfs</li>
 <li>结束了，大胆相信你的递归函数真的能实现以上功能，你的重点就是“怎么递推到下一层 + 递归终止条件”</li>
-<li>实在不行的话，就把这个dfs函数背下来，多敲几遍一样的代码也许就顿悟了（</li>
+<li>实在不行的话，就先把这个dfs函数背下来，多敲几遍一样的代码也许就顿悟了（</li>
 </ol>
 <pre><code>#include &lt;bits&#x2F;stdc++.h&gt;
 using namespace std;
@@ -451,7 +451,160 @@ int main() {
 }
 </code></pre>
 
+<h2 id="1046-还原二叉树"><a href="#1046-还原二叉树" class="headerlink" title="1046. 还原二叉树"></a>1046. 还原二叉树</h2><ol>
+<li>根据先序+中序还原二叉树</li>
+<li>计算高度（dfs，递归比较左右子树大小，取较大的）</li>
+</ol>
+<pre><code>#include &lt;bits&#x2F;stdc++.h&gt;
+using namespace std;
+char pre[51];
+char mid[51];
 
+struct node {
+	char data;
+	node* l &#x3D; nullptr;
+	node* r &#x3D; nullptr;
+};
+
+void build(node* &amp;root,char* pre,char* mid,int len) {
+	root &#x3D; new node;
+	if (root !&#x3D; nullptr) {
+		if (len &lt;&#x3D; 0) {
+			root &#x3D; nullptr;
+			return;
+		}
+		int idx &#x3D; 0;
+		while (idx &lt; len &amp;&amp; *(pre) !&#x3D; *(mid + idx)) {
+			idx++;
+		}
+		root-&gt;data &#x3D; *(pre);
+		build(root-&gt;l,pre+1,mid,idx);
+		build(root-&gt;r,pre+1+idx,mid+1+idx,len-idx-1);
+	}
+	return;
+}
+
+int dfs(node* root) {
+	if (root &#x3D;&#x3D; nullptr) {
+		return 0;
+	}
+	int lh &#x3D; dfs(root-&gt;l);
+	int rh &#x3D; dfs(root-&gt;r);
+	int height &#x3D; max(lh,rh) + 1;
+	return height;
+}
+
+int main() {
+	int n;
+	cin &gt;&gt; n;
+	cin &gt;&gt; pre &gt;&gt; mid;
+	node* tree;
+	build(tree,pre,mid,n);
+	cout &lt;&lt; dfs(tree) &lt;&lt; endl; 
+	return 0;
+}</code></pre>
+<p>每次需要在中序遍历序列中查找根节点的位置，一共<code>n</code>个节点，对于每个节点，递归调用会处理其左子树和右子树，所以总时间复杂度为<code>O(n^2)</code>（最坏情况下，树会退化为一条链）</p>
+<h2 id="1047-最小权值路径"><a href="#1047-最小权值路径" class="headerlink" title="1047. 最小权值路径"></a>1047. 最小权值路径</h2><p>隐约记得写过两个版本，后面那个码风很好，但是找不到了。。。第一个版本我现在自己也没看太懂，怀疑当时是gpt写的（私密马赛</p>
+<pre><code>#include &lt;bits&#x2F;stdc++.h&gt;
+using namespace std;
+
+struct Node {
+	int val;
+	Node* left;
+	Node* right;
+	Node(int x) : val(x), left(nullptr), right(nullptr) {}
+};
+
+Node* build(vector&lt;int&gt;&amp; in, vector&lt;int&gt;&amp; post, unordered_map&lt;int, int&gt;&amp; m, int s, int e, int&amp; p) {
+	if(s &gt; e) return nullptr;
+	int rootVal &#x3D; post[p];
+	Node* root &#x3D; new Node(rootVal);
+	int idx &#x3D; m[rootVal];
+	p--;
+	root-&gt;right &#x3D; build(in, post, m, idx+1, e, p);
+	root-&gt;left &#x3D; build(in, post, m, s, idx-1, p);
+	return root;
+}
+
+pair&lt;long long, int&gt; findMin(Node* root) {
+	long long minSum &#x3D; LLONG_MAX;
+	int leafVal &#x3D; INT32_MAX;
+	stack&lt;pair&lt;Node*, long long&gt;&gt; stk;
+	stk.push(make_pair(root, 0));
+	while(!stk.empty()) {
+		pair&lt;Node*, long long&gt; current &#x3D; stk.top();
+		stk.pop();
+		Node* node &#x3D; current.first;
+		long long sum &#x3D; current.second;
+		if(!node) continue;
+		long long currentSum &#x3D; sum + node-&gt;val;
+		if(!node-&gt;left &amp;&amp; !node-&gt;right) {
+			if(currentSum &lt; minSum || (currentSum &#x3D;&#x3D; minSum &amp;&amp; node-&gt;val &lt; leafVal)) {
+				minSum &#x3D; currentSum;
+				leafVal &#x3D; node-&gt;val;
+			}
+		}
+		stk.push(make_pair(node-&gt;right, currentSum));
+		stk.push(make_pair(node-&gt;left, currentSum));
+	}
+	return make_pair(minSum, leafVal);
+}
+
+int main() {
+	string inStr, postStr;
+	getline(cin, inStr);
+	getline(cin, postStr);
+	vector&lt;int&gt; in, post;
+	int num;
+	stringstream ss(inStr);
+	while(ss &gt;&gt; num) {
+		in.push_back(num);
+	}
+	stringstream sp(postStr);
+	while(sp &gt;&gt; num) {
+		post.push_back(num);
+	}
+	unordered_map&lt;int, int&gt; m;
+	for(int i&#x3D;0; i&lt;in.size(); i++) {
+		m[in[i]] &#x3D; i;
+	}
+	int pIdx &#x3D; post.size()-1;
+	Node* root &#x3D; build(in, post, m, 0, in.size()-1, pIdx);
+	pair&lt;long long, int&gt; res &#x3D; findMin(root);
+	cout &lt;&lt; res.second;
+}
+</code></pre>
+<p>因为用了栈，重建二叉树和DFS遍历的时间复杂度均为<code>O(n)</code></p>
+<h2 id="1048-下落的小球"><a href="#1048-下落的小球" class="headerlink" title="1048. 下落的小球"></a>1048. 下落的小球</h2><p>更像是一道思维题而非数据结构题，纯粹根据题意模拟应该也能过，更好一点的方法是根据输入的小球的奇偶性直接模拟该小球的掉落，不需要把之前小球的掉落过程都求出来。</p>
+<p>代码实现的话就是：如果某结点被奇数次经过，走左边（乘2），否则走右边（乘2加1）</p>
+<p>原题：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/UVA679%EF%BC%8C%E5%8F%AF%E4%BB%A5%E7%9C%8B%E7%9C%8B%E9%A2%98%E8%A7%A3%E5%8C%BA%E5%A4%A7%E4%BD%AC%E7%9A%84%E5%81%9A%E6%B3%95">https://www.luogu.com.cn/problem/UVA679，可以看看题解区大佬的做法</a></p>
+<pre><code>#include &lt;bits&#x2F;stdc++.h&gt;
+using namespace std;
+
+void solve() {
+	int d,c;
+	int cur &#x3D; 1;
+	cin &gt;&gt; d &gt;&gt; c;
+	for(int i &#x3D; 1; i &lt; d; i++)
+		if (c&amp;1) {
+			cur &lt;&lt;&#x3D; 1; &#x2F;&#x2F;模拟走过奇数次，乘2
+			c &#x3D; (c &gt;&gt; 1) + 1;
+		} else {
+			cur &lt;&lt;&#x3D; 1; 
+			cur++; &#x2F;&#x2F;模拟走过偶数次，乘2再加1
+			c &gt;&gt;&#x3D; 1;
+		}
+	cout &lt;&lt; cur &lt;&lt; endl;
+}
+
+int main() {
+	int t;
+	cin &gt;&gt; t;
+	while(t--) {
+		solve();
+	}
+	return 0;
+}</code></pre>
   </div>
   <div id=""></div>
 </div>
@@ -510,6 +663,13 @@ Fancybox.bind('[data-fancybox="fancybox-gallery-img"]', {
 </style>
 
     <div class="post-paging">
+    
+    <a href="/2025/01/31/ds-tutorial-9/">
+        <div class="post-paging-last">
+            <span>上一篇</span>
+            <p>心双2024数据结构1052-1054题解</p>
+        </div>
+    </a>
     
 
     

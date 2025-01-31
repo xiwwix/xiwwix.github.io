@@ -2,7 +2,7 @@
 <html>
 	<head>
 		
-<title>2025寒假写题记录-xiwwwix's blog</title>
+<title>心双2024数据结构1052-1054题解-xiwwwix's blog</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -12,8 +12,8 @@
 
 
 
-<meta name="keywords" content="codeforces,">
-<meta name="description" content="tricks">
+<meta name="keywords" content="2024心双数据结构EOJ习题,">
+<meta name="description" content="ds-tutorial">
 
 
 <script src="/js/jquery.min.js"></script>
@@ -284,12 +284,12 @@
         <ul class="post-header-tag">
             
             
-            <li><a href="/tags/codeforces">codeforces</a></li>
+            <li><a href="/tags/2024心双数据结构EOJ习题">2024心双数据结构EOJ习题</a></li>
             
             
         </ul>
         
-        <h1>2025寒假写题记录</h1>
+        <h1>心双2024数据结构1052-1054题解</h1>
         <div class="post-header-info">
             <div class="post-header-info-author">
                 
@@ -306,7 +306,7 @@
                          <a href="../../categories/教程/" target="_blank" >教程</a>
                     
                 </div>
-                <p>2025-01-22 00:36:44</p>
+                <p>2025-01-31 23:35:38</p>
             </div>
         </div>
     </div>
@@ -316,21 +316,218 @@
   <div id="article" class="post-content-info">
     
 
-    <p>寒假有很多活要干的样子，但是想做题了（？<br><code>flag</code>是寒假结束前上青，下个学期（或者有生之年QAQ）上个蓝</p>
-<p>写篇文章记录一下写题，主要用来提醒自己有哪些重要的<code>trick</code>，以及学习一些进阶的算法避免下学期挂了豆哥的课（没错。。作大死（）</p>
-<h2 id="01-22"><a href="#01-22" class="headerlink" title="01.22"></a>01.22</h2><h3 id="F-Firefly’s-Queries"><a href="#F-Firefly’s-Queries" class="headerlink" title="F. Firefly’s Queries"></a><a target="_blank" rel="noopener" href="https://codeforces.com/problemset/problem/2009/F">F. Firefly’s Queries</a></h3><p>前缀和plus，假设最后直接形成的大前缀和数组是<code>f</code>，<code>l</code>到<code>r</code>的区间和等于<code>f[r] - f[l]</code>，求<code>f[x]</code>可以分成<code>r/n</code>个完整数组（和为<code>s</code>），以及一段不完整数组<br>不完整数组的第一位是<code>((r/n)%n) + 1</code>，长度是<code>r%n</code><br>想到的一个方便的求法是倍增原数组，然后求这个二倍长数组的前缀和<code>prefix</code>，这样的话这个不完整数组的区间和就是<code>prefix[(x//n) % n + 1 + x%n - 1] - prefix[(x//n) % n]</code></p>
-<h3 id="D-Kousuke’s-Assignment"><a href="#D-Kousuke’s-Assignment" class="headerlink" title="D. Kousuke’s Assignment"></a><a target="_blank" rel="noopener" href="https://codeforces.com/problemset/problem/2033/D">D. Kousuke’s Assignment</a></h3><p>感觉是很熟悉很常见的套路，但是没反应过来QAQ</p>
-<h2 id="01-29"><a href="#01-29" class="headerlink" title="01.29"></a>01.29</h2><p>玩了一周（霍格沃兹之遗真好玩！（不是）），正式回来学习</p>
-<p>打算跟着白书，按照图论、数论、dp、数据结构的顺序过一遍，把书上的洛谷习题用C++敲一遍（C++水平真的太菜了（悲））</p>
-<p>先从拓扑排序开始<br>今天先做了<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1113">P1113</a>和<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4017">P4017</a>练手，发现容易弄反出入度QAQ，以及忘了<code>long long</code>查了半天</p>
-<h2 id="01-30"><a href="#01-30" class="headerlink" title="01.30"></a>01.30</h2><p><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1347">P1347</a><br>采用了每次输入都跑一遍拓扑排序的做法，但是犯了没有判断重边的错误被deepseek薄纱了，另外它非常有创造力地给出了每次判断队伍长度是否为1以确认是否还存在不确定关系的点的做法，感觉非常巧妙，我后来的理解是比如说有形如A&lt;B,A&lt;C这种关系在，去掉A之后B,C都满足条件，或者说“某一层有不止一个点”，所以不行</p>
-<p>题解里还有一个最长路的做法也很好，主要是注意到了以下三点：</p>
+    <p>1050朋友圈和1051虚拟朋友这两题是并查集的题，不过课上没有讲这个知识点，作业也没有布置，所以先跳过，放在和最小生成树一起</p>
+<p>1052-1054是dfs和bfs的题，其实和树没啥区别，不过图的题很多都是无向图，但是要标记点是否已访问，防止死循环</p>
+<h2 id="1052-哥尼斯堡的七桥问题"><a href="#1052-哥尼斯堡的七桥问题" class="headerlink" title="1052. 哥尼斯堡的七桥问题"></a>1052. 哥尼斯堡的七桥问题</h2><p>判断有没有欧拉回路，或者说判断图是不是欧拉图（整张图可以从一个点一笔画走完并回到起点）需要干两件事情：</p>
 <ol>
-<li>如果能走出来长度为n+2的最长路，证明使用目前为止给的k条关系（边）就能得到所有点的完整序列</li>
-<li>如果在统计最长路时路径长度已经超过了n+2，那么肯定是到目前给的关系（边）中一定有环路的存在（想不明白？细品！一个完整序列怎么可能有重复的点？）</li>
-<li>如果关系输入到最后，发现根本走不到终点，那么就证明无法得出整张序列</li>
+<li>判断图的连通性</li>
+<li>数每个点的度数，需要满足每个点的度数都是偶数（存每条边的时候给两个端点的度数都加一即可）</li>
 </ol>
+<p>判断图的连通性可以用<code>dfs</code>或者并查集</p>
+<p>dfs做法：</p>
+<pre><code>#include &lt;bits&#x2F;stdc++.h&gt;
+using namespace std;
 
+vector&lt;int&gt; G[1003];
+bool visited[1003];
+int cnt[1003] &#x3D; {0};
+
+void dfs(int u) {
+	visited[u] &#x3D; 1;
+	for (int v:G[u]) {
+		if (!visited[v]) {
+			dfs(v);
+		}
+	}
+}
+
+int main() {
+	int n,m,u,v;
+	cin &gt;&gt; n &gt;&gt; m;
+	for (int i &#x3D; 0; i &lt; m; i++) {
+		cin &gt;&gt; u &gt;&gt; v;
+		G[u].push_back(v);
+		G[v].push_back(u);
+		cnt[u]++;
+		cnt[v]++;
+	}
+	
+	for (int i &#x3D; 1; i &lt;&#x3D; n; i++)
+		if (cnt[i] % 2) {
+			cout &lt;&lt; 0 &lt;&lt; endl;
+			return 0;
+		} 
+	
+	dfs(1); &#x2F;&#x2F;从点1出发跑一次dfs，如果能访问所有点，那么visited数组应该都是1，否则说明有的点到不了，也就是图不连通
+
+	for (int i &#x3D; 1; i &lt;&#x3D; n; i++) {
+		if (!visited[i]) {
+			cout &lt;&lt; 0 &lt;&lt; endl;
+			return 0;
+		}
+	}
+	
+	cout &lt;&lt; 1 &lt;&lt; endl;
+	return 0;
+}</code></pre>
+
+<p>并查集做法：</p>
+<pre><code>#include &lt;bits&#x2F;stdc++.h&gt;
+using namespace std;
+
+int cnt[1005] &#x3D; {0};
+int root[1005] &#x3D; {0};
+
+int Findroot(int x) {
+    if (x !&#x3D; root[x]) {
+        root[x] &#x3D; Findroot(root[x]); 
+    }
+    return root[x];
+}
+
+void Merge(int x,int y) {
+	int rootx &#x3D; Findroot(x);
+	int rooty &#x3D; Findroot(y);
+	root[rootx] &#x3D; rooty;
+}
+
+int main() {
+	int n,m;
+	cin &gt;&gt; n &gt;&gt; m;
+	for (int i &#x3D; 1;i &lt;&#x3D; n;i++) {
+		root[i] &#x3D; i;
+	}
+	
+	while (m--) {
+		int u,v;
+		cin &gt;&gt; u &gt;&gt; v;
+		cnt[u]++;
+		cnt[v]++;
+		Merge(u,v); 
+	}
+	
+	int c &#x3D; 0;
+	for (int i &#x3D; 1;i &lt;&#x3D; n;i++) {
+		if (Findroot(i) &#x3D;&#x3D; i) {
+			c++;
+		}
+	}
+	
+	if (c &gt; 1) {
+		cout &lt;&lt; 0;
+		return 0;
+	}
+	
+	for (int i &#x3D; 1; i &lt;&#x3D; n;i++) {
+		if (cnt[i] % 2) {
+			cout &lt;&lt; 0;
+			return 0;
+		}
+	}
+	cout &lt;&lt; 1;
+	return 0;
+}</code></pre>
+
+<h2 id="1053-地下迷宫探索"><a href="#1053-地下迷宫探索" class="headerlink" title="1053. 地下迷宫探索"></a>1053. 地下迷宫探索</h2><p>比较绕的一道dfs题，需要注意两个要点：</p>
+<ol>
+<li>以节点小编号优先的次序访问（点灯），邻接表存图后可以把每个结点的邻接数组先排个序，这样dfs遍历的时候就有序了</li>
+<li>“去程”和“返程”都要输出一遍灯的编号，代码实现的时候可以在dfs遍历邻居的前后都输出一遍结点编号</li>
+</ol>
+<pre><code>#include &lt;bits&#x2F;stdc++.h&gt;
+using namespace std;
+
+bool visited[1003] &#x3D; {false};
+int ans[1003] &#x3D; {0};
+
+int pnt &#x3D; 0;
+
+void dfs(int u, vector&lt;vector&lt;int&gt;&gt;&amp; g) {
+	visited[u] &#x3D; true;
+	cout &lt;&lt; u &lt;&lt; &quot; &quot;;
+	
+	for (auto&amp; node : g[u]) {
+		if (!visited[node]) {
+			dfs(node,g);
+			cout &lt;&lt; u &lt;&lt; &quot; &quot;;
+		}
+	}
+} 
+
+int main() {
+	int n,m,s;
+	cin &gt;&gt; n &gt;&gt; m &gt;&gt; s;
+	vector&lt;vector&lt;int&gt;&gt; g(n+1, vector&lt;int&gt;(0));
+	
+	for(int i &#x3D; 0;i &lt; m;i++) {
+		int u,v;
+		cin &gt;&gt; u &gt;&gt; v;
+		g[u].push_back(v);
+		g[v].push_back(u);
+	}
+	
+	for (int i &#x3D; 1;i &lt;&#x3D; n;i++){
+		sort(g[i].begin(),g[i].end());
+	}	
+	dfs(s,g);
+	
+	for (int i &#x3D; 1; i &lt;&#x3D; n;i++){
+		if (!visited[i]) {
+			cout &lt;&lt; 0 &lt;&lt; endl;
+			break;
+		}
+	}
+	
+	return 0;
+}</code></pre>
+
+<h2 id="1054-六度空间"><a href="#1054-六度空间" class="headerlink" title="1054. 六度空间"></a>1054. 六度空间</h2><p>bfs的题，假设起点为<code>node</code>，先设一个<code>dis</code>数组，<code>dis[i]</code>表示从<code>node</code>出发到点<code>i</code>的距离，一开始全都初始化为<code>-1</code>表示不可达，<code>dis[node]</code>设为<code>0</code></p>
+<p>然后跑<code>bfs</code>，每次取出队首，把队首的相邻点加入队列（只要到六层，也就是dis&lt;&#x3D;6就可以了）</p>
+<pre><code>#include &lt;bits&#x2F;stdc++.h&gt;
+using namespace std;
+
+int n,m;
+
+int BFS(int node,vector&lt;vector&lt;int&gt;&gt;&amp;G) {
+	vector&lt;int&gt; dis(n+1,-1);
+	dis[node] &#x3D; 0;
+	int cnt &#x3D; 1;
+	queue&lt;int&gt; q;
+	q.push(node);
+	
+	while (!q.empty()) {
+		int curr &#x3D; q.front();
+		q.pop();
+		for (auto p:G[curr]) {
+			if (dis[p] &#x3D;&#x3D; -1) {
+				dis[p] &#x3D; dis[curr] + 1;
+				if (dis[p] &lt;&#x3D; 6) {
+					cnt++;
+					q.push(p);
+				} 
+			}
+		}
+	}
+	return cnt;
+}
+
+int main() {
+	cin &gt;&gt; n &gt;&gt; m;
+	vector&lt;vector&lt;int&gt;&gt; G(n+1);
+	int a,b;
+	for (int i &#x3D; 0;i &lt; m;i++) {
+		cin &gt;&gt; a &gt;&gt; b;
+		G[a].push_back(b);
+		G[b].push_back(a);
+	}
+	
+	for (int i &#x3D; 1;i &lt;&#x3D; n;i++) {
+		int cnt &#x3D; BFS(i,G);
+		double per &#x3D; (double(cnt)&#x2F;n) * 100;
+		printf(&quot;%d: %.2f%%\n&quot;,i,per);
+    }
+    
+	return 0;
+}</code></pre>
   </div>
   <div id=""></div>
 </div>
@@ -390,19 +587,19 @@ Fancybox.bind('[data-fancybox="fancybox-gallery-img"]', {
 
     <div class="post-paging">
     
-    <a href="/2025/01/30/ds-tutorial-7/">
+    <a href="/2025/02/01/ds-tutorial-10/">
         <div class="post-paging-last">
             <span>上一篇</span>
-            <p>心双2024数据结构1031-1043题解</p>
+            <p>心双2024数据结构1050-1051&amp;1055-1058题解</p>
         </div>
     </a>
     
 
     
-    <a href="/2024/11/30/ds-contest-1/">
+    <a href="/2025/01/30/ds-tutorial-8/">
         <div class="post-paging-next">
             <span>下一篇</span>
-            <p>ds第一次机考记录+题目回忆+题解</p>
+            <p>心双2024数据结构1044-1049题解</p>
         </div>
     </a>
     
